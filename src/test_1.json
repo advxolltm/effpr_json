@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "user": { "name": "A" },
+      "tags": ["x","y"],
+      "ok": true
+    },
+    {
+      "id": 2,
+      "user": { "name": "B" },
+      "tags": ["z"],
+      "ok": false
+    }
+  ]
+  
