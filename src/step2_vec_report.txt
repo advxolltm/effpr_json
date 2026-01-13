@@ -1,0 +1,790 @@
+json2csv_baseline.c:17:5: missed: statement clobbers memory: fprintf (stderr.7_1, "ERROR: %s\n", msg_3(D));
+json2csv_baseline.c:18:5: missed: statement clobbers memory: exit (1);
+json2csv_baseline.c:18:5: note: ***** Analysis failed with vector mode V4DI
+json2csv_baseline.c:18:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DI
+json2csv_baseline.c:135:30: missed: couldn't vectorize loop
+json2csv_baseline.c:135:30: missed: not vectorized: number of iterations cannot be computed.
+json2csv_baseline.c:140:30: missed: couldn't vectorize loop
+json2csv_baseline.c:140:30: missed: not vectorized: number of iterations cannot be computed.
+json2csv_baseline.c:122:13: note: vectorized 0 loops in function.
+json2csv_baseline.c:142:13: missed: statement clobbers memory: free (_13);
+json2csv_baseline.c:143:13: missed: statement clobbers memory: jfree (_16);
+json2csv_baseline.c:145:9: missed: statement clobbers memory: free (_18);
+json2csv_baseline.c:136:13: missed: statement clobbers memory: jfree (_7);
+json2csv_baseline.c:137:9: missed: statement clobbers memory: free (_9);
+json2csv_baseline.c:129:9: missed: statement clobbers memory: free (_2);
+json2csv_baseline.c:132:9: missed: statement clobbers memory: free (_3);
+json2csv_baseline.c:152:5: missed: statement clobbers memory: free (v_25(D));
+json2csv_baseline.c:152:5: note: ***** Analysis failed with vector mode V8SI
+json2csv_baseline.c:152:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V8SI
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:175:13: note: vectorized 0 loops in function.
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _14 = fgetc (_13);
+json2csv_baseline.c:179:1: note: ***** Analysis failed with vector mode V8SI
+json2csv_baseline.c:179:1: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V8SI
+json2csv_baseline.c:33:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:33:9: note: ***** Analysis failed with vector mode VOID
+json2csv_baseline.c:39:16: missed: statement clobbers memory: _14 = strlen (_3);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_36 = malloc (prephitmp_19);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_36, iftmp.23_6, prephitmp_19);
+json2csv_baseline.c:39:16: missed: statement clobbers memory: _55 = strlen (_2);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_33 = malloc (prephitmp_46);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_33, iftmp.22_5, prephitmp_46);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_30 = malloc (prephitmp_42);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_30, iftmp.21_25, prephitmp_42);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_23 = malloc (5);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_23, "null", 5);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_39 = malloc (10);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_39, "[complex]", 10);
+json2csv_baseline.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:25:9: note: ***** Analysis failed with vector mode V8SI
+json2csv_baseline.c:25:9: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V8SI
+json2csv_baseline.c:584:26: missed: couldn't vectorize loop
+json2csv_baseline.c:584:26: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:548:26: missed: couldn't vectorize loop
+json2csv_baseline.c:548:26: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:553:29: missed: couldn't vectorize loop
+json2csv_baseline.c:553:29: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:613:26: missed: couldn't vectorize loop
+json2csv_baseline.c:613:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:598:23: missed: couldn't vectorize loop
+json2csv_baseline.c:598:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:532:26: missed: couldn't vectorize loop
+json2csv_baseline.c:534:38: missed: not vectorized: no vectype for stmt: _28 = *_27;
+ scalar_type: struct JValue *
+json2csv_baseline.c:650:13: note: vectorized 0 loops in function.
+json2csv_baseline.c:674:5: missed: statement clobbers memory: _4 = json_primitive_to_string (v_9(D));
+json2csv_baseline.c:39:16: missed: statement clobbers memory: n_302 = strlen (prefix_11(D));
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_304 = malloc (_303);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_304, prefix_11(D), _303);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_296 = realloc (pretmp_219, prephitmp_334);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_313 = malloc (128);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _125 = __builtin_malloc (128);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_125, "[", 1);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _140 = realloc (buf_491, iftmp.20_138);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_145, ",", 1);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _250 = realloc (buf_266, iftmp.20_248);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_255, "{...}", 5);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _265 = realloc (buf_256, iftmp.20_263);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_270, "[...]", 5);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _235 = realloc (buf_479, iftmp.20_233);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_240, "\"", 1);
+json2csv_baseline.c:597:16: missed: statement clobbers memory: n_215 = strlen (_154);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _220 = realloc (buf_286, iftmp.20_218);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (prephitmp_37, _154, n_215);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _205 = realloc (buf_275, iftmp.20_203);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (prephitmp_453, "\"", 1);
+json2csv_baseline.c:597:16: missed: statement clobbers memory: n_185 = strlen (_153);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _190 = realloc (buf_132, iftmp.20_188);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_195, _153, n_185);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _175 = realloc (buf_131, iftmp.20_173);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_180, iftmp.19_152, prephitmp_321);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _160 = realloc (buf_485, iftmp.20_158);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_165, "null", 4);
+json2csv_baseline.c:601:14: missed: statement clobbers memory: _280 = realloc (buf_236, iftmp.20_278);
+json2csv_baseline.c:603:5: missed: statement clobbers memory: memcpy (_285, "]", 1);
+json2csv_baseline.c:39:16: missed: statement clobbers memory: n_109 = strlen (prefix_11(D));
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_111 = malloc (_110);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_111, prefix_11(D), _110);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_103 = realloc (pretmp_34, prephitmp_322);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_72 = malloc (128);
+json2csv_baseline.c:550:19: missed: statement clobbers memory: s_78 = json_primitive_to_string (_77);
+json2csv_baseline.c:551:21: missed: statement clobbers memory: sl_79 = strlen (s_78);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_83 = realloc (buf_82, cap_81);
+json2csv_baseline.c:560:9: missed: statement clobbers memory: memcpy (_90, s_78, sl_79);
+json2csv_baseline.c:563:9: missed: statement clobbers memory: free (s_78);
+json2csv_baseline.c:39:16: missed: statement clobbers memory: n_69 = strlen (prefix_11(D));
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_71 = malloc (_70);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_71, prefix_11(D), _70);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_63 = realloc (pretmp_25, prephitmp_427);
+json2csv_baseline.c:650:13: missed: statement clobbers memory: kv_push.part.0 ();
+json2csv_baseline.c:39:16: missed: statement clobbers memory: _492 = strlen (k_212);
+json2csv_baseline.c:574:16: missed: statement clobbers memory: a_44 = strlen (prefix_11(D));
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_48 = malloc (_47);
+json2csv_baseline.c:576:5: missed: statement clobbers memory: memcpy (p_48, prefix_11(D), a_44);
+json2csv_baseline.c:578:5: missed: statement clobbers memory: memcpy (_52, k_212, _50);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_56 = malloc (_55);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_56, k_212, _55);
+json2csv_baseline.c:589:9: missed: statement clobbers memory: flatten_value (val_197, _53, out_13(D));
+json2csv_baseline.c:590:9: missed: statement clobbers memory: free (_53);
+json2csv_baseline.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:507:26: note: ***** Analysis succeeded with vector mode V8SI
+json2csv_baseline.c:507:26: note: SLPing BB part
+json2csv_baseline.c:507:26: note: Costing subgraph: 
+json2csv_baseline.c:507:26: note: node 0x1e161b28 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: op template: _300->key = p_304;
+json2csv_baseline.c:507:26: note: 	stmt 0 _300->key = p_304;
+json2csv_baseline.c:507:26: note: 	stmt 1 _300->val = _4;
+json2csv_baseline.c:507:26: note: 	children 0x1e161c28
+json2csv_baseline.c:507:26: note: node (external) 0x1e161c28 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: 	{ p_304, _4 }
+json2csv_baseline.c:507:26: note: Cost model analysis: 
+json2csv_baseline.c:507:26: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:507:26: note: Costing subgraph: 
+json2csv_baseline.c:507:26: note: node 0x1e161ca8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: op template: _107->key = p_111;
+json2csv_baseline.c:507:26: note: 	stmt 0 _107->key = p_111;
+json2csv_baseline.c:507:26: note: 	stmt 1 _107->val = buf_230;
+json2csv_baseline.c:507:26: note: 	children 0x1e161da8
+json2csv_baseline.c:507:26: note: node (external) 0x1e161da8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: 	{ p_111, buf_230 }
+json2csv_baseline.c:507:26: note: Cost model analysis: 
+json2csv_baseline.c:507:26: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:507:26: note: Costing subgraph: 
+json2csv_baseline.c:507:26: note: node 0x1e161e28 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: op template: _67->key = p_71;
+json2csv_baseline.c:507:26: note: 	stmt 0 _67->key = p_71;
+json2csv_baseline.c:507:26: note: 	stmt 1 _67->val = buf_189;
+json2csv_baseline.c:507:26: note: 	children 0x1e161f28
+json2csv_baseline.c:507:26: note: node (external) 0x1e161f28 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: 	{ p_71, buf_189 }
+json2csv_baseline.c:507:26: note: Cost model analysis: 
+json2csv_baseline.c:507:26: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:507:26: note: Basic block will be vectorized using SLP
+json2csv_baseline.c:507:26: optimized: basic block part vectorized using 16 byte vectors
+json2csv_baseline.c:507:26: note: Vectorizing SLP tree:
+json2csv_baseline.c:507:26: note: node 0x1e161b28 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: op template: _300->key = p_304;
+json2csv_baseline.c:507:26: note: 	stmt 0 _300->key = p_304;
+json2csv_baseline.c:507:26: note: 	stmt 1 _300->val = _4;
+json2csv_baseline.c:507:26: note: 	children 0x1e161c28
+json2csv_baseline.c:507:26: note: node (external) 0x1e161c28 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: 	{ p_304, _4 }
+json2csv_baseline.c:507:26: note: ------>vectorizing SLP node starting from: _300->key = p_304;
+json2csv_baseline.c:507:26: note: vect_is_simple_use: operand json_primitive_to_string (v_9(D)), type of def: internal
+json2csv_baseline.c:507:26: note: transform store. ncopies = 1
+json2csv_baseline.c:507:26: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _300->key
+json2csv_baseline.c:507:26: note: created vectp.111_144
+json2csv_baseline.c:507:26: note: add new stmt: MEM <vector(2) long unsigned int> [(char * *)vectp.111_144] = _143;
+json2csv_baseline.c:507:26: note: vectorizing stmts using SLP.
+json2csv_baseline.c:507:26: optimized: basic block part vectorized using 16 byte vectors
+json2csv_baseline.c:507:26: note: Vectorizing SLP tree:
+json2csv_baseline.c:507:26: note: node 0x1e161ca8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: op template: _107->key = p_111;
+json2csv_baseline.c:507:26: note: 	stmt 0 _107->key = p_111;
+json2csv_baseline.c:507:26: note: 	stmt 1 _107->val = buf_230;
+json2csv_baseline.c:507:26: note: 	children 0x1e161da8
+json2csv_baseline.c:507:26: note: node (external) 0x1e161da8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: 	{ p_111, buf_230 }
+json2csv_baseline.c:507:26: note: ------>vectorizing SLP node starting from: _107->key = p_111;
+json2csv_baseline.c:507:26: note: vect_is_simple_use: operand buf_230 = PHI <_171(178), buf_462(176)>, type of def: internal
+json2csv_baseline.c:507:26: note: transform store. ncopies = 1
+json2csv_baseline.c:507:26: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _107->key
+json2csv_baseline.c:507:26: note: created vectp.113_84
+json2csv_baseline.c:507:26: note: add new stmt: MEM <vector(2) long unsigned int> [(char * *)vectp.113_84] = _95;
+json2csv_baseline.c:507:26: note: vectorizing stmts using SLP.
+json2csv_baseline.c:507:26: optimized: basic block part vectorized using 16 byte vectors
+json2csv_baseline.c:507:26: note: Vectorizing SLP tree:
+json2csv_baseline.c:507:26: note: node 0x1e161e28 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: op template: _67->key = p_71;
+json2csv_baseline.c:507:26: note: 	stmt 0 _67->key = p_71;
+json2csv_baseline.c:507:26: note: 	stmt 1 _67->val = buf_189;
+json2csv_baseline.c:507:26: note: 	children 0x1e161f28
+json2csv_baseline.c:507:26: note: node (external) 0x1e161f28 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:507:26: note: 	{ p_71, buf_189 }
+json2csv_baseline.c:507:26: note: ------>vectorizing SLP node starting from: _67->key = p_71;
+json2csv_baseline.c:507:26: note: vect_is_simple_use: operand buf_189 = PHI <buf_472(143), p_313(107)>, type of def: internal
+json2csv_baseline.c:507:26: note: transform store. ncopies = 1
+json2csv_baseline.c:507:26: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _67->key
+json2csv_baseline.c:507:26: note: created vectp.115_294
+json2csv_baseline.c:507:26: note: add new stmt: MEM <vector(2) long unsigned int> [(char * *)vectp.115_294] = _123;
+json2csv_baseline.c:507:26: note: vectorizing stmts using SLP.
+json2csv_baseline.c:507:26: note: ***** The result for vector mode V32QI would be the same
+json2csv_baseline.c:584:26: missed: couldn't vectorize loop
+json2csv_baseline.c:584:26: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:582:13: note: vectorized 0 loops in function.
+json2csv_baseline.c:39:16: missed: statement clobbers memory: n_29 = strlen (k_6);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_31 = malloc (_30);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_31, k_6, _30);
+json2csv_baseline.c:589:9: missed: statement clobbers memory: flatten_value (val_7, p_31, out_9(D));
+json2csv_baseline.c:590:9: missed: statement clobbers memory: free (p_31);
+json2csv_baseline.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:25:9: note: ***** Analysis failed with vector mode V4DI
+json2csv_baseline.c:25:9: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DI
+json2csv_baseline.c:220:24: missed: couldn't vectorize loop
+json2csv_baseline.c:220:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:258:35: missed: couldn't vectorize loop
+json2csv_baseline.c:258:35: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:210:14: note: vectorized 0 loops in function.
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _88 = fgetc (_87);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_78 = __builtin_malloc (64);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_237 = realloc (buf_395, iftmp.14_235);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _62 = fgetc (_61);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _49 = fgetc (_36);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _58 = fgetc (_57);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_222 = realloc (buf_395, iftmp.14_220);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_208 = realloc (buf_395, iftmp.14_206);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_193 = realloc (buf_395, iftmp.14_191);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_179 = realloc (buf_395, iftmp.14_177);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_165 = realloc (buf_395, iftmp.14_163);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_151 = realloc (buf_395, iftmp.14_149);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_137 = realloc (buf_395, iftmp.14_135);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_109 = realloc (buf_395, iftmp.14_107);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_123 = realloc (buf_395, iftmp.14_121);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_95 = realloc (buf_395, iftmp.14_93);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _60 = fgetc (_59);
+json2csv_baseline.c:33:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:263:25: missed: statement clobbers memory: die ("bad \\u escape");
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _247 = fgetc (_246);
+json2csv_baseline.c:273:17: missed: statement clobbers memory: die ("unknown escape");
+json2csv_baseline.c:227:17: missed: statement clobbers memory: die ("bad escape");
+json2csv_baseline.c:210:14: missed: statement clobbers memory: sb_push.part.0 ();
+json2csv_baseline.c:184:9: missed: statement clobbers memory: die ("unexpected character");
+json2csv_baseline.c:206:22: note: ***** Analysis succeeded with vector mode V8SI
+json2csv_baseline.c:206:22: note: SLPing BB part
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a3b48 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: MEM[(char *)q_78] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 0 MEM[(char *)q_78] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 1 MEM[(char *)q_78 + 1B] = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3bc8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3bc8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 0, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a3cc8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_226 = 63;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_226 = 63;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_229 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3d48
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3d48 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 63, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a3e48 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_197 = 9;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_197 = 9;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_200 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3ec8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3ec8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 9, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a3f48 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_183 = 13;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_183 = 13;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_186 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3fc8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3fc8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 13, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a4048 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_169 = 10;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_169 = 10;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_172 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a40c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a40c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 10, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a4148 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_155 = 12;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_155 = 12;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_158 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a41c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a41c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 12, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a4248 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_141 = 8;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_141 = 8;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_144 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a42c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a42c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 8, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a4348 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_113 = 92;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_113 = 92;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_116 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a43c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a43c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 92, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a4448 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_127 = 47;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_127 = 47;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_130 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a44c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a44c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 47, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e1a4548 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_99 = 34;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_99 = 34;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_102 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a45c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a45c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 34, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:206:22: note: Basic block will be vectorized using SLP
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a3b48 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: MEM[(char *)q_78] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 0 MEM[(char *)q_78] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 1 MEM[(char *)q_78 + 1B] = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3bc8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3bc8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 0, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: MEM[(char *)q_78] = 0;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: MEM[(char *)q_78]
+json2csv_baseline.c:206:22: note: created vectp.150_168
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.150_168] = { 0, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a3cc8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_226 = 63;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_226 = 63;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_229 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3d48
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3d48 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 63, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_226 = 63;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_226
+json2csv_baseline.c:206:22: note: created vectp.152_217
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.152_217] = { 63, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a3e48 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_197 = 9;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_197 = 9;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_200 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3ec8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3ec8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 9, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_197 = 9;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_197
+json2csv_baseline.c:206:22: note: created vectp.154_24
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.154_24] = { 9, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a3f48 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_183 = 13;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_183 = 13;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_186 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a3fc8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a3fc8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 13, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_183 = 13;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_183
+json2csv_baseline.c:206:22: note: created vectp.156_126
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.156_126] = { 13, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a4048 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_169 = 10;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_169 = 10;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_172 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a40c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a40c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 10, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_169 = 10;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_169
+json2csv_baseline.c:206:22: note: created vectp.158_23
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.158_23] = { 10, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a4148 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_155 = 12;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_155 = 12;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_158 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a41c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a41c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 12, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_155 = 12;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_155
+json2csv_baseline.c:206:22: note: created vectp.160_389
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.160_389] = { 12, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a4248 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_141 = 8;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_141 = 8;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_144 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a42c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a42c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 8, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_141 = 8;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_141
+json2csv_baseline.c:206:22: note: created vectp.162_386
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.162_386] = { 8, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a4348 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_113 = 92;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_113 = 92;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_116 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a43c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a43c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 92, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_113 = 92;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_113
+json2csv_baseline.c:206:22: note: created vectp.164_383
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.164_383] = { 92, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a4448 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_127 = 47;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_127 = 47;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_130 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a44c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a44c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 47, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_127 = 47;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_127
+json2csv_baseline.c:206:22: note: created vectp.166_377
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.166_377] = { 47, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e1a4548 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: *_99 = 34;
+json2csv_baseline.c:206:22: note: 	stmt 0 *_99 = 34;
+json2csv_baseline.c:206:22: note: 	stmt 1 *_102 = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e1a45c8
+json2csv_baseline.c:206:22: note: node (constant) 0x1e1a45c8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 34, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: *_99 = 34;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_99
+json2csv_baseline.c:206:22: note: created vectp.168_380
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.168_380] = { 34, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:206:22: note: ***** The result for vector mode V32QI would be the same
+json2csv_baseline.c:424:12: missed: couldn't vectorize loop
+json2csv_baseline.c:424:12: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:384:12: missed: couldn't vectorize loop
+json2csv_baseline.c:384:12: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:340:16: missed: couldn't vectorize loop
+json2csv_baseline.c:340:16: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:323:16: missed: couldn't vectorize loop
+json2csv_baseline.c:323:16: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:311:16: missed: couldn't vectorize loop
+json2csv_baseline.c:311:16: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:354:24: missed: couldn't vectorize loop
+json2csv_baseline.c:354:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:354:24: missed: couldn't vectorize loop
+json2csv_baseline.c:354:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:354:24: missed: couldn't vectorize loop
+json2csv_baseline.c:354:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:177:24: missed: couldn't vectorize loop
+json2csv_baseline.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:439:16: note: vectorized 0 loops in function.
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _49 = fgetc (_48);
+json2csv_baseline.c:482:5: missed: statement clobbers memory: die ("unknown value");
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _455 = fgetc (_454);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_460 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_461, 0, 28);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _443 = fgetc (_442);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_448 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_449, 0, 28);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _431 = fgetc (_430);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_436 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_437, 0, 28);
+json2csv_baseline.c:463:13: missed: statement clobbers memory: die ("bad token");
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_293 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_294, 0, 28);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_301 = __builtin_malloc (64);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _213 = fgetc (_212);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_344 = realloc (buf_485, iftmp.14_342);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _229 = fgetc (_228);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_358 = realloc (buf_600, iftmp.14_356);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _224 = fgetc (_223);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _239 = fgetc (_238);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_373 = realloc (buf_327, iftmp.14_371);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _251 = fgetc (_250);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_388 = realloc (buf_675, iftmp.14_386);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _265 = fgetc (_264);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_403 = realloc (buf_676, iftmp.14_401);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _271 = fgetc (_270);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_418 = realloc (buf_328, iftmp.14_416);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _284 = fgetc (_283);
+json2csv_baseline.c:339:13: missed: statement clobbers memory: die ("bad number exponent");
+json2csv_baseline.c:322:13: missed: statement clobbers memory: die ("bad number fraction");
+json2csv_baseline.c:303:9: missed: statement clobbers memory: die ("bad number");
+json2csv_baseline.c:439:16: missed: statement clobbers memory: sb_push.part.0 ();
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_208 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_209, 0, 28);
+json2csv_baseline.c:451:24: missed: statement clobbers memory: _2 = parse_string (p_17(D));
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _172 = fgetc (_171);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _160 = fgetc (_159);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_157 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_158, 0, 28);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _198 = fgetc (_197);
+json2csv_baseline.c:380:24: missed: statement clobbers memory: item_151 = parse_value (p_17(D));
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_191 = realloc (pretmp_742, prephitmp_595);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _174 = fgetc (_173);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _154 = fgetc (_153);
+json2csv_baseline.c:394:9: missed: statement clobbers memory: die ("bad array syntax");
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _156 = fgetc (_155);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _150 = fgetc (_149);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _86 = fgetc (_85);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _74 = fgetc (_73);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_71 = malloc (32);
+json2csv_baseline.c:89:5: missed: statement clobbers memory: memset (_72, 0, 28);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _88 = fgetc (_87);
+json2csv_baseline.c:416:21: missed: statement clobbers memory: key_64 = parse_string (p_17(D));
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _137 = fgetc (_136);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _135 = fgetc (_134);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _123 = fgetc (_122);
+json2csv_baseline.c:420:23: missed: statement clobbers memory: val_65 = parse_value (p_17(D));
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_116 = realloc (pretmp_741, prephitmp_30);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _99 = fgetc (_98);
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _68 = fgetc (_67);
+json2csv_baseline.c:434:9: missed: statement clobbers memory: die ("bad object syntax");
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _70 = fgetc (_69);
+json2csv_baseline.c:184:9: missed: statement clobbers memory: die ("unexpected character");
+json2csv_baseline.c:415:13: missed: statement clobbers memory: die ("object key must be string");
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _62 = fgetc (_61);
+json2csv_baseline.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:443:9: missed: statement clobbers memory: die ("unexpected EOF");
+json2csv_baseline.c:117:52: note: ***** Analysis succeeded with vector mode V8SI
+json2csv_baseline.c:117:52: note: SLPing BB part
+json2csv_baseline.c:206:22: note: Costing subgraph: 
+json2csv_baseline.c:206:22: note: node 0x1e2f00b8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: MEM[(char *)q_301] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 0 MEM[(char *)q_301] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 1 MEM[(char *)q_301 + 1B] = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e2f0138
+json2csv_baseline.c:206:22: note: node (constant) 0x1e2f0138 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 0, 0 }
+json2csv_baseline.c:206:22: note: Cost model analysis: 
+json2csv_baseline.c:206:22: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:117:52: note: Costing subgraph: 
+json2csv_baseline.c:117:52: note: node 0x1e2f0338 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:117:52: note: op template: _120->key = key_64;
+json2csv_baseline.c:117:52: note: 	stmt 0 _120->key = key_64;
+json2csv_baseline.c:117:52: note: 	stmt 1 _120->value = val_65;
+json2csv_baseline.c:117:52: note: 	children 0x1e2f0438
+json2csv_baseline.c:117:52: note: node (external) 0x1e2f0438 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:117:52: note: 	{ key_64, val_65 }
+json2csv_baseline.c:117:52: note: Cost model analysis: 
+json2csv_baseline.c:117:52: note: Cost model analysis for part in loop 2:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_baseline.c:117:52: note: Basic block will be vectorized using SLP
+json2csv_baseline.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_baseline.c:206:22: note: Vectorizing SLP tree:
+json2csv_baseline.c:206:22: note: node 0x1e2f00b8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: op template: MEM[(char *)q_301] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 0 MEM[(char *)q_301] = 0;
+json2csv_baseline.c:206:22: note: 	stmt 1 MEM[(char *)q_301 + 1B] = 0;
+json2csv_baseline.c:206:22: note: 	children 0x1e2f0138
+json2csv_baseline.c:206:22: note: node (constant) 0x1e2f0138 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_baseline.c:206:22: note: 	{ 0, 0 }
+json2csv_baseline.c:206:22: note: ------>vectorizing SLP node starting from: MEM[(char *)q_301] = 0;
+json2csv_baseline.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_baseline.c:206:22: note: transform store. ncopies = 1
+json2csv_baseline.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: MEM[(char *)q_301]
+json2csv_baseline.c:206:22: note: created vectp.196_267
+json2csv_baseline.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.196_267] = { 0, 0 };
+json2csv_baseline.c:206:22: note: vectorizing stmts using SLP.
+json2csv_baseline.c:117:52: optimized: basic block part vectorized using 16 byte vectors
+json2csv_baseline.c:117:52: note: Vectorizing SLP tree:
+json2csv_baseline.c:117:52: note: node 0x1e2f0338 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:117:52: note: op template: _120->key = key_64;
+json2csv_baseline.c:117:52: note: 	stmt 0 _120->key = key_64;
+json2csv_baseline.c:117:52: note: 	stmt 1 _120->value = val_65;
+json2csv_baseline.c:117:52: note: 	children 0x1e2f0438
+json2csv_baseline.c:117:52: note: node (external) 0x1e2f0438 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_baseline.c:117:52: note: 	{ key_64, val_65 }
+json2csv_baseline.c:117:52: note: ------>vectorizing SLP node starting from: _120->key = key_64;
+json2csv_baseline.c:117:52: note: vect_is_simple_use: operand parse_value (p_17(D)), type of def: internal
+json2csv_baseline.c:117:52: note: conflicting alias set types.
+json2csv_baseline.c:117:52: note: transform store. ncopies = 1
+json2csv_baseline.c:117:52: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _120->key
+json2csv_baseline.c:117:52: note: created vectp.198_249
+json2csv_baseline.c:117:52: note: add new stmt: MEM <vector(2) long unsigned int> [(void *)vectp.198_249] = _260;
+json2csv_baseline.c:117:52: note: vectorizing stmts using SLP.
+json2csv_baseline.c:117:52: note: ***** The result for vector mode V32QI would be the same
+json2csv_baseline.c:787:26: missed: couldn't vectorize loop
+json2csv_baseline.c:788:9: missed: statement clobbers memory: jfree (_208);
+json2csv_baseline.c:721:26: missed: couldn't vectorize loop
+json2csv_baseline.c:722:9: missed: statement clobbers memory: free (_216);
+json2csv_baseline.c:869:26: missed: couldn't vectorize loop
+json2csv_baseline.c:869:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:679:26: missed: couldn't vectorize loop
+json2csv_baseline.c:679:26: missed: not vectorized: number of iterations cannot be computed.
+json2csv_baseline.c:873:30: missed: couldn't vectorize loop
+json2csv_baseline.c:873:30: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:748:29: missed: couldn't vectorize loop
+json2csv_baseline.c:748:29: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:734:29: missed: couldn't vectorize loop
+json2csv_baseline.c:734:29: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:759:26: missed: couldn't vectorize loop
+json2csv_baseline.c:761:13: missed: statement clobbers memory: _183 = strcmp (_182, _29);
+json2csv_baseline.c:860:26: missed: couldn't vectorize loop
+json2csv_baseline.c:860:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:748:29: missed: couldn't vectorize loop
+json2csv_baseline.c:748:29: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:734:29: missed: couldn't vectorize loop
+json2csv_baseline.c:734:29: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_baseline.c:850:26: missed: couldn't vectorize loop
+json2csv_baseline.c:850:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_baseline.c:679:26: missed: couldn't vectorize loop
+json2csv_baseline.c:679:26: missed: not vectorized: number of iterations cannot be computed.
+json2csv_baseline.c:854:30: missed: couldn't vectorize loop
+json2csv_baseline.c:854:30: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:699:26: missed: couldn't vectorize loop
+json2csv_baseline.c:701:13: missed: statement clobbers memory: _141 = strcmp (_140, _10);
+json2csv_baseline.c:813:30: missed: couldn't vectorize loop
+json2csv_baseline.c:813:30: missed: not vectorized: unsupported control flow in loop.
+json2csv_baseline.c:833:5: note: vectorized 0 loops in function.
+json2csv_baseline.c:841:15: missed: statement clobbers memory: f_51 = fopen (path_49, "rb");
+json2csv_baseline.c:165:12: missed: statement clobbers memory: _84 = fgetc (f_51);
+json2csv_baseline.c:798:5: missed: statement clobbers memory: p_skip_ws (&p);
+json2csv_baseline.c:802:19: missed: statement clobbers memory: top_85 = parse_value (&p);
+json2csv_baseline.c:803:5: missed: statement clobbers memory: p_skip_ws (&p);
+json2csv_baseline.c:826:5: missed: statement clobbers memory: jfree (top_85);
+json2csv_baseline.c:827:5: missed: statement clobbers memory: die ("top-level JSON must be object or array of objects");
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_114 = realloc (ol$objs_175, prephitmp_161);
+json2csv_baseline.c:821:9: missed: statement clobbers memory: free (pretmp_388);
+json2csv_baseline.c:822:9: missed: statement clobbers memory: free (top_85);
+json2csv_baseline.c:817:17: missed: statement clobbers memory: die ("top array must contain objects");
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_102 = __builtin_malloc (128);
+json2csv_baseline.c:846:5: missed: statement clobbers memory: fclose (f_51);
+json2csv_baseline.c:866:5: missed: statement clobbers memory: fputc (10, stdout.3_343);
+json2csv_baseline.c:853:9: missed: statement clobbers memory: flatten_object.constprop (_6, &kv);
+json2csv_baseline.c:701:13: missed: statement clobbers memory: _141 = strcmp (_140, _10);
+json2csv_baseline.c:31:15: missed: statement clobbers memory: q_127 = realloc (headers$keys_234, prephitmp_106);
+json2csv_baseline.c:39:16: missed: statement clobbers memory: n_145 = strlen (_10);
+json2csv_baseline.c:23:15: missed: statement clobbers memory: p_147 = malloc (_146);
+json2csv_baseline.c:41:5: missed: statement clobbers memory: memcpy (p_147, _10, _146);
+json2csv_baseline.c:681:9: missed: statement clobbers memory: free (_152);
+json2csv_baseline.c:682:9: missed: statement clobbers memory: free (_155);
+json2csv_baseline.c:684:5: missed: statement clobbers memory: free (_158);
+json2csv_baseline.c:33:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_baseline.c:863:13: missed: statement clobbers memory: fputc (44, pretmp_385);
+json2csv_baseline.c:747:5: missed: statement clobbers memory: fputc (34, stdout.2_18);
+json2csv_baseline.c:751:13: missed: statement clobbers memory: fputc (34, stdout.2_18);
+json2csv_baseline.c:752:9: missed: statement clobbers memory: fputc (_169, stdout.2_18);
+json2csv_baseline.c:754:5: missed: statement clobbers memory: fputc (34, stdout.2_18);
+json2csv_baseline.c:744:9: missed: statement clobbers memory: fputs (_17, stdout.2_18);
+json2csv_baseline.c:866:5: missed: statement clobbers memory: fputc (10, stdout.3_20);
+json2csv_baseline.c:872:9: missed: statement clobbers memory: flatten_object.constprop (_24, &kv);
+json2csv_baseline.c:876:17: missed: statement clobbers memory: fputc (44, pretmp_384);
+json2csv_baseline.c:761:13: missed: statement clobbers memory: _183 = strcmp (_182, _29);
+json2csv_baseline.c:747:5: missed: statement clobbers memory: fputc (34, pretmp_383);
+json2csv_baseline.c:751:13: missed: statement clobbers memory: fputc (34, pretmp_383);
+json2csv_baseline.c:752:9: missed: statement clobbers memory: fputc (_191, pretmp_383);
+json2csv_baseline.c:754:5: missed: statement clobbers memory: fputc (34, pretmp_383);
+json2csv_baseline.c:744:9: missed: statement clobbers memory: fputs (_356, pretmp_383);
+json2csv_baseline.c:880:9: missed: statement clobbers memory: fputc (10, stdout.6_31);
+json2csv_baseline.c:681:9: missed: statement clobbers memory: free (_197);
+json2csv_baseline.c:682:9: missed: statement clobbers memory: free (_200);
+json2csv_baseline.c:684:5: missed: statement clobbers memory: free (_203);
+json2csv_baseline.c:722:9: missed: statement clobbers memory: free (_216);
+json2csv_baseline.c:723:5: missed: statement clobbers memory: free (headers$keys_326);
+json2csv_baseline.c:788:9: missed: statement clobbers memory: jfree (_208);
+json2csv_baseline.c:789:5: missed: statement clobbers memory: free (objs$objs_173);
+json2csv_baseline.c:833:5: missed: statement clobbers memory: objlist_push.part.0 ();
+json2csv_baseline.c:843:9: missed: statement clobbers memory: die ("cannot open input file");
+json2csv_baseline.c:837:9: missed: statement clobbers memory: fprintf (stderr.0_2, "Usage: %s input.json > out.csv\n", _1);
+json2csv_baseline.c:833:5: note: ***** Analysis failed with vector mode V4DI
+json2csv_baseline.c:833:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DI
