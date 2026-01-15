@@ -1,4 +1,4 @@
-# JSON → CSV Super Transformer
+# JSON → CSV Transformer
 
 ## What the Program Does
 
