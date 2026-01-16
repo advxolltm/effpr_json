@@ -153,23 +153,73 @@ static void jfree(JValue *v)
 }
 
 // ---------------- Simple parser ----------------
+typedef struct {
+    FILE *f;
+    unsigned char *buf;
+    size_t pos, len, cap;
+} InBuf;
+
+static size_t inbuf_cap_from_env(void)
+{
+    const char *e = getenv("INBUF"); // bytes, e.g. INBUF=1048576
+    if (!e || !*e) return (1u << 20); // default 1MB
+    unsigned long long v = strtoull(e, NULL, 10);
+    if (v < 4096) v = 4096;
+    if (v > (1ull << 30)) v = (1ull << 30);
+    return (size_t)v;
+}
+
+static void inbuf_init(InBuf *in, FILE *f)
+{
+    in->f = f;
+    in->cap = inbuf_cap_from_env();
+    in->buf = (unsigned char *)xmalloc(in->cap);
+    in->pos = 0;
+    in->len = 0;
+}
+
+static int inbuf_getc(InBuf *in)
+{
+    if (in->pos >= in->len) {
+        in->len = fread(in->buf, 1, in->cap, in->f);
+        in->pos = 0;
+        if (in->len == 0) {
+            if (ferror(in->f)) die("read error");
+            return EOF;
+        }
+    }
+    return (int)in->buf[in->pos++];
+}
+
+static void inbuf_free(InBuf *in)
+{
+    free(in->buf);
+    in->buf = NULL;
+    in->pos = in->len = in->cap = 0;
+    in->f = NULL;
+}
 
 typedef struct
 {
-    FILE *f;
+    InBuf in;
     int c; // current char or EOF
 } Parser;
 
 static void p_next(Parser *p)
 {
-    p->c = fgetc(p->f);
+    p->c = inbuf_getc(&p->in);
 }
 
 static void p_init(Parser *p, FILE *f)
 {
-    p->f = f;
+    inbuf_init(&p->in, f);
     p->c = 0;
     p_next(p);
+}
+
+static void p_deinit(Parser *p)
+{
+    inbuf_free(&p->in);
 }
 
 static void p_skip_ws(Parser *p)
@@ -802,9 +852,9 @@ static ObjList parse_top(FILE *f)
     JValue *top = parse_value(&p);
     p_skip_ws(&p);
 
-    if (top->type == J_OBJECT)
-    {
+    if (top->type == J_OBJECT) {
         objlist_push(&ol, top);
+        p_deinit(&p);
         return ol;
     }
     if (top->type == J_ARRAY)
@@ -823,7 +873,7 @@ static ObjList parse_top(FILE *f)
         return ol;
     }
 
-    jfree(top);
+    p_deinit(&p);
     die("top-level JSON must be object or array of objects");
     return ol;
 }
