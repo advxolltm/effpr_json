@@ -71,3 +71,10 @@ Each generated event looks like:
 gcc -std=c11 -O0 -Wall -Wextra -Werror json2csv_baseline.c -o json2csv
 ./json2csv benchmark.json > out.csv
 ```
+
+## Hot to bench
+
+```
+chmod +x bench.sh
+./bench.sh
+```
