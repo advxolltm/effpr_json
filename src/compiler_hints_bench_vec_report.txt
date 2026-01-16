@@ -1,0 +1,812 @@
+json2csv_step3_simd_barriers.c:17:5: missed: statement clobbers memory: fprintf (stderr.7_1, "ERROR: %s\n", msg_3(D));
+json2csv_step3_simd_barriers.c:18:5: missed: statement clobbers memory: exit (1);
+json2csv_step3_simd_barriers.c:18:5: note: ***** Analysis failed with vector mode V4DI
+json2csv_step3_simd_barriers.c:18:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DI
+json2csv_step3_simd_barriers.c:135:30: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:135:30: missed: not vectorized: number of iterations cannot be computed.
+json2csv_step3_simd_barriers.c:140:30: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:140:30: missed: not vectorized: number of iterations cannot be computed.
+json2csv_step3_simd_barriers.c:122:13: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:142:13: missed: statement clobbers memory: free (_13);
+json2csv_step3_simd_barriers.c:143:13: missed: statement clobbers memory: jfree (_16);
+json2csv_step3_simd_barriers.c:145:9: missed: statement clobbers memory: free (_18);
+json2csv_step3_simd_barriers.c:136:13: missed: statement clobbers memory: jfree (_7);
+json2csv_step3_simd_barriers.c:137:9: missed: statement clobbers memory: free (_9);
+json2csv_step3_simd_barriers.c:129:9: missed: statement clobbers memory: free (_2);
+json2csv_step3_simd_barriers.c:132:9: missed: statement clobbers memory: free (_3);
+json2csv_step3_simd_barriers.c:152:5: missed: statement clobbers memory: free (v_25(D));
+json2csv_step3_simd_barriers.c:152:5: note: ***** Analysis failed with vector mode V8SI
+json2csv_step3_simd_barriers.c:152:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V8SI
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:175:13: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _14 = fgetc (_13);
+json2csv_step3_simd_barriers.c:179:1: note: ***** Analysis failed with vector mode V8SI
+json2csv_step3_simd_barriers.c:179:1: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V8SI
+json2csv_step3_simd_barriers.c:33:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_step3_simd_barriers.c:33:9: note: ***** Analysis failed with vector mode VOID
+json2csv_step3_simd_barriers.c:762:29: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:762:29: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:748:29: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:748:29: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:740:61: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:740:61: missed: not vectorized: number of iterations cannot be computed.
+json2csv_step3_simd_barriers.c:740:61: note: ***** Analysis failed with vector mode V32QI
+json2csv_step3_simd_barriers.c:740:61: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V32QI
+json2csv_step3_simd_barriers.c:736:13: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:736:13: missed: splitting region at dont-vectorize loop 5 entry at bb35
+json2csv_step3_simd_barriers.c:748:29: note: ***** Analysis failed with vector mode V32QI
+json2csv_step3_simd_barriers.c:748:29: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V32QI
+json2csv_step3_simd_barriers.c:748:29: missed: splitting region at dominance boundary bb8
+json2csv_step3_simd_barriers.c:748:29: note: ***** Analysis failed with vector mode VOID
+json2csv_step3_simd_barriers.c:748:29: missed: splitting region at dominance boundary bb11
+json2csv_step3_simd_barriers.c:748:29: note: ***** Analysis failed with vector mode V32QI
+json2csv_step3_simd_barriers.c:748:29: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V32QI
+json2csv_step3_simd_barriers.c:748:29: missed: splitting region at dominance boundary bb12
+json2csv_step3_simd_barriers.c:761:5: missed: statement clobbers memory: fputc (34, out_22(D));
+json2csv_step3_simd_barriers.c:765:13: missed: statement clobbers memory: fputc (34, out_22(D));
+json2csv_step3_simd_barriers.c:766:9: missed: statement clobbers memory: fputc (_30, out_22(D));
+json2csv_step3_simd_barriers.c:768:5: missed: statement clobbers memory: fputc (34, out_22(D));
+json2csv_step3_simd_barriers.c:768:5: note: ***** Analysis failed with vector mode V32QI
+json2csv_step3_simd_barriers.c:768:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V32QI
+json2csv_step3_simd_barriers.c:768:5: missed: splitting region at dominance boundary bb18
+json2csv_step3_simd_barriers.c:758:9: missed: statement clobbers memory: fputs (s_18(D), out_22(D));
+json2csv_step3_simd_barriers.c:758:9: note: ***** Analysis failed with vector mode VOID
+json2csv_step3_simd_barriers.c:758:9: note: ***** Analysis failed with vector mode VOID
+json2csv_step3_simd_barriers.c:585:22: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:585:22: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:549:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:549:26: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:554:29: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:554:29: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:614:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:614:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:599:23: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:599:23: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:533:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:535:38: missed: not vectorized: no vectype for stmt: _28 = *_27;
+ scalar_type: struct JValue *
+json2csv_step3_simd_barriers.c:651:13: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_189 = malloc (128);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _202 = __builtin_malloc (128);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_202, "[", 1);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _217 = realloc (buf_245, iftmp.23_215);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_222, ",", 1);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _327 = realloc (buf_198, iftmp.23_325);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_332, "{...}", 5);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _342 = realloc (buf_160, iftmp.23_340);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_347, "[...]", 5);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _312 = realloc (buf_216, iftmp.23_310);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_317, "\"", 1);
+json2csv_step3_simd_barriers.c:598:16: missed: statement clobbers memory: n_292 = strlen (_231);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _297 = realloc (buf_210, iftmp.23_295);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (prephitmp_387, _231, n_292);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _282 = realloc (buf_206, iftmp.23_280);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (prephitmp_548, "\"", 1);
+json2csv_step3_simd_barriers.c:598:16: missed: statement clobbers memory: n_262 = strlen (_230);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _267 = realloc (buf_221, iftmp.23_265);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_272, _230, n_262);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _252 = realloc (buf_233, iftmp.23_250);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_257, iftmp.22_229, prephitmp_384);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _237 = realloc (buf_239, iftmp.23_235);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_242, "null", 4);
+json2csv_step3_simd_barriers.c:602:14: missed: statement clobbers memory: _357 = realloc (buf_18, iftmp.23_355);
+json2csv_step3_simd_barriers.c:604:5: missed: statement clobbers memory: memcpy (_362, "]", 1);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: n_186 = strlen (prefix_13(D));
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_188 = malloc (_187);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_188, prefix_13(D), _187);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_180 = realloc (pretmp_608, prephitmp_383);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_118 = malloc (128);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: _380 = strlen (_149);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_170 = malloc (prephitmp_543);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_170, iftmp.20_150, prephitmp_543);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: _379 = strlen (_146);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_167 = malloc (prephitmp_141);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_167, iftmp.19_147, prephitmp_141);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_164 = malloc (prephitmp_142);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_164, iftmp.18_159, prephitmp_142);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_157 = malloc (5);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_157, "null", 5);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_173 = malloc (10);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_173, "[complex]", 10);
+json2csv_step3_simd_barriers.c:552:21: missed: statement clobbers memory: sl_125 = strlen (_153);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_129 = realloc (buf_128, cap_127);
+json2csv_step3_simd_barriers.c:561:9: missed: statement clobbers memory: memcpy (_136, _153, sl_125);
+json2csv_step3_simd_barriers.c:564:9: missed: statement clobbers memory: free (_153);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: n_115 = strlen (prefix_13(D));
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_117 = malloc (_116);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_117, prefix_13(D), _116);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_109 = realloc (pretmp_592, prephitmp_423);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: _595 = strlen (_289);
+json2csv_step3_simd_barriers.c:575:16: missed: statement clobbers memory: a_90 = strlen (prefix_13(D));
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_94 = malloc (_93);
+json2csv_step3_simd_barriers.c:577:5: missed: statement clobbers memory: memcpy (p_94, prefix_13(D), a_90);
+json2csv_step3_simd_barriers.c:579:5: missed: statement clobbers memory: memcpy (_98, _289, _96);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_102 = malloc (_101);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_102, _289, _101);
+json2csv_step3_simd_barriers.c:589:5: missed: statement clobbers memory: flatten_value (_85, _99, out_15(D));
+json2csv_step3_simd_barriers.c:590:5: missed: statement clobbers memory: free (_99);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: _431 = strlen (_51);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_72 = malloc (prephitmp_593);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_72, iftmp.19_52, prephitmp_593);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_69 = malloc (prephitmp_56);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_69, iftmp.18_64, prephitmp_56);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_62 = malloc (5);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_62, "null", 5);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: _145 = strlen (_54);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_75 = malloc (prephitmp_434);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_75, iftmp.20_55, prephitmp_434);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: n_45 = strlen (prefix_13(D));
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_47 = malloc (_46);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_47, prefix_13(D), _46);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_39 = realloc (pretmp_596, prephitmp_454);
+json2csv_step3_simd_barriers.c:651:13: missed: statement clobbers memory: kv_push.part.0 ();
+json2csv_step3_simd_barriers.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_step3_simd_barriers.c:507:26: note: ***** Analysis succeeded with vector mode V8SI
+json2csv_step3_simd_barriers.c:507:26: note: SLPing BB part
+json2csv_step3_simd_barriers.c:507:26: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:507:26: note: node 0x3d016da8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: op template: _184->key = p_188;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 0 _184->key = p_188;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 1 _184->val = buf_12;
+json2csv_step3_simd_barriers.c:507:26: note: 	children 0x3d016ea8
+json2csv_step3_simd_barriers.c:507:26: note: node (external) 0x3d016ea8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: 	{ p_188, buf_12 }
+json2csv_step3_simd_barriers.c:507:26: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:507:26: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:507:26: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:507:26: note: node 0x3d016f28 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: op template: _113->key = p_117;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 0 _113->key = p_117;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 1 _113->val = buf_361;
+json2csv_step3_simd_barriers.c:507:26: note: 	children 0x3d017028
+json2csv_step3_simd_barriers.c:507:26: note: node (external) 0x3d017028 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: 	{ p_117, buf_361 }
+json2csv_step3_simd_barriers.c:507:26: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:507:26: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:507:26: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:507:26: note: node 0x3d0170a8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: op template: _43->key = p_47;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 0 _43->key = p_47;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 1 _43->val = _58;
+json2csv_step3_simd_barriers.c:507:26: note: 	children 0x3d0171a8
+json2csv_step3_simd_barriers.c:507:26: note: node (external) 0x3d0171a8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: 	{ p_47, _58 }
+json2csv_step3_simd_barriers.c:507:26: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:507:26: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:507:26: note: Basic block will be vectorized using SLP
+json2csv_step3_simd_barriers.c:507:26: optimized: basic block part vectorized using 16 byte vectors
+json2csv_step3_simd_barriers.c:507:26: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:507:26: note: node 0x3d016da8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: op template: _184->key = p_188;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 0 _184->key = p_188;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 1 _184->val = buf_12;
+json2csv_step3_simd_barriers.c:507:26: note: 	children 0x3d016ea8
+json2csv_step3_simd_barriers.c:507:26: note: node (external) 0x3d016ea8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: 	{ p_188, buf_12 }
+json2csv_step3_simd_barriers.c:507:26: note: ------>vectorizing SLP node starting from: _184->key = p_188;
+json2csv_step3_simd_barriers.c:507:26: note: vect_is_simple_use: operand buf_12 = PHI <_285(231), buf_552(229)>, type of def: internal
+json2csv_step3_simd_barriers.c:507:26: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:507:26: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _184->key
+json2csv_step3_simd_barriers.c:507:26: note: created vectp.127_254
+json2csv_step3_simd_barriers.c:507:26: note: add new stmt: MEM <vector(2) long unsigned int> [(char * *)vectp.127_254] = _251;
+json2csv_step3_simd_barriers.c:507:26: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:507:26: optimized: basic block part vectorized using 16 byte vectors
+json2csv_step3_simd_barriers.c:507:26: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:507:26: note: node 0x3d016f28 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: op template: _113->key = p_117;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 0 _113->key = p_117;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 1 _113->val = buf_361;
+json2csv_step3_simd_barriers.c:507:26: note: 	children 0x3d017028
+json2csv_step3_simd_barriers.c:507:26: note: node (external) 0x3d017028 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: 	{ p_117, buf_361 }
+json2csv_step3_simd_barriers.c:507:26: note: ------>vectorizing SLP node starting from: _113->key = p_117;
+json2csv_step3_simd_barriers.c:507:26: note: vect_is_simple_use: operand buf_361 = PHI <buf_561(196), p_189(139)>, type of def: internal
+json2csv_step3_simd_barriers.c:507:26: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:507:26: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _113->key
+json2csv_step3_simd_barriers.c:507:26: note: created vectp.129_190
+json2csv_step3_simd_barriers.c:507:26: note: add new stmt: MEM <vector(2) long unsigned int> [(char * *)vectp.129_190] = _199;
+json2csv_step3_simd_barriers.c:507:26: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:507:26: optimized: basic block part vectorized using 16 byte vectors
+json2csv_step3_simd_barriers.c:507:26: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:507:26: note: node 0x3d0170a8 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: op template: _43->key = p_47;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 0 _43->key = p_47;
+json2csv_step3_simd_barriers.c:507:26: note: 	stmt 1 _43->val = _58;
+json2csv_step3_simd_barriers.c:507:26: note: 	children 0x3d0171a8
+json2csv_step3_simd_barriers.c:507:26: note: node (external) 0x3d0171a8 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:507:26: note: 	{ p_47, _58 }
+json2csv_step3_simd_barriers.c:507:26: note: ------>vectorizing SLP node starting from: _43->key = p_47;
+json2csv_step3_simd_barriers.c:507:26: note: vect_is_simple_use: operand _58 = PHI <p_62(6), p_69(10), p_72(14), p_75(18)>, type of def: internal
+json2csv_step3_simd_barriers.c:507:26: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:507:26: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _43->key
+json2csv_step3_simd_barriers.c:507:26: note: created vectp.131_82
+json2csv_step3_simd_barriers.c:507:26: note: add new stmt: MEM <vector(2) long unsigned int> [(char * *)vectp.131_82] = _131;
+json2csv_step3_simd_barriers.c:507:26: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:507:26: note: ***** The result for vector mode V32QI would be the same
+json2csv_step3_simd_barriers.c:585:22: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:585:22: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:583:13: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: n_29 = strlen (_6);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_31 = malloc (_30);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_31, _6, _30);
+json2csv_step3_simd_barriers.c:589:5: missed: statement clobbers memory: flatten_value (_8, p_31, out_9(D));
+json2csv_step3_simd_barriers.c:590:5: missed: statement clobbers memory: free (p_31);
+json2csv_step3_simd_barriers.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_step3_simd_barriers.c:25:9: note: ***** Analysis failed with vector mode V4DI
+json2csv_step3_simd_barriers.c:25:9: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DI
+json2csv_step3_simd_barriers.c:220:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:220:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:258:35: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:258:35: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:210:14: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _88 = fgetc (_87);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_78 = __builtin_malloc (64);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_237 = realloc (buf_395, iftmp.14_235);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _62 = fgetc (_61);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _49 = fgetc (_36);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _58 = fgetc (_57);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_222 = realloc (buf_395, iftmp.14_220);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_208 = realloc (buf_395, iftmp.14_206);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_193 = realloc (buf_395, iftmp.14_191);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_179 = realloc (buf_395, iftmp.14_177);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_165 = realloc (buf_395, iftmp.14_163);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_151 = realloc (buf_395, iftmp.14_149);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_137 = realloc (buf_395, iftmp.14_135);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_109 = realloc (buf_395, iftmp.14_107);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_123 = realloc (buf_395, iftmp.14_121);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_95 = realloc (buf_395, iftmp.14_93);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _60 = fgetc (_59);
+json2csv_step3_simd_barriers.c:33:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_step3_simd_barriers.c:263:25: missed: statement clobbers memory: die ("bad \\u escape");
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _247 = fgetc (_246);
+json2csv_step3_simd_barriers.c:273:17: missed: statement clobbers memory: die ("unknown escape");
+json2csv_step3_simd_barriers.c:227:17: missed: statement clobbers memory: die ("bad escape");
+json2csv_step3_simd_barriers.c:210:14: missed: statement clobbers memory: sb_push.part.0 ();
+json2csv_step3_simd_barriers.c:184:9: missed: statement clobbers memory: die ("unexpected character");
+json2csv_step3_simd_barriers.c:206:22: note: ***** Analysis succeeded with vector mode V8SI
+json2csv_step3_simd_barriers.c:206:22: note: SLPing BB part
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d016da8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: MEM[(char *)q_78] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 MEM[(char *)q_78] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 MEM[(char *)q_78 + 1B] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d016e28
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d016e28 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 0, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d016f28 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_226 = 63;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_226 = 63;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_229 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d016fa8
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d016fa8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 63, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0170a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_197 = 9;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_197 = 9;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_200 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017128
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017128 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 9, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0171a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_183 = 13;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_183 = 13;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_186 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017228
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017228 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 13, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0172a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_169 = 10;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_169 = 10;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_172 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017328
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017328 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 10, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0173a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_155 = 12;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_155 = 12;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_158 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017428
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017428 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 12, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0174a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_141 = 8;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_141 = 8;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_144 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017528
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017528 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 8, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0175a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_113 = 92;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_113 = 92;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_116 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017628
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017628 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 92, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0176a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_127 = 47;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_127 = 47;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_130 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017728
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017728 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 47, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0177a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_99 = 34;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_99 = 34;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_102 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017828
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017828 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 34, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 1:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:206:22: note: Basic block will be vectorized using SLP
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d016da8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: MEM[(char *)q_78] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 MEM[(char *)q_78] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 MEM[(char *)q_78 + 1B] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d016e28
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d016e28 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 0, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: MEM[(char *)q_78] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: MEM[(char *)q_78]
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.162_168
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.162_168] = { 0, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d016f28 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_226 = 63;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_226 = 63;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_229 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d016fa8
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d016fa8 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 63, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_226 = 63;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_226
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.164_217
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.164_217] = { 63, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0170a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_197 = 9;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_197 = 9;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_200 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017128
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017128 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 9, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_197 = 9;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_197
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.166_24
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.166_24] = { 9, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0171a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_183 = 13;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_183 = 13;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_186 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017228
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017228 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 13, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_183 = 13;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_183
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.168_126
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.168_126] = { 13, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0172a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_169 = 10;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_169 = 10;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_172 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017328
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017328 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 10, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_169 = 10;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_169
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.170_23
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.170_23] = { 10, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0173a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_155 = 12;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_155 = 12;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_158 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017428
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017428 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 12, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_155 = 12;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_155
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.172_389
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.172_389] = { 12, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0174a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_141 = 8;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_141 = 8;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_144 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017528
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017528 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 8, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_141 = 8;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_141
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.174_386
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.174_386] = { 8, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0175a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_113 = 92;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_113 = 92;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_116 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017628
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017628 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 92, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_113 = 92;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_113
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.176_383
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.176_383] = { 92, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0176a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_127 = 47;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_127 = 47;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_130 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017728
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017728 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 47, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_127 = 47;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_127
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.178_377
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.178_377] = { 47, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d0177a8 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: *_99 = 34;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 *_99 = 34;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 *_102 = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d017828
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d017828 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 34, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: *_99 = 34;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: *_99
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.180_380
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.180_380] = { 34, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:206:22: note: ***** The result for vector mode V32QI would be the same
+json2csv_step3_simd_barriers.c:424:12: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:424:12: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:384:12: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:384:12: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:340:16: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:340:16: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:323:16: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:323:16: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:311:16: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:311:16: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:354:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:354:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:354:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:354:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:354:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:354:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:177:24: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:177:24: missed: not vectorized: could not determine main exit from loop with multiple exits.
+json2csv_step3_simd_barriers.c:439:16: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _49 = fgetc (_48);
+json2csv_step3_simd_barriers.c:482:5: missed: statement clobbers memory: die ("unknown value");
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _455 = fgetc (_454);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_460 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_461, 0, 28);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _443 = fgetc (_442);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_448 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_449, 0, 28);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _431 = fgetc (_430);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_436 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_437, 0, 28);
+json2csv_step3_simd_barriers.c:463:13: missed: statement clobbers memory: die ("bad token");
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_293 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_294, 0, 28);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_301 = __builtin_malloc (64);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _213 = fgetc (_212);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_344 = realloc (buf_485, iftmp.14_342);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _229 = fgetc (_228);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_358 = realloc (buf_600, iftmp.14_356);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _224 = fgetc (_223);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _239 = fgetc (_238);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_373 = realloc (buf_327, iftmp.14_371);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _251 = fgetc (_250);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_388 = realloc (buf_675, iftmp.14_386);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _265 = fgetc (_264);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_403 = realloc (buf_676, iftmp.14_401);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _271 = fgetc (_270);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_418 = realloc (buf_328, iftmp.14_416);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _284 = fgetc (_283);
+json2csv_step3_simd_barriers.c:339:13: missed: statement clobbers memory: die ("bad number exponent");
+json2csv_step3_simd_barriers.c:322:13: missed: statement clobbers memory: die ("bad number fraction");
+json2csv_step3_simd_barriers.c:303:9: missed: statement clobbers memory: die ("bad number");
+json2csv_step3_simd_barriers.c:439:16: missed: statement clobbers memory: sb_push.part.0 ();
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_208 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_209, 0, 28);
+json2csv_step3_simd_barriers.c:451:24: missed: statement clobbers memory: _2 = parse_string (p_17(D));
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _172 = fgetc (_171);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _160 = fgetc (_159);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_157 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_158, 0, 28);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _198 = fgetc (_197);
+json2csv_step3_simd_barriers.c:380:24: missed: statement clobbers memory: item_151 = parse_value (p_17(D));
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_191 = realloc (pretmp_742, prephitmp_595);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _174 = fgetc (_173);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _154 = fgetc (_153);
+json2csv_step3_simd_barriers.c:394:9: missed: statement clobbers memory: die ("bad array syntax");
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _156 = fgetc (_155);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _150 = fgetc (_149);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _86 = fgetc (_85);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _74 = fgetc (_73);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_71 = malloc (32);
+json2csv_step3_simd_barriers.c:89:5: missed: statement clobbers memory: memset (_72, 0, 28);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _88 = fgetc (_87);
+json2csv_step3_simd_barriers.c:416:21: missed: statement clobbers memory: key_64 = parse_string (p_17(D));
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _137 = fgetc (_136);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _135 = fgetc (_134);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _123 = fgetc (_122);
+json2csv_step3_simd_barriers.c:420:23: missed: statement clobbers memory: val_65 = parse_value (p_17(D));
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_116 = realloc (pretmp_741, prephitmp_30);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _99 = fgetc (_98);
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _68 = fgetc (_67);
+json2csv_step3_simd_barriers.c:434:9: missed: statement clobbers memory: die ("bad object syntax");
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _70 = fgetc (_69);
+json2csv_step3_simd_barriers.c:184:9: missed: statement clobbers memory: die ("unexpected character");
+json2csv_step3_simd_barriers.c:415:13: missed: statement clobbers memory: die ("object key must be string");
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _62 = fgetc (_61);
+json2csv_step3_simd_barriers.c:25:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_step3_simd_barriers.c:443:9: missed: statement clobbers memory: die ("unexpected EOF");
+json2csv_step3_simd_barriers.c:117:52: note: ***** Analysis succeeded with vector mode V8SI
+json2csv_step3_simd_barriers.c:117:52: note: SLPing BB part
+json2csv_step3_simd_barriers.c:206:22: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d121698 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: MEM[(char *)q_301] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 MEM[(char *)q_301] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 MEM[(char *)q_301 + 1B] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d121718
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d121718 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 0, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:206:22: note: Cost model analysis for part in loop 0:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:117:52: note: Costing subgraph: 
+json2csv_step3_simd_barriers.c:117:52: note: node 0x3d121918 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:117:52: note: op template: _120->key = key_64;
+json2csv_step3_simd_barriers.c:117:52: note: 	stmt 0 _120->key = key_64;
+json2csv_step3_simd_barriers.c:117:52: note: 	stmt 1 _120->value = val_65;
+json2csv_step3_simd_barriers.c:117:52: note: 	children 0x3d121a18
+json2csv_step3_simd_barriers.c:117:52: note: node (external) 0x3d121a18 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:117:52: note: 	{ key_64, val_65 }
+json2csv_step3_simd_barriers.c:117:52: note: Cost model analysis: 
+json2csv_step3_simd_barriers.c:117:52: note: Cost model analysis for part in loop 2:
+  Vector cost: 32
+  Scalar cost: 32
+json2csv_step3_simd_barriers.c:117:52: note: Basic block will be vectorized using SLP
+json2csv_step3_simd_barriers.c:206:22: optimized: basic block part vectorized using 2 byte vectors
+json2csv_step3_simd_barriers.c:206:22: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:206:22: note: node 0x3d121698 (max_nunits=2, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: op template: MEM[(char *)q_301] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 0 MEM[(char *)q_301] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	stmt 1 MEM[(char *)q_301 + 1B] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: 	children 0x3d121718
+json2csv_step3_simd_barriers.c:206:22: note: node (constant) 0x3d121718 (max_nunits=1, refcnt=1) vector(2) char
+json2csv_step3_simd_barriers.c:206:22: note: 	{ 0, 0 }
+json2csv_step3_simd_barriers.c:206:22: note: ------>vectorizing SLP node starting from: MEM[(char *)q_301] = 0;
+json2csv_step3_simd_barriers.c:206:22: note: vect_is_simple_use: operand 0, type of def: constant
+json2csv_step3_simd_barriers.c:206:22: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:206:22: note: create vector_type-pointer variable to type: vector(2) char  vectorizing a pointer ref: MEM[(char *)q_301]
+json2csv_step3_simd_barriers.c:206:22: note: created vectp.208_267
+json2csv_step3_simd_barriers.c:206:22: note: add new stmt: MEM <vector(2) char> [(char *)vectp.208_267] = { 0, 0 };
+json2csv_step3_simd_barriers.c:206:22: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:117:52: optimized: basic block part vectorized using 16 byte vectors
+json2csv_step3_simd_barriers.c:117:52: note: Vectorizing SLP tree:
+json2csv_step3_simd_barriers.c:117:52: note: node 0x3d121918 (max_nunits=2, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:117:52: note: op template: _120->key = key_64;
+json2csv_step3_simd_barriers.c:117:52: note: 	stmt 0 _120->key = key_64;
+json2csv_step3_simd_barriers.c:117:52: note: 	stmt 1 _120->value = val_65;
+json2csv_step3_simd_barriers.c:117:52: note: 	children 0x3d121a18
+json2csv_step3_simd_barriers.c:117:52: note: node (external) 0x3d121a18 (max_nunits=1, refcnt=1) vector(2) long unsigned int
+json2csv_step3_simd_barriers.c:117:52: note: 	{ key_64, val_65 }
+json2csv_step3_simd_barriers.c:117:52: note: ------>vectorizing SLP node starting from: _120->key = key_64;
+json2csv_step3_simd_barriers.c:117:52: note: vect_is_simple_use: operand parse_value (p_17(D)), type of def: internal
+json2csv_step3_simd_barriers.c:117:52: note: conflicting alias set types.
+json2csv_step3_simd_barriers.c:117:52: note: transform store. ncopies = 1
+json2csv_step3_simd_barriers.c:117:52: note: create vector_type-pointer variable to type: vector(2) long unsigned int  vectorizing a pointer ref: _120->key
+json2csv_step3_simd_barriers.c:117:52: note: created vectp.210_249
+json2csv_step3_simd_barriers.c:117:52: note: add new stmt: MEM <vector(2) long unsigned int> [(void *)vectp.210_249] = _260;
+json2csv_step3_simd_barriers.c:117:52: note: vectorizing stmts using SLP.
+json2csv_step3_simd_barriers.c:117:52: note: ***** The result for vector mode V32QI would be the same
+json2csv_step3_simd_barriers.c:801:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:802:9: missed: statement clobbers memory: jfree (_184);
+json2csv_step3_simd_barriers.c:727:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:728:9: missed: statement clobbers memory: free (_192);
+json2csv_step3_simd_barriers.c:883:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:883:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_step3_simd_barriers.c:685:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:685:26: missed: not vectorized: number of iterations cannot be computed.
+json2csv_step3_simd_barriers.c:887:30: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:887:30: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:773:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:775:13: missed: statement clobbers memory: _279 = strcmp (_280, _286);
+json2csv_step3_simd_barriers.c:773:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:775:13: missed: statement clobbers memory: _164 = strcmp (_163, _29);
+json2csv_step3_simd_barriers.c:874:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:877:13: missed: statement clobbers memory: fputc (44, pretmp_230);
+json2csv_step3_simd_barriers.c:864:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:864:26: missed: not vectorized: loop nest containing two or more consecutive inner loops cannot be vectorized
+json2csv_step3_simd_barriers.c:685:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:685:26: missed: not vectorized: number of iterations cannot be computed.
+json2csv_step3_simd_barriers.c:868:30: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:868:30: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:705:26: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:707:13: missed: statement clobbers memory: _141 = strcmp (_140, _10);
+json2csv_step3_simd_barriers.c:827:30: missed: couldn't vectorize loop
+json2csv_step3_simd_barriers.c:827:30: missed: not vectorized: unsupported control flow in loop.
+json2csv_step3_simd_barriers.c:847:5: note: vectorized 0 loops in function.
+json2csv_step3_simd_barriers.c:855:15: missed: statement clobbers memory: f_51 = fopen (path_49, "rb");
+json2csv_step3_simd_barriers.c:165:12: missed: statement clobbers memory: _84 = fgetc (f_51);
+json2csv_step3_simd_barriers.c:812:5: missed: statement clobbers memory: p_skip_ws (&p);
+json2csv_step3_simd_barriers.c:816:19: missed: statement clobbers memory: top_85 = parse_value (&p);
+json2csv_step3_simd_barriers.c:817:5: missed: statement clobbers memory: p_skip_ws (&p);
+json2csv_step3_simd_barriers.c:840:5: missed: statement clobbers memory: jfree (top_85);
+json2csv_step3_simd_barriers.c:841:5: missed: statement clobbers memory: die ("top-level JSON must be object or array of objects");
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_114 = realloc (ol$objs_41, prephitmp_137);
+json2csv_step3_simd_barriers.c:835:9: missed: statement clobbers memory: free (pretmp_323);
+json2csv_step3_simd_barriers.c:836:9: missed: statement clobbers memory: free (top_85);
+json2csv_step3_simd_barriers.c:831:17: missed: statement clobbers memory: die ("top array must contain objects");
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_102 = __builtin_malloc (128);
+json2csv_step3_simd_barriers.c:860:5: missed: statement clobbers memory: fclose (f_51);
+json2csv_step3_simd_barriers.c:880:5: missed: statement clobbers memory: fputc (10, stdout.3_296);
+json2csv_step3_simd_barriers.c:867:9: missed: statement clobbers memory: flatten_object.constprop (_6, &kv);
+json2csv_step3_simd_barriers.c:707:13: missed: statement clobbers memory: _141 = strcmp (_140, _10);
+json2csv_step3_simd_barriers.c:31:15: missed: statement clobbers memory: q_127 = realloc (headers$keys_204, prephitmp_105);
+json2csv_step3_simd_barriers.c:39:16: missed: statement clobbers memory: n_145 = strlen (_10);
+json2csv_step3_simd_barriers.c:23:15: missed: statement clobbers memory: p_147 = malloc (_146);
+json2csv_step3_simd_barriers.c:41:5: missed: statement clobbers memory: memcpy (p_147, _10, _146);
+json2csv_step3_simd_barriers.c:687:9: missed: statement clobbers memory: free (_152);
+json2csv_step3_simd_barriers.c:688:9: missed: statement clobbers memory: free (_155);
+json2csv_step3_simd_barriers.c:690:5: missed: statement clobbers memory: free (_158);
+json2csv_step3_simd_barriers.c:33:9: missed: statement clobbers memory: die ("out of memory");
+json2csv_step3_simd_barriers.c:878:9: missed: statement clobbers memory: csv_write_cell (stdout.2_18, _17);
+json2csv_step3_simd_barriers.c:877:13: missed: statement clobbers memory: fputc (44, pretmp_230);
+json2csv_step3_simd_barriers.c:878:9: missed: statement clobbers memory: csv_write_cell (stdout.2_214, _216);
+json2csv_step3_simd_barriers.c:880:5: missed: statement clobbers memory: fputc (10, stdout.3_20);
+json2csv_step3_simd_barriers.c:886:9: missed: statement clobbers memory: flatten_object.constprop (_24, &kv);
+json2csv_step3_simd_barriers.c:775:13: missed: statement clobbers memory: _164 = strcmp (_163, _29);
+json2csv_step3_simd_barriers.c:892:13: missed: statement clobbers memory: csv_write_cell (stdout.5_30, _168);
+json2csv_step3_simd_barriers.c:890:17: missed: statement clobbers memory: fputc (44, pretmp_298);
+json2csv_step3_simd_barriers.c:775:13: missed: statement clobbers memory: _279 = strcmp (_280, _286);
+json2csv_step3_simd_barriers.c:892:13: missed: statement clobbers memory: csv_write_cell (stdout.5_252, _255);
+json2csv_step3_simd_barriers.c:894:9: missed: statement clobbers memory: fputc (10, stdout.6_31);
+json2csv_step3_simd_barriers.c:687:9: missed: statement clobbers memory: free (_173);
+json2csv_step3_simd_barriers.c:688:9: missed: statement clobbers memory: free (_176);
+json2csv_step3_simd_barriers.c:690:5: missed: statement clobbers memory: free (_179);
+json2csv_step3_simd_barriers.c:728:9: missed: statement clobbers memory: free (_192);
+json2csv_step3_simd_barriers.c:729:5: missed: statement clobbers memory: free (headers$keys_62);
+json2csv_step3_simd_barriers.c:802:9: missed: statement clobbers memory: jfree (_184);
+json2csv_step3_simd_barriers.c:803:5: missed: statement clobbers memory: free (objs$objs_257);
+json2csv_step3_simd_barriers.c:847:5: missed: statement clobbers memory: objlist_push.part.0 ();
+json2csv_step3_simd_barriers.c:857:9: missed: statement clobbers memory: die ("cannot open input file");
+json2csv_step3_simd_barriers.c:851:9: missed: statement clobbers memory: fprintf (stderr.0_2, "Usage: %s input.json > out.csv\n", _1);
+json2csv_step3_simd_barriers.c:847:5: note: ***** Analysis failed with vector mode V4DI
+json2csv_step3_simd_barriers.c:847:5: note: ***** Skipping vector mode V32QI, which would repeat the analysis for V4DI
