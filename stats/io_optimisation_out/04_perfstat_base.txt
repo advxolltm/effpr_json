@@ -1,0 +1,19 @@
+== perf stat baseline ==
+
+ Performance counter stats for 'bash -c for i in $(seq 1 11); do ./json2csv_O2g benchmark.json > /dev/null; done' (5 runs):
+
+           3822.01 msec task-clock                       #    0.979 CPUs utilized               ( +-  0.15% )
+                49      context-switches                 #   12.820 /sec                        ( +-  7.46% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+            817607      page-faults                      #  213.921 K/sec                       ( +-  0.00% )
+       17649571802      cycles                           #    4.618 GHz                         ( +-  0.11% )
+       50842990997      instructions                     #    2.88  insn per cycle              ( +-  0.05% )
+       12344795354      branches                         #    3.230 G/sec                       ( +-  0.04% )
+          43165267      branch-misses                    #    0.35% of all branches             ( +-  0.57% )
+                        TopdownL1                 #     16.6 %  tma_backend_bound      
+                                                  #      8.8 %  tma_bad_speculation    
+                                                  #     19.2 %  tma_frontend_bound     
+                                                  #     55.3 %  tma_retiring             ( +-  0.11% )
+
+           3.90410 +- 0.00651 seconds time elapsed  ( +-  0.17% )
+
