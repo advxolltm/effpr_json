@@ -14,9 +14,6 @@
 *.idb
 *.pdb
 
-# Executables
-json2csv_baseline
-json2csv*
 
 # Core dumps
 core
