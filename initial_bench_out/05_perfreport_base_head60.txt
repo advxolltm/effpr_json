@@ -1,0 +1,61 @@
+== perf record/report baseline (top 60) ==
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 3K of event 'cycles:P'
+# Event count (approx.): 17650871517
+#
+# Children      Self  Command       Shared Object         Symbol                               
+# ........  ........  ............  ....................  .....................................
+#
+    27.33%    12.87%  json2csv_O2g  libc.so.6             [.] _int_malloc
+            |          
+            |--22.35%--_int_malloc
+            |          |          
+            |           --14.39%--asm_exc_page_fault
+            |                     |          
+            |                     |--10.22%--exc_page_fault
+            |                     |          |          
+            |                     |           --10.19%--do_user_addr_fault
+            |                     |                     |          
+            |                     |                     |--9.23%--handle_mm_fault
+            |                     |                     |          |          
+            |                     |                     |           --8.73%--__handle_mm_fault
+            |                     |                     |                     |          
+            |                     |                     |                      --7.89%--do_anonymous_page
+            |                     |                     |                                |          
+            |                     |                     |                                |--2.27%--vma_alloc_folio_noprof
+            |                     |                     |                                |          |          
+            |                     |                     |                                |           --2.14%--folio_alloc_mpol_noprof
+            |                     |                     |                                |                     |          
+            |                     |                     |                                |                      --2.11%--alloc_pages_mpol_noprof
+            |                     |                     |                                |                                |          
+            |                     |                     |                                |                                 --1.88%--__alloc_pages_noprof
+            |                     |                     |                                |                                           |          
+            |                     |                     |                                |                                            --1.54%--get_page_from_freelist
+            |                     |                     |                                |                                                      |          
+            |                     |                     |                                |                                                       --0.54%--__rmqueue_pcplist
+            |                     |                     |                                |          
+            |                     |                     |                                |--2.08%--__mem_cgroup_charge
+            |                     |                     |                                |          |          
+            |                     |                     |                                |          |--1.03%--try_charge_memcg
+            |                     |                     |                                |          |          
+            |                     |                     |                                |           --0.76%--get_mem_cgroup_from_mm
+            |                     |                     |                                |          
+            |                     |                     |                                |--1.43%--__pte_offset_map_lock
+            |                     |                     |                                |          |          
+            |                     |                     |                                |           --0.76%--_raw_spin_lock
+            |                     |                     |                                |          
+            |                     |                     |                                 --1.25%--__folio_batch_add_and_move
+            |                     |                     |                                           |          
+            |                     |                     |                                            --1.07%--folio_batch_move_lru
+            |                     |                     |                                                      |          
+            |                     |                     |                                                       --0.83%--lru_add
+            |                     |                     |          
+            |                     |                      --0.55%--lock_vma_under_rcu
+            |                     |          
+            |                      --1.66%--sync_regs
+            |          
+            |--2.70%--0
