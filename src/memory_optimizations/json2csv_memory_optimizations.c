@@ -488,7 +488,8 @@ static JValue *parse_value(Parser *p)
 typedef struct
 {
     char *key;
-    char *val; // already stringified for CSV cell
+    const char *val;
+    uint8_t val_owned;   // 1 => free(val), 0 => borrowed (do not free)
 } KV;
 
 typedef struct
@@ -497,7 +498,7 @@ typedef struct
     size_t len, cap;
 } KVList;
 
-static void kv_push(KVList *l, char *k, char *v)
+static void kv_push(KVList *l, char *k, const char *v, uint8_t val_owned)
 {
     if (l->len == l->cap)
     {
@@ -506,24 +507,19 @@ static void kv_push(KVList *l, char *k, char *v)
     }
     l->items[l->len].key = k;
     l->items[l->len].val = v;
+    l->items[l->len].val_owned = val_owned;
     l->len++;
 }
 
-static char *json_primitive_to_string(const JValue *v)
+static const char *json_primitive_borrow(const JValue *v)
 {
-    // Baseline: allocate a new string for each conversion
     switch (v->type)
     {
-    case J_NULL:
-        return xstrdup("null");
-    case J_BOOL:
-        return xstrdup(v->as.boolean ? "true" : "false");
-    case J_NUMBER:
-        return xstrdup(v->as.number ? v->as.number : "0");
-    case J_STRING:
-        return xstrdup(v->as.string ? v->as.string : "");
-    default:
-        return xstrdup("[complex]");
+    case J_NULL:   return "null";
+    case J_BOOL:   return v->as.boolean ? "true" : "false";
+    case J_NUMBER: return v->as.number ? v->as.number : "0";
+    case J_STRING: return v->as.string ? v->as.string : "";
+    default:       return "[complex]";
     }
 }
 
@@ -547,9 +543,9 @@ static char *join_array_primitives(const JValue *arr)
 
     for (size_t i = 0; i < arr->as.array.len; i++)
     {
-        char *s = json_primitive_to_string(arr->as.array.items[i]);
+        const char *s = json_primitive_borrow(arr->as.array.items[i]);
         size_t sl = strlen(s);
-        // +1 for ; or null
+        // +1 for ';' and +1 for '\0'
         while (len + sl + 2 >= cap)
         {
             cap *= 2;
@@ -560,7 +556,6 @@ static char *join_array_primitives(const JValue *arr)
         memcpy(buf + len, s, sl);
         len += sl;
         buf[len] = '\0';
-        free(s);
     }
     return buf;
 }
@@ -659,19 +654,17 @@ static void flatten_value(const JValue *v, const char *prefix, KVList *out)
         if (array_is_all_primitives(v))
         {
             char *joined = join_array_primitives(v);
-            kv_push(out, xstrdup(prefix), joined);
+            kv_push(out, xstrdup(prefix), joined, 1);
         }
         else
         {
-            // stringify complex array
             char *s = json_array_to_string(v);
-            kv_push(out, xstrdup(prefix), s);
+            kv_push(out, xstrdup(prefix), s, 1);
         }
-
         return;
     }
-    // primitive
-    kv_push(out, xstrdup(prefix), json_primitive_to_string(v));
+    // primitive: borrow existing string/constant
+    kv_push(out, xstrdup(prefix), json_primitive_borrow(v), 0);
 }
 
 static void kvlist_free(KVList *l)
@@ -679,7 +672,8 @@ static void kvlist_free(KVList *l)
     for (size_t i = 0; i < l->len; i++)
     {
         free(l->items[i].key);
-        free(l->items[i].val);
+        if (l->items[i].val_owned)
+            free((void *)l->items[i].val);
     }
     free(l->items);
     l->items = NULL;

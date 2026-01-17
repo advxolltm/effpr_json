@@ -1,0 +1,314 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 1K of event 'cycles:u'
+# Event count (approx.): 1250898673
+#
+# Children      Self  Command       Shared Object         Symbol                           
+# ........  ........  ............  ....................  .................................
+#
+    19.58%     0.00%  json2csv_mem  [unknown]             [.] 0000000000000000
+            |
+            ---0
+               |          
+               |--3.81%--_IO_getc
+               |          
+               |--3.26%--parse_string
+               |          
+               |--2.71%--__strlen_evex
+               |          
+               |--2.40%--_int_malloc
+               |          
+               |--1.26%--main
+               |          
+               |--1.07%--__strcmp_evex
+               |          
+               |--1.05%--fgetc@plt
+               |          
+               |--0.91%--malloc
+               |          
+                --0.64%--flatten_value
+
+    11.59%     9.63%  json2csv_mem  libc.so.6             [.] _int_malloc
+            |          
+            |--8.19%--_int_malloc
+            |          |          
+            |           --1.96%--0xffffffffbd801280
+            |          
+            |--2.40%--0
+            |          _int_malloc
+            |          
+             --1.00%--0x1
+                       _int_malloc
+
+    10.55%    10.55%  json2csv_mem  libc.so.6             [.] malloc
+            |          
+            |--9.55%--malloc
+            |          
+             --0.91%--0
+                       malloc
+
+     9.96%     9.96%  json2csv_mem  json2csv_mem          [.] parse_value
+            |          
+             --8.80%--parse_value
+
+     8.65%     8.65%  json2csv_mem  libc.so.6             [.] cfree@GLIBC_2.2.5
+            |          
+            |--2.78%--0x51
+            |          cfree@GLIBC_2.2.5
+            |          
+            |--2.27%--0x21
+            |          cfree@GLIBC_2.2.5
+            |          
+            |--1.16%--0x31
+            |          cfree@GLIBC_2.2.5
+            |          
+            |--1.08%--cfree@GLIBC_2.2.5
+            |          
+             --0.72%--0x91
+                       cfree@GLIBC_2.2.5
+
+     8.27%     8.27%  json2csv_mem  libc.so.6             [.] _IO_getc
+            |          
+            |--3.81%--0
+            |          _IO_getc
+            |          
+             --2.67%--_IO_getc
+
+     8.20%     8.20%  json2csv_mem  libc.so.6             [.] __strlen_evex
+            |          
+            |--4.31%--__strlen_evex
+            |          
+             --2.71%--0
+                       __strlen_evex
+
+     7.93%     7.93%  json2csv_mem  libc.so.6             [.] __strcmp_evex
+            |          
+            |--4.90%--__strcmp_evex
+            |          
+             --1.07%--0
+                       __strcmp_evex
+
+     6.83%     6.83%  json2csv_mem  json2csv_mem          [.] flatten_value
+            |          
+            |--5.74%--flatten_value
+            |          
+             --0.64%--0
+                       flatten_value
+
+     4.97%     4.97%  json2csv_mem  json2csv_mem          [.] parse_string
+            |          
+            |--3.26%--0
+            |          parse_string
+            |          
+             --1.16%--parse_string
+
+     3.84%     3.84%  json2csv_mem  libc.so.6             [.] _int_free_chunk
+            |          
+            |--2.86%--_int_free_chunk
+            |          
+             --0.54%--0x51
+                       _int_free_chunk
+
+     3.80%     3.80%  json2csv_mem  json2csv_mem          [.] main
+            |          
+            |--1.35%--0
+            |          |          
+            |           --1.26%--main
+            |          
+             --1.27%--main
+
+     3.31%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000051
+            |
+            ---0x51
+               |          
+               |--2.78%--cfree@GLIBC_2.2.5
+               |          
+                --0.54%--_int_free_chunk
+
+     2.91%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000021
+            |
+            ---0x21
+               cfree@GLIBC_2.2.5
+
+     2.24%     2.24%  json2csv_mem  json2csv_mem          [.] jfree
+            |
+            ---jfree
+
+     2.14%     2.14%  json2csv_mem  [unknown]             [k] 0xffffffffbd801280
+            |          
+             --1.96%--_int_malloc
+                       0xffffffffbd801280
+
+     1.52%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000031
+            |
+            ---0x31
+               |          
+                --1.16%--cfree@GLIBC_2.2.5
+
+     1.48%     1.48%  json2csv_mem  json2csv_mem          [.] fgetc@plt
+            |          
+             --1.05%--0
+                       fgetc@plt
+
+     1.36%     1.36%  json2csv_mem  libc.so.6             [.] _IO_fputs
+     1.27%     1.27%  json2csv_mem  json2csv_mem          [.] flatten_object.constprop.0
+            |          
+             --1.09%--flatten_object.constprop.0
+
+     1.25%     1.25%  json2csv_mem  json2csv_mem          [.] free@plt
+            |
+            ---free@plt
+
+     1.18%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000001
+            |
+            ---0x1
+               |          
+                --1.00%--_int_malloc
+
+     1.09%     1.09%  json2csv_mem  json2csv_mem          [.] strlen@plt
+            |          
+             --0.73%--strlen@plt
+
+     1.09%     1.09%  json2csv_mem  json2csv_mem          [.] strcmp@plt
+            |          
+             --0.54%--strcmp@plt
+
+     1.09%     1.09%  json2csv_mem  libc.so.6             [.] __memmove_evex_unaligned_erms
+            |          
+             --0.91%--__memmove_evex_unaligned_erms
+
+     0.82%     0.00%  json2csv_mem  [unknown]             [.] 0x6f635b0030006573
+            |
+            ---0x6f635b0030006573
+
+     0.81%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000091
+            |
+            ---0x91
+               |          
+                --0.72%--cfree@GLIBC_2.2.5
+
+     0.73%     0.73%  json2csv_mem  json2csv_mem          [.] memcpy@plt
+            |          
+             --0.55%--memcpy@plt
+
+     0.67%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000070
+            |
+            ---0x70
+
+     0.64%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000006570
+            |
+            ---0x6570
+
+     0.54%     0.00%  json2csv_mem  [unknown]             [.] 0x6d5f6e6f69746172
+            |
+            ---0x6d5f6e6f69746172
+
+     0.51%     0.51%  json2csv_mem  libc.so.6             [.] realloc
+     0.45%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000006567
+     0.45%     0.45%  json2csv_mem  libc.so.6             [.] _IO_file_xsputn@@GLIBC_2.2.5
+     0.43%     0.43%  json2csv_mem  libc.so.6             [.] alloc_perturb
+     0.39%     0.39%  json2csv_mem  json2csv_mem          [.] malloc@plt
+     0.36%     0.00%  json2csv_mem  [unknown]             [.] 0x000000007972746e
+     0.36%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fc93a36c0
+     0.36%     0.36%  json2csv_mem  json2csv_mem          [.] fputs@plt
+     0.33%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000000074
+     0.31%     0.31%  json2csv_mem  json2csv_mem          [.] __ctype_b_loc@plt
+     0.27%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559f968f3022
+     0.27%     0.27%  json2csv_mem  json2csv_mem          [.] fputc@plt
+     0.27%     0.00%  json2csv_mem  [unknown]             [.] 0x6e0079726f6d656d
+     0.24%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000736d5f
+     0.24%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000006e6f
+     0.24%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000656369
+     0.23%     0.00%  json2csv_mem  [unknown]             [.] 0x78656c706d6f635b
+     0.18%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fca565dc0
+     0.18%     0.18%  json2csv_mem  libc.so.6             [.] fputc
+     0.18%     0.18%  json2csv_mem  libc.so.6             [.] __mempcpy@plt
+     0.18%     0.18%  json2csv_mem  libc.so.6             [.] strlen@plt
+     0.12%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000543130
+     0.12%     0.00%  json2csv_mem  libc.so.6             [.] __internal_syscall_cancel
+     0.12%     0.00%  json2csv_mem  [unknown]             [.] 0x656e75005d78656c
+     0.11%     0.11%  json2csv_mem  json2csv_mem          [.] realloc@plt
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x39323a3032543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x32353a3430543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x39313a3531543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x31323a3231543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x37333a3430543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x37303a3231543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x30333a3730543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x31333a3130543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x30343a3130543230
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x36303a3531543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x37333a3331543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x30303a3531543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x36333a3230543230
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x34313a3130543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fc90ae580
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x6f6d6f72703b6e6f
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x32353a3731543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x000000006f6d6f72
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x0069753b726f7272
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x0000006e6f697372
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x36343a3030543130
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x31333a3530543130
+     0.09%     0.09%  json2csv_mem  libc.so.6             [.] _int_free_create_chunk
+     0.09%     0.09%  json2csv_mem  libc.so.6             [.] _int_free_merge_chunk
+     0.09%     0.00%  json2csv_mem  [unknown]             [.] 0x33303a3230543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcb7700e0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcb0ad280
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x34313a3230543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fca105380
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcd4ae6d0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x38353a3231543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x37313a3030543230
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd7aeeb00
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcd51deb0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x33313a3132543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x706d6f635b003000
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x35323a3530543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000000006d5f
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x33343a3931543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x31333a3032543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fccce69f0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x36323a3631543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x38333a3231543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000000030543230
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fccb2af70
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd870ecc0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd11b5d20
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fccabcdf0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd307e4d0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fce9c3b70
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000003131543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x31353a3931543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcd059050
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcf726970
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fcd81fb70
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fc96087f0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x36323a3330543230
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x35323a3231543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x34303a3031543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd4c3dc80
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd4471500
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd645de50
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd0164630
+     0.06%     0.00%  json2csv_mem  libc.so.6             [.] sysmalloc
+     0.06%     0.06%  json2csv_mem  libc.so.6             [.] __ctype_b_loc
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x34303a3131543130
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd99a2e20
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fd04d59c0
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fda848230
+     0.06%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fda7dc010
+     0.05%     0.00%  json2csv_mem  [unknown]             [.] 0x0000559fc91288c0
+     0.01%     0.01%  json2csv_mem  ld-linux-x86-64.so.2  [.] _dl_relocate_object_no_relro
+     0.01%     0.00%  json2csv_mem  ld-linux-x86-64.so.2  [.] _dl_start_user
+     0.01%     0.00%  json2csv_mem  ld-linux-x86-64.so.2  [.] _dl_sysdep_start
+     0.01%     0.00%  json2csv_mem  ld-linux-x86-64.so.2  [.] _dl_relocate_object
+     0.01%     0.01%  json2csv_mem  json2csv_mem          [.] _init
+
+
+#
+# (Tip: To change sampling frequency to 100 Hz: perf record -F 100)
+#
