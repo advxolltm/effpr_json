@@ -1,0 +1,8 @@
+
+ Performance counter stats for './json2csv_buf_O2g benchmark.json' (11 runs):
+
+      %  tma_retiring %  tma_backend_bound %  tma_frontend_bound %  tma_bad_speculation 
+                55.5                         17.2                           18.1                             9.2 
+
+           0.34685 +- 0.00101 seconds time elapsed  ( +-  0.29% )
+

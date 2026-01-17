@@ -1,0 +1,774 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 344  of event 'cycles:P'
+# Event count (approx.): 1569101310
+#
+# Overhead  Command          Shared Object      Symbol                              
+# ........  ...............  .................  ....................................
+#
+    14.88%  json2csv_buf_O2  libc.so.6          [.] _int_malloc
+            |          
+            |--12.54%--_int_malloc
+            |          |          
+            |           --11.05%--__GI___libc_malloc (inlined)
+            |                     |          
+            |                     |--5.71%--xrealloc (inlined)
+            |                     |          |          
+            |                     |          |--4.59%--sb_push (inlined)
+            |                     |          |          |          
+            |                     |          |          |--3.57%--parse_string
+            |                     |          |          |          |          
+            |                     |          |          |          |--2.67%--parse_object (inlined)
+            |                     |          |          |          |          parse_value
+            |                     |          |          |          |          |          
+            |                     |          |          |          |          |--1.49%--parse_object (inlined)
+            |                     |          |          |          |          |          parse_value
+            |                     |          |          |          |          |          parse_array (inlined)
+            |                     |          |          |          |          |          parse_value
+            |                     |          |          |          |          |          parse_top (inlined)
+            |                     |          |          |          |          |          main
+            |                     |          |          |          |          |          __libc_start_call_main
+            |                     |          |          |          |          |          __libc_start_main_impl (inlined)
+            |                     |          |          |          |          |          _start
+            |                     |          |          |          |          |          
+            |                     |          |          |          |           --1.18%--parse_array (inlined)
+            |                     |          |          |          |                     parse_value
+            |                     |          |          |          |                     parse_top (inlined)
+            |                     |          |          |          |                     main
+            |                     |          |          |          |                     __libc_start_call_main
+            |                     |          |          |          |                     __libc_start_main_impl (inlined)
+            |                     |          |          |          |                     _start
+            |                     |          |          |          |          
+            |                     |          |          |           --0.90%--parse_value
+            |                     |          |          |                     |          
+            |                     |          |          |                      --0.60%--parse_object (inlined)
+            |                     |          |          |                                parse_value
+            |                     |          |          |                                parse_array (inlined)
+            |                     |          |          |                                parse_value
+            |                     |          |          |                                parse_top (inlined)
+            |                     |          |          |                                main
+            |                     |          |          |                                __libc_start_call_main
+            |                     |          |          |                                __libc_start_main_impl (inlined)
+            |                     |          |          |                                _start
+            |                     |          |          |          
+            |                     |          |           --1.03%--parse_number_text (inlined)
+            |                     |          |                     parse_value
+            |                     |          |                     parse_object (inlined)
+            |                     |          |                     parse_value
+            |                     |          |                     |          
+            |                     |          |                      --0.90%--parse_object (inlined)
+            |                     |          |                                parse_value
+            |                     |          |                                parse_array (inlined)
+            |                     |          |                                parse_value
+            |                     |          |                                parse_top (inlined)
+            |                     |          |                                main
+            |                     |          |                                __libc_start_call_main
+            |                     |          |                                __libc_start_main_impl (inlined)
+            |                     |          |                                _start
+            |                     |          |          
+            |                     |           --1.12%--jobject_add (inlined)
+            |                     |                     parse_object (inlined)
+            |                     |                     parse_value
+            |                     |                     |          
+            |                     |                     |--0.60%--parse_array (inlined)
+            |                     |                     |          parse_value
+            |                     |                     |          parse_top (inlined)
+            |                     |                     |          main
+            |                     |                     |          __libc_start_call_main
+            |                     |                     |          __libc_start_main_impl (inlined)
+            |                     |                     |          _start
+            |                     |                     |          
+            |                     |                      --0.52%--parse_object (inlined)
+            |                     |                                parse_value
+            |                     |                                parse_array (inlined)
+            |                     |                                parse_value
+            |                     |                                parse_top (inlined)
+            |                     |                                main
+            |                     |                                __libc_start_call_main
+            |                     |                                __libc_start_main_impl (inlined)
+            |                     |                                _start
+            |                     |          
+            |                      --5.34%--xmalloc (inlined)
+            |                                |          
+            |                                |--3.88%--jnew (inlined)
+            |                                |          |          
+            |                                |           --3.58%--parse_value
+            |                                |                     |          
+            |                                |                     |--2.98%--parse_object (inlined)
+            |                                |                     |          parse_value
+            |                                |                     |          |          
+            |                                |                     |          |--1.49%--parse_array (inlined)
+            |                                |                     |          |          parse_value
+            |                                |                     |          |          parse_top (inlined)
+            |                                |                     |          |          main
+            |                                |                     |          |          __libc_start_call_main
+            |                                |                     |          |          __libc_start_main_impl (inlined)
+            |                                |                     |          |          _start
+            |                                |                     |          |          
+            |                                |                     |           --1.49%--parse_object (inlined)
+            |                                |                     |                     parse_value
+            |                                |                     |                     parse_array (inlined)
+            |                                |                     |                     parse_value
+            |                                |                     |                     parse_top (inlined)
+            |                                |                     |                     main
+            |                                |                     |                     __libc_start_call_main
+            |                                |                     |                     __libc_start_main_impl (inlined)
+            |                                |                     |                     _start
+            |                                |                     |          
+            |                                |                      --0.60%--parse_array (inlined)
+            |                                |                                parse_value
+            |                                |                                parse_object (inlined)
+            |                                |                                parse_value
+            |                                |                                parse_array (inlined)
+            |                                |                                parse_value
+            |                                |                                parse_top (inlined)
+            |                                |                                main
+            |                                |                                __libc_start_call_main
+            |                                |                                __libc_start_main_impl (inlined)
+            |                                |                                _start
+            |                                |          
+            |                                 --1.46%--xstrdup (inlined)
+            |                                           |          
+            |                                           |--0.88%--flatten_value (inlined)
+            |                                           |          flatten_object
+            |                                           |          flatten_value (inlined)
+            |                                           |          flatten_object
+            |                                           |          main
+            |                                           |          __libc_start_call_main
+            |                                           |          __libc_start_main_impl (inlined)
+            |                                           |          _start
+            |                                           |          
+            |                                            --0.58%--json_primitive_to_string
+            |                                                      flatten_value (inlined)
+            |                                                      flatten_object
+            |                                                      flatten_value (inlined)
+            |                                                      flatten_object
+            |                                                      main
+            |                                                      __libc_start_call_main
+            |                                                      __libc_start_main_impl (inlined)
+            |                                                      _start
+            |          
+            |--1.17%--asm_exc_page_fault
+            |          
+             --0.88%--tcache_put (inlined)
+                       _int_malloc
+                       __GI___libc_malloc (inlined)
+                       xmalloc (inlined)
+                       xstrdup (inlined)
+                       |          
+                        --0.58%--json_primitive_to_string
+                                  flatten_value (inlined)
+                                  flatten_object
+                                  flatten_value (inlined)
+                                  flatten_object
+                                  main
+                                  __libc_start_call_main
+                                  __libc_start_main_impl (inlined)
+                                  _start
+
+    12.52%  json2csv_buf_O2  libc.so.6          [.] cfree@GLIBC_2.2.5
+            |          
+            |--5.52%--__GI___libc_free (inlined)
+            |          |          
+            |          |--1.15%--0x7ffd464ecc8f
+            |          |          
+            |          |--0.58%--flatten_object
+            |          |          main
+            |          |          __libc_start_call_main
+            |          |          __libc_start_main_impl (inlined)
+            |          |          _start
+            |          |          
+            |           --0.57%--0x7ffd464ecdaf
+            |          
+            |--2.05%--arena_for_chunk (inlined)
+            |          __GI___libc_free (inlined)
+            |          |          
+            |           --1.75%--kvlist_free (inlined)
+            |                     main
+            |                     __libc_start_call_main
+            |                     __libc_start_main_impl (inlined)
+            |                     _start
+            |          
+            |--2.04%--_int_free_check (inlined)
+            |          _int_free (inlined)
+            |          __GI___libc_free (inlined)
+            |          |          
+            |          |--0.88%--flatten_object
+            |          |          |          
+            |          |           --0.59%--main
+            |          |                     __libc_start_call_main
+            |          |                     __libc_start_main_impl (inlined)
+            |          |                     _start
+            |          |          
+            |           --0.87%--jfree
+            |                     |          
+            |                      --0.58%--jfree
+            |                                jfree
+            |                                objlist_free (inlined)
+            |                                main
+            |                                __libc_start_call_main
+            |                                __libc_start_main_impl (inlined)
+            |                                _start
+            |          
+            |--1.46%--tcache_free (inlined)
+            |          _int_free (inlined)
+            |          __GI___libc_free (inlined)
+            |          |          
+            |          |--0.58%--flatten_object
+            |          |          
+            |           --0.58%--jfree
+            |                     jfree
+            |                     objlist_free (inlined)
+            |                     main
+            |                     __libc_start_call_main
+            |                     __libc_start_main_impl (inlined)
+            |                     _start
+            |          
+             --1.15%--_int_free (inlined)
+                       __GI___libc_free (inlined)
+                       |          
+                        --0.86%--jfree
+                                  objlist_free (inlined)
+                                  main
+                                  __libc_start_call_main
+                                  __libc_start_main_impl (inlined)
+                                  _start
+
+     7.05%  json2csv_buf_O2  libc.so.6          [.] malloc
+            |          
+            |--2.38%--__GI___libc_malloc (inlined)
+            |          |          
+            |           --1.19%--xrealloc (inlined)
+            |                     |          
+            |                      --0.90%--sb_push (inlined)
+            |                                parse_string
+            |                                parse_object (inlined)
+            |                                parse_value
+            |                                |          
+            |                                 --0.60%--parse_object (inlined)
+            |                                           parse_value
+            |                                           parse_array (inlined)
+            |                                           parse_value
+            |                                           parse_top (inlined)
+            |                                           main
+            |                                           __libc_start_call_main
+            |                                           __libc_start_main_impl (inlined)
+            |                                           _start
+            |          
+            |--1.46%--tcache_get_n (inlined)
+            |          tcache_get (inlined)
+            |          tcache_try_malloc (inlined)
+            |          __GI___libc_malloc (inlined)
+            |          xmalloc (inlined)
+            |          xstrdup (inlined)
+            |          |          
+            |           --0.88%--flatten_value (inlined)
+            |                     flatten_object
+            |                     |          
+            |                      --0.58%--flatten_value (inlined)
+            |                                flatten_object
+            |                                main
+            |                                __libc_start_call_main
+            |                                __libc_start_main_impl (inlined)
+            |                                _start
+            |          
+            |--1.16%--tcache_available (inlined)
+            |          tcache_try_malloc (inlined)
+            |          __GI___libc_malloc (inlined)
+            |          xmalloc (inlined)
+            |          |          
+            |           --0.88%--xstrdup (inlined)
+            |          
+            |--0.86%--checked_request2size (inlined)
+            |          tcache_try_malloc (inlined)
+            |          __GI___libc_malloc (inlined)
+            |          |          
+            |           --0.57%--xrealloc (inlined)
+            |                     sb_push (inlined)
+            |                     parse_string
+            |          
+            |--0.60%--arena_for_chunk (inlined)
+            |          __GI___libc_malloc (inlined)
+            |          
+             --0.58%--tcache_try_malloc (inlined)
+                       __GI___libc_malloc (inlined)
+                       xmalloc (inlined)
+
+     6.39%  json2csv_buf_O2  libc.so.6          [.] _int_free_chunk
+            |
+            ---_int_free_chunk
+               |          
+               |--4.94%--_int_free (inlined)
+               |          __GI___libc_free (inlined)
+               |          |          
+               |          |--2.59%--jfree
+               |          |          |          
+               |          |          |--1.44%--jfree
+               |          |          |          |          
+               |          |          |           --1.16%--objlist_free (inlined)
+               |          |          |                     main
+               |          |          |                     __libc_start_call_main
+               |          |          |                     __libc_start_main_impl (inlined)
+               |          |          |                     _start
+               |          |          |          
+               |          |           --1.15%--objlist_free (inlined)
+               |          |                     main
+               |          |                     __libc_start_call_main
+               |          |                     __libc_start_main_impl (inlined)
+               |          |                     _start
+               |          |          
+               |           --2.05%--kvlist_free (inlined)
+               |                     main
+               |                     __libc_start_call_main
+               |                     __libc_start_main_impl (inlined)
+               |                     _start
+               |          
+                --0.58%--0x7ffd464ecc5f
+
+     6.23%  json2csv_buf_O2  json2csv_buf_O2g   [.] parse_string
+            |          
+            |--4.15%--parse_string
+            |          |          
+            |          |--2.39%--parse_object (inlined)
+            |          |          parse_value
+            |          |          |          
+            |          |          |--1.49%--parse_array (inlined)
+            |          |          |          parse_value
+            |          |          |          parse_top (inlined)
+            |          |          |          main
+            |          |          |          __libc_start_call_main
+            |          |          |          __libc_start_main_impl (inlined)
+            |          |          |          _start
+            |          |          |          
+            |          |           --0.90%--parse_object (inlined)
+            |          |                     parse_value
+            |          |                     parse_array (inlined)
+            |          |                     parse_value
+            |          |                     parse_top (inlined)
+            |          |                     main
+            |          |                     __libc_start_call_main
+            |          |                     __libc_start_main_impl (inlined)
+            |          |                     _start
+            |          |          
+            |           --1.76%--parse_value
+            |                     |          
+            |                     |--1.16%--parse_object (inlined)
+            |                     |          parse_value
+            |                     |          parse_object (inlined)
+            |                     |          parse_value
+            |                     |          parse_array (inlined)
+            |                     |          parse_value
+            |                     |          parse_top (inlined)
+            |                     |          main
+            |                     |          __libc_start_call_main
+            |                     |          __libc_start_main_impl (inlined)
+            |                     |          _start
+            |                     |          
+            |                      --0.59%--parse_array (inlined)
+            |                                parse_value
+            |                                parse_object (inlined)
+            |                                parse_value
+            |                                parse_array (inlined)
+            |                                parse_value
+            |                                parse_top (inlined)
+            |                                main
+            |                                __libc_start_call_main
+            |                                __libc_start_main_impl (inlined)
+            |                                _start
+            |          
+            |--1.19%--p_next (inlined)
+            |          |          
+            |           --0.89%--parse_string
+            |                     parse_object (inlined)
+            |                     parse_value
+            |                     parse_array (inlined)
+            |                     parse_value
+            |                     parse_top (inlined)
+            |                     main
+            |                     __libc_start_call_main
+            |                     __libc_start_main_impl (inlined)
+            |                     _start
+            |          
+             --0.60%--sb_push (inlined)
+                       parse_string
+
+     5.85%  json2csv_buf_O2  json2csv_buf_O2g   [.] main
+            |          
+            |--2.93%--kv_get (inlined)
+            |          main
+            |          __libc_start_call_main
+            |          __libc_start_main_impl (inlined)
+            |          _start
+            |          
+            |--1.75%--keyset_contains (inlined)
+            |          keyset_add (inlined)
+            |          main
+            |          __libc_start_call_main
+            |          __libc_start_main_impl (inlined)
+            |          _start
+            |          
+             --0.58%--main
+                       __libc_start_call_main
+                       __libc_start_main_impl (inlined)
+                       _start
+
+     5.29%  json2csv_buf_O2  json2csv_buf_O2g   [.] parse_value
+            |          
+            |--2.37%--p_skip_ws (inlined)
+            |          |          
+            |          |--1.48%--parse_object (inlined)
+            |          |          parse_value
+            |          |          |          
+            |          |          |--0.89%--parse_object (inlined)
+            |          |          |          parse_value
+            |          |          |          parse_array (inlined)
+            |          |          |          parse_value
+            |          |          |          parse_top (inlined)
+            |          |          |          main
+            |          |          |          __libc_start_call_main
+            |          |          |          __libc_start_main_impl (inlined)
+            |          |          |          _start
+            |          |          |          
+            |          |           --0.60%--parse_array (inlined)
+            |          |                     parse_value
+            |          |                     parse_top (inlined)
+            |          |                     main
+            |          |                     __libc_start_call_main
+            |          |                     __libc_start_main_impl (inlined)
+            |          |                     _start
+            |          |          
+            |           --0.60%--parse_array (inlined)
+            |                     parse_value
+            |                     parse_object (inlined)
+            |                     parse_value
+            |                     parse_array (inlined)
+            |                     parse_value
+            |                     parse_top (inlined)
+            |                     main
+            |                     __libc_start_call_main
+            |                     __libc_start_main_impl (inlined)
+            |                     _start
+            |          
+             --0.89%--p_next (inlined)
+
+     5.27%  json2csv_buf_O2  json2csv_buf_O2g   [.] flatten_object
+            |          
+            |--2.05%--flatten_value (inlined)
+            |          flatten_object
+            |          |          
+            |          |--1.17%--main
+            |          |          __libc_start_call_main
+            |          |          __libc_start_main_impl (inlined)
+            |          |          _start
+            |          |          
+            |           --0.88%--flatten_value (inlined)
+            |                     flatten_object
+            |                     main
+            |                     __libc_start_call_main
+            |                     __libc_start_main_impl (inlined)
+            |                     _start
+            |          
+            |--1.75%--flatten_object
+            |          |          
+            |          |--0.88%--flatten_value (inlined)
+            |          |          flatten_object
+            |          |          main
+            |          |          __libc_start_call_main
+            |          |          __libc_start_main_impl (inlined)
+            |          |          _start
+            |          |          
+            |           --0.58%--main
+            |                     __libc_start_call_main
+            |                     __libc_start_main_impl (inlined)
+            |                     _start
+            |          
+             --0.58%--make_key (inlined)
+                       flatten_object
+
+     4.39%  json2csv_buf_O2  libc.so.6          [.] __strlen_evex
+            |
+            ---__strlen_evex
+               |          
+               |--2.93%--make_key (inlined)
+               |          flatten_object
+               |          |          
+               |          |--2.05%--main
+               |          |          __libc_start_call_main
+               |          |          __libc_start_main_impl (inlined)
+               |          |          _start
+               |          |          
+               |           --0.88%--flatten_value (inlined)
+               |                     flatten_object
+               |                     main
+               |                     __libc_start_call_main
+               |                     __libc_start_main_impl (inlined)
+               |                     _start
+               |          
+               |--0.88%--xstrdup (inlined)
+               |          |          
+               |           --0.58%--json_primitive_to_string
+               |          
+                --0.58%--out_write (inlined)
+                          csv_write_cell
+                          main
+                          __libc_start_call_main
+                          __libc_start_main_impl (inlined)
+                          _start
+
+     4.10%  json2csv_buf_O2  libc.so.6          [.] __strcmp_evex
+            |
+            ---__strcmp_evex
+               |          
+               |--1.75%--kv_get (inlined)
+               |          main
+               |          __libc_start_call_main
+               |          __libc_start_main_impl (inlined)
+               |          _start
+               |          
+               |--1.17%--0xffffff
+               |          
+                --1.17%--keyset_contains (inlined)
+                          keyset_add (inlined)
+                          main
+                          __libc_start_call_main
+                          __libc_start_main_impl (inlined)
+                          _start
+
+     2.94%  json2csv_buf_O2  libc.so.6          [.] _IO_getc
+            |
+            ---_IO_getc
+               |          
+               |--0.60%--0x7ffd464ecb9f
+               |          
+                --0.59%--p_next (inlined)
+
+     1.51%  json2csv_buf_O2  [kernel.kallsyms]  [k] sync_regs
+            |
+            ---sync_regs
+               asm_exc_page_fault
+               |          
+                --1.19%--_int_malloc
+                          __GI___libc_malloc (inlined)
+                          xrealloc (inlined)
+                          sb_push (inlined)
+                          parse_string
+                          parse_object (inlined)
+                          parse_value
+                          |          
+                           --0.89%--parse_object (inlined)
+                                     parse_value
+                                     parse_array (inlined)
+                                     parse_value
+                                     parse_top (inlined)
+                                     main
+                                     __libc_start_call_main
+                                     __libc_start_main_impl (inlined)
+                                     _start
+
+     1.49%  json2csv_buf_O2  json2csv_buf_O2g   [.] fgetc@plt
+            |
+            ---fgetc@plt
+               p_next (inlined)
+               |          
+                --0.90%--p_expect (inlined)
+                          |          
+                           --0.60%--parse_object (inlined)
+                                     parse_value
+                                     parse_array (inlined)
+                                     parse_value
+                                     parse_top (inlined)
+                                     main
+                                     __libc_start_call_main
+                                     __libc_start_main_impl (inlined)
+                                     _start
+
+     1.46%  json2csv_buf_O2  libc.so.6          [.] __memmove_evex_unaligned_erms
+            |
+            ---__memcpy_evex_unaligned_erms (inlined)
+               |          
+                --0.58%--xstrdup (inlined)
+                          json_primitive_to_string
+
+     1.19%  json2csv_buf_O2  [kernel.kallsyms]  [k] try_charge_memcg
+            |
+            ---try_charge_memcg
+               __mem_cgroup_charge
+               do_anonymous_page
+               __handle_mm_fault
+               handle_mm_fault
+               do_user_addr_fault
+               exc_page_fault
+               asm_exc_page_fault
+               _int_malloc
+               __GI___libc_malloc (inlined)
+               xmalloc (inlined)
+               jnew (inlined)
+               parse_value
+               parse_object (inlined)
+               parse_value
+               |          
+                --0.90%--parse_object (inlined)
+                          parse_value
+                          parse_array (inlined)
+                          parse_value
+                          parse_top (inlined)
+                          main
+                          __libc_start_call_main
+                          __libc_start_main_impl (inlined)
+                          _start
+
+     1.17%  json2csv_buf_O2  json2csv_buf_O2g   [.] kv_push
+            |
+            ---kv_push
+               |          
+                --0.88%--flatten_value (inlined)
+                          flatten_object
+                          |          
+                           --0.58%--flatten_value (inlined)
+                                     flatten_object
+                                     main
+                                     __libc_start_call_main
+                                     __libc_start_main_impl (inlined)
+                                     _start
+
+     1.17%  json2csv_buf_O2  json2csv_buf_O2g   [.] free@plt
+            |
+            ---free@plt
+               |          
+               |--0.59%--flatten_object
+               |          
+                --0.58%--kvlist_free (inlined)
+                          main
+                          __libc_start_call_main
+                          __libc_start_main_impl (inlined)
+                          _start
+
+     1.17%  json2csv_buf_O2  json2csv_buf_O2g   [.] json_primitive_to_string
+            |          
+             --0.88%--json_primitive_to_string
+                       flatten_value (inlined)
+                       flatten_object
+                       |          
+                        --0.58%--flatten_value (inlined)
+                                  flatten_object
+                                  main
+                                  __libc_start_call_main
+                                  __libc_start_main_impl (inlined)
+                                  _start
+
+     0.88%  json2csv_buf_O2  json2csv_buf_O2g   [.] csv_write_cell
+     0.88%  json2csv_buf_O2  json2csv_buf_O2g   [.] strcmp@plt
+            |
+            ---strcmp@plt
+               |          
+                --0.58%--kv_get (inlined)
+                          main
+                          __libc_start_call_main
+                          __libc_start_main_impl (inlined)
+                          _start
+
+     0.60%  json2csv_buf_O2  libc.so.6          [.] realloc
+            |
+            ---__GI___libc_realloc (inlined)
+
+     0.60%  json2csv_buf_O2  [kernel.kallsyms]  [k] folio_add_new_anon_rmap
+     0.60%  json2csv_buf_O2  [kernel.kallsyms]  [k] irqentry_exit_to_user_mode
+            |
+            ---irqentry_exit_to_user_mode
+               asm_exc_page_fault
+               _int_malloc
+               __GI___libc_malloc (inlined)
+
+     0.60%  json2csv_buf_O2  [kernel.kallsyms]  [k] its_return_thunk
+     0.60%  json2csv_buf_O2  [kernel.kallsyms]  [k] __handle_mm_fault
+            |
+            ---__handle_mm_fault
+               handle_mm_fault
+               do_user_addr_fault
+               exc_page_fault
+               asm_exc_page_fault
+               _int_malloc
+               __GI___libc_malloc (inlined)
+
+     0.60%  json2csv_buf_O2  [kernel.kallsyms]  [k] __folio_batch_add_and_move
+            |
+            ---__folio_batch_add_and_move
+               do_anonymous_page
+               __handle_mm_fault
+               handle_mm_fault
+               do_user_addr_fault
+               exc_page_fault
+               asm_exc_page_fault
+               _int_malloc
+               __GI___libc_malloc (inlined)
+
+     0.59%  json2csv_buf_O2  [kernel.kallsyms]  [k] get_page_from_freelist
+     0.59%  json2csv_buf_O2  [kernel.kallsyms]  [k] lru_gen_add_folio
+            |
+            ---lru_gen_add_folio
+               lru_add
+               folio_batch_move_lru
+               __folio_batch_add_and_move
+               do_anonymous_page
+               __handle_mm_fault
+               handle_mm_fault
+               do_user_addr_fault
+               exc_page_fault
+               asm_exc_page_fault
+               _int_malloc
+               __GI___libc_malloc (inlined)
+
+     0.59%  json2csv_buf_O2  json2csv_buf_O2g   [.] strlen@plt
+            |
+            ---strlen@plt
+               xstrdup (inlined)
+               flatten_value (inlined)
+               flatten_object
+               flatten_value (inlined)
+               flatten_object
+               main
+               __libc_start_call_main
+               __libc_start_main_impl (inlined)
+               _start
+
+     0.58%  json2csv_buf_O2  json2csv_buf_O2g   [.] jfree
+            |
+            ---jfree
+               jfree
+
+     0.54%  json2csv_buf_O2  [kernel.kallsyms]  [k] native_irq_return_iret
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] pte_offset_map_nolock
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __pte_offset_map
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] prep_new_page
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] static_key_count
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __mod_memcg_lruvec_state
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __list_del_entry_valid_or_report
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] alloc_pages_mpol_noprof
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __rcu_read_lock
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] vma_alloc_folio_noprof
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] _raw_spin_lock
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] arch_get_unmapped_area_topdown
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __rmqueue_pcplist
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] do_anonymous_page
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __mod_zone_page_state
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __vmf_anon_prepare
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] do_user_addr_fault
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __alloc_pages_noprof
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] __list_add_valid_or_report
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] mas_preallocate
+     0.30%  json2csv_buf_O2  [kernel.kallsyms]  [k] do_syscall_64
+     0.29%  json2csv_buf_O2  json2csv_buf_O2g   [.] memcpy@plt
+     0.29%  json2csv_buf_O2  json2csv_buf_O2g   [.] malloc@plt
+     0.29%  json2csv_buf_O2  [kernel.kallsyms]  [k] _copy_to_iter
+     0.29%  json2csv_buf_O2  libc.so.6          [.] _int_free_create_chunk
+     0.29%  json2csv_buf_O2  libc.so.6          [.] _int_free_merge_chunk
+     0.26%  json2csv_buf_O2  [kernel.kallsyms]  [k] clear_page_erms
+     0.03%  json2csv_buf_O2  [kernel.kallsyms]  [k] __lruvec_stat_mod_folio
+
+
+#
+# (Tip: Limit to show entries above 5% only: perf report --percent-limit 5)
+#

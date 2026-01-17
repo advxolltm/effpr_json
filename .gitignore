@@ -1,0 +1,62 @@
+# C/C++ build artifacts
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+
+# Core dumps
+core
+core.*
+
+# Build directories
+build/
+bin/
+obj/
+
+# Output and benchmark files
+*.csv
+*.time
+
+# Profiling data
+perf.data
+perf.data.old
+*.prof
+*.gcda
+*.gcno
+*.gcov
+
+# macOS specific
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux specific
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cache/
+
+# Compiler cache
+.ccache/
+*.i
+*.s

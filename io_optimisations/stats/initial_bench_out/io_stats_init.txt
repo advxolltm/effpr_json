@@ -1,0 +1,100 @@
+[ep12437436:~/pr/src:613] /usr/bin/time -f "null: real=%e user=%U sys=%S" bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > /dev/null; done'
+null: real=3.84 user=3.20 sys=0.64
+
+
+[ep12437436:~/pr/src:614] /usr/bin/time -f "shm:  real=%e user=%U sys=%S" bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > /dev/shm/out.csv; done'
+shm:  real=3.91 user=3.19 sys=0.71
+
+
+[ep12437436:~/pr/src:615] /usr/bin/time -f "disk: real=%e user=%U sys=%S" bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > ./out.csv; done'
+disk: real=3.95 user=3.22 sys=0.72
+
+
+[ep12437436:~/pr/src:616] perf record -F 999 -g --output disk.perf.data -- bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > ./out.csv; done'
+[ perf record: Woken up 1 times to write data ]
+[ perf record: Captured and wrote 0.323 MB disk.perf.data (3959 samples) ]
+
+
+
+[ep12437436:~/pr/src:618] grep -E 'write|_IO_|fwrite|fputc|putchar|printf' disk.perfreport.txt | head -n 40
+     6.05%  json2csv_O2g  libc.so.6             [.] _IO_getc
+     1.10%  json2csv_O2g  libc.so.6             [.] _IO_fputs
+     0.97%  json2csv_O2g  json2csv_O2g          [.] csv_write_cell
+     0.59%  json2csv_O2g  libc.so.6             [.] _IO_file_xsputn@@GLIBC_2.2.5
+     0.31%  json2csv_O2g  libc.so.6             [.] fputc
+     0.13%  json2csv_O2g  json2csv_O2g          [.] fputc@plt
+     0.03%  json2csv_O2g  [kernel.kallsyms]     [k] native_write_msr
+
+
+[ep12437436:~/pr/src:619] perf stat -r 5 bash -c 'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > /dev/null; done'
+perf stat -r 5 bash -c 'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > /dev/shm/out.csv; done'
+perf stat -r 5 bash -c 'for i in $(seq 1 '"$N"'); do ./json2csv_O2g '"$INPUT"' > ./out.csv; done'
+
+ Performance counter stats for 'bash -c for i in $(seq 1 11); do ./json2csv_O2g benchmark.json > /dev/null; done' (5 runs):
+
+           3826.96 msec task-clock                       #    0.980 CPUs utilized               ( +-  0.11% )
+                59      context-switches                 #   15.417 /sec                        ( +-  5.76% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+            817635      page-faults                      #  213.651 K/sec                       ( +-  0.00% )
+       17708798470      cycles                           #    4.627 GHz                         ( +-  0.11% )
+       51035888193      instructions                     #    2.88  insn per cycle              ( +-  0.09% )
+       12380951455      branches                         #    3.235 G/sec                       ( +-  0.07% )
+          43129705      branch-misses                    #    0.35% of all branches             ( +-  0.37% )
+                        TopdownL1                 #     16.3 %  tma_backend_bound      
+                                                  #      9.0 %  tma_bad_speculation    
+                                                  #     19.5 %  tma_frontend_bound     
+                                                  #     55.3 %  tma_retiring             ( +-  0.11% )
+
+           3.90526 +- 0.00452 seconds time elapsed  ( +-  0.12% )
+
+
+ Performance counter stats for 'bash -c for i in $(seq 1 11); do ./json2csv_O2g benchmark.json > /dev/shm/out.csv; done' (5 runs):
+
+           3848.21 msec task-clock                       #    0.980 CPUs utilized               ( +-  0.13% )
+                58      context-switches                 #   15.072 /sec                        ( +-  4.52% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+            817628      page-faults                      #  212.470 K/sec                       ( +-  0.00% )
+       17810668512      cycles                           #    4.628 GHz                         ( +-  0.14% )
+       51165760552      instructions                     #    2.87  insn per cycle              ( +-  0.07% )
+       12408921222      branches                         #    3.225 G/sec                       ( +-  0.06% )
+          44177683      branch-misses                    #    0.36% of all branches             ( +-  0.33% )
+                        TopdownL1                 #     16.1 %  tma_backend_bound      
+                                                  #      9.1 %  tma_bad_speculation    
+                                                  #     19.7 %  tma_frontend_bound     
+                                                  #     55.1 %  tma_retiring             ( +-  0.14% )
+
+           3.92683 +- 0.00511 seconds time elapsed  ( +-  0.13% )
+
+
+ Performance counter stats for 'bash -c for i in $(seq 1 11); do ./json2csv_O2g benchmark.json > ./out.csv; done' (5 runs):
+
+           3903.75 msec task-clock                       #    0.980 CPUs utilized               ( +-  0.14% )
+                58      context-switches                 #   14.858 /sec                        ( +-  4.24% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+            817631      page-faults                      #  209.448 K/sec                       ( +-  0.00% )
+       18055251778      cycles                           #    4.625 GHz                         ( +-  0.13% )
+       51230006029      instructions                     #    2.84  insn per cycle              ( +-  0.07% )
+       12420607427      branches                         #    3.182 G/sec                       ( +-  0.06% )
+          45312903      branch-misses                    #    0.36% of all branches             ( +-  0.40% )
+                        TopdownL1                 #     16.8 %  tma_backend_bound      
+                                                  #      9.1 %  tma_bad_speculation    
+                                                  #     19.8 %  tma_frontend_bound     
+                                                  #     54.4 %  tma_retiring             ( +-  0.13% )
+
+           3.98425 +- 0.00527 seconds time elapsed  ( +-  0.13% )
+
+
+[ep12437436:~/pr/src:622] perf report --stdio --call-graph none --no-children --input disk.perf.data \
+  | egrep -i 'write|_IO_|fwrite|fputc|fputs|printf|vfprintf|csv_write_cell' | head
+     6.05%  json2csv_O2g  libc.so.6             [.] _IO_getc
+     1.10%  json2csv_O2g  libc.so.6             [.] _IO_fputs
+     0.97%  json2csv_O2g  json2csv_O2g          [.] csv_write_cell
+     0.59%  json2csv_O2g  libc.so.6             [.] _IO_file_xsputn@@GLIBC_2.2.5
+     0.31%  json2csv_O2g  libc.so.6             [.] fputc
+     0.13%  json2csv_O2g  json2csv_O2g          [.] fputc@plt
+     0.05%  json2csv_O2g  json2csv_O2g          [.] fputs@plt
+     0.03%  json2csv_O2g  [kernel.kallsyms]     [k] native_write_msr

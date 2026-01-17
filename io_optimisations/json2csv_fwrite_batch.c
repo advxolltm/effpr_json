@@ -12,6 +12,88 @@
 #include <ctype.h>
 #include <stdint.h>
 
+static void die(const char *msg);
+
+// ---------------- Batched output (fwrite-based) ----------------
+//
+// The baseline CSV writer uses fputc/fputs frequently (especially per character in quoted
+// cells). That creates noticeable user-space overhead. This buffered writer batches output
+// into a large user-space buffer and flushes with fwrite() in larger chunks.
+
+typedef struct
+{
+    FILE *f;
+    char *buf;
+    size_t len;
+    size_t cap;
+} OutBuf;
+
+static void out_flush(OutBuf *o);
+
+static void out_init(OutBuf *o, FILE *f, size_t cap)
+{
+    o->f = f;
+    o->buf = (char *)malloc(cap);
+    if (!o->buf)
+        die("out of memory");
+    o->len = 0;
+    o->cap = cap;
+}
+
+static void out_free(OutBuf *o)
+{
+    if (!o)
+        return;
+    out_flush(o);
+    free(o->buf);
+    o->buf = NULL;
+    o->len = o->cap = 0;
+    o->f = NULL;
+}
+
+static void out_flush(OutBuf *o)
+{
+    if (o->len == 0)
+        return;
+    size_t n = fwrite(o->buf, 1, o->len, o->f);
+    if (n != o->len)
+        die("write failed");
+    o->len = 0;
+}
+
+static void out_write_n(OutBuf *o, const char *s, size_t n)
+{
+    if (n == 0)
+        return;
+
+    // If the chunk is larger than our whole buffer, flush current buffer and write directly.
+    if (n >= o->cap)
+    {
+        out_flush(o);
+        size_t w = fwrite(s, 1, n, o->f);
+        if (w != n)
+            die("write failed");
+        return;
+    }
+
+    if (o->len + n > o->cap)
+        out_flush(o);
+    memcpy(o->buf + o->len, s, n);
+    o->len += n;
+}
+
+static void out_write(OutBuf *o, const char *s)
+{
+    out_write_n(o, s, strlen(s));
+}
+
+static void out_putc(OutBuf *o, char ch)
+{
+    if (o->len == o->cap)
+        out_flush(o);
+    o->buf[o->len++] = ch;
+}
+
 static void die(const char *msg)
 {
     fprintf(stderr, "ERROR: %s\n", msg);
@@ -727,7 +809,7 @@ static void keyset_free(KeySet *s)
 
 // --------------- CSV writer (simple) ---------------
 
-static void csv_write_cell(FILE *out, const char *s)
+static void csv_write_cell(OutBuf *out, const char *s)
 {
     // Baseline: quote if contains comma/quote/newline
     int need_quote = 0;
@@ -741,17 +823,17 @@ static void csv_write_cell(FILE *out, const char *s)
     }
     if (!need_quote)
     {
-        fputs(s, out);
+        out_write(out, s);
         return;
     }
-    fputc('"', out);
+    out_putc(out, '"');
     for (const char *p = s; *p; p++)
     {
         if (*p == '"')
-            fputc('"', out); // escape by doubling
-        fputc(*p, out);
+            out_putc(out, '"'); // escape by doubling
+        out_putc(out, *p);
     }
-    fputc('"', out);
+    out_putc(out, '"');
 }
 
 static const char *kv_get(const KVList *l, const char *key)
@@ -856,14 +938,21 @@ int main(int argc, char **argv)
         kvlist_free(&kv);
     }
 
+    // We perform our own batching via OutBuf, so disable stdio buffering on stdout
+    // to avoid an extra copy layer inside libc.
+    setvbuf(stdout, NULL, _IONBF, 0);
+
+    OutBuf out = {0};
+    out_init(&out, stdout, 1u << 20); // 1 MiB output buffer
+
     // Print header row
     for (size_t i = 0; i < headers.len; i++)
     {
         if (i)
-            fputc(',', stdout);
-        csv_write_cell(stdout, headers.keys[i]);
+            out_putc(&out, ',');
+        csv_write_cell(&out, headers.keys[i]);
     }
-    fputc('\n', stdout);
+    out_putc(&out, '\n');
 
     // Pass 2: output rows
     for (size_t i = 0; i < objs.len; i++)
@@ -873,13 +962,15 @@ int main(int argc, char **argv)
         for (size_t c = 0; c < headers.len; c++)
         {
             if (c)
-                fputc(',', stdout);
+                out_putc(&out, ',');
             const char *val = kv_get(&kv, headers.keys[c]);
-            csv_write_cell(stdout, val);
+            csv_write_cell(&out, val);
         }
-        fputc('\n', stdout);
+        out_putc(&out, '\n');
         kvlist_free(&kv);
     }
+
+    out_free(&out);
 
     keyset_free(&headers);
     objlist_free(&objs);

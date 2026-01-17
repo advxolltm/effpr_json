@@ -1,0 +1,2 @@
+== Looped baseline time ==
+real=3.92 user=3.22 sys=0.70
