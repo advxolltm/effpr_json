@@ -1,0 +1,22 @@
+
+ Performance counter stats for './json2csv_buf_O2g benchmark.json' (11 runs):
+
+            339.21 msec task-clock                       #    0.980 CPUs utilized               ( +-  0.29% )
+                 3      context-switches                 #    8.844 /sec                        ( +- 17.03% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+             74481      page-faults                      #  219.573 K/sec                       ( +-  0.00% )
+        1564708240      cycles                           #    4.613 GHz                         ( +-  0.33% )  (16.61%)
+        4532090246      instructions                     #    2.90  insn per cycle              ( +-  0.32% )  (26.08%)
+        1096701844      branches                         #    3.233 G/sec                       ( +-  0.20% )  (35.55%)
+           3781509      branch-misses                    #    0.34% of all branches             ( +-  0.73% )  (45.02%)
+                        TopdownL1                 #     14.6 %  tma_backend_bound      
+                                                  #     18.4 %  tma_bad_speculation    
+                                                  #     15.0 %  tma_frontend_bound     
+                                                  #     52.0 %  tma_retiring             ( +-  0.30% )  (54.49%)
+        1228734441      L1-dcache-loads                  #    3.622 G/sec                       ( +-  0.12% )  (66.30%)
+          19558695      L1-dcache-load-misses            #    1.59% of all L1-dcache accesses   ( +-  2.81% )  (8.80%)
+            863815      LLC-loads                        #    2.547 M/sec                       ( +-  2.17% )  (8.29%)
+            729515      LLC-load-misses                  #   84.45% of all LL-cache accesses    ( +-  1.13% )  (8.29%)
+
+           0.34630 +- 0.00120 seconds time elapsed  ( +-  0.35% )
+

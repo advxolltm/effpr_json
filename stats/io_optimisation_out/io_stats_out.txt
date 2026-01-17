@@ -1,0 +1,63 @@
+[ep12437436:~/pr/src:613] /usr/bin/time -f "null: real=%e user=%U sys=%S" bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_buf_O2g '"$INPUT"' > /dev/null; done'
+null: real=3.89 user=3.07 sys=0.81
+
+
+[ep12437436:~/pr/src:614] /usr/bin/time -f "shm:  real=%e user=%U sys=%S" bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_buf_O2g '"$INPUT"' > /dev/shm/out.csv; done'
+shm:  real=3.87 user=3.17 sys=0.69
+
+
+[ep12437436:~/pr/src:615] /usr/bin/time -f "disk: real=%e user=%U sys=%S" bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_buf_O2g '"$INPUT"' > ./out.csv; done'
+disk: real=3.94 user=3.15 sys=0.79
+
+
+[ep12437436:~/pr/src:616] perf record -F 999 -g --output disk.perf.data -- bash -c \
+  'for i in $(seq 1 '"$N"'); do ./json2csv_buf_O2g '"$INPUT"' > ./out.csv; done'
+[ perf record: Woken up 1 times to write data ]
+[ perf record: Captured and wrote 0.323 MB disk.perf.data (3937 samples) ]
+
+
+
+[ep12437436:~/pr/src:618] grep -E 'write|_IO_|fwrite|fputc|putchar|printf' disk.perfreport.txt | head -n 40
+     6.05%  json2csv_O2g  libc.so.6             [.] _IO_getc
+     1.10%  json2csv_O2g  libc.so.6             [.] _IO_fputs
+     0.97%  json2csv_O2g  json2csv_O2g          [.] csv_write_cell
+     0.59%  json2csv_O2g  libc.so.6             [.] _IO_file_xsputn@@GLIBC_2.2.5
+     0.31%  json2csv_O2g  libc.so.6             [.] fputc
+     0.13%  json2csv_O2g  json2csv_O2g          [.] fputc@plt
+     0.03%  json2csv_O2g  [kernel.kallsyms]     [k] native_write_msr
+
+
+
+[ep12437436:~/pr/src:619] perf stat -r 5 bash -c 'for i in $(seq 1 '"$N"'); do ./json2csv_buf_O2g '"$INPUT"' > /dev/null; done'
+           3786.31 msec task-clock                       #    0.977 CPUs utilized               ( +-  0.27% )
+                34      context-switches                 #    8.980 /sec                        ( +- 22.00% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+            820461      page-faults                      #  216.692 K/sec                       ( +-  0.00% )
+       17481315181      cycles                           #    4.617 GHz                         ( +-  0.23% )
+       50424065528      instructions                     #    2.88  insn per cycle              ( +-  0.02% )
+       12205197673      branches                         #    3.224 G/sec                       ( +-  0.02% )
+          43538906      branch-misses                    #    0.36% of all branches             ( +-  0.28% )
+                        TopdownL1                 #     17.1 %  tma_backend_bound      
+                                                  #      8.2 %  tma_bad_speculation    
+                                                  #     19.4 %  tma_frontend_bound     
+                                                  #     55.3 %  tma_retiring             ( +-  0.23% )
+
+            3.8746 +- 0.0121 seconds time elapsed  ( +-  0.31% )
+
+
+
+[ep12437436:~/pr/src:622] perf report --stdio --call-graph none --no-children --input disk.perf.data \
+  | egrep -i 'write|_IO_|fwrite|fputc|fputs|printf|vfprintf|csv_write_cell' | head
+     1.05%  json2csv_buf_O2  libc.so.6             [.] _IO_fputs
+     0.80%  json2csv_buf_O2  json2csv_buf_O2g      [.] csv_write_cell
+     0.54%  json2csv_buf_O2  libc.so.6             [.] _IO_file_xsputn@@GLIBC_2.2.5
+     0.49%  json2csv_buf_O2  libc.so.6             [.] fputc
+     0.15%  json2csv_buf_O2  json2csv_buf_O2g      [.] fputc@plt
+     0.05%  json2csv_buf_O2  libc.so.6             [.] __GI___libc_write
+     0.03%  json2csv_buf_O2  json2csv_buf_O2g      [.] fputs@plt
+     0.03%  json2csv_buf_O2  [zfs]                 [k] dmu_write_uio_dnode
+     0.03%  json2csv_buf_O2  [zfs]                 [k] zfs_log_write
+     0.03%  json2csv_buf_O2  [kernel.kallsyms]     [k] __x64_sys_write

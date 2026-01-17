@@ -1,0 +1,110 @@
+	Command being timed: "./json2csv_buf_O2g benchmark.json"
+	User time (seconds): 0.28
+	System time (seconds): 0.06
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 298380
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 74505
+	Voluntary context switches: 1
+	Involuntary context switches: 2
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+
+	Command being timed: "bash -c for i in $(seq 1 11); do ./json2csv_buf_O2g benchmark.json > /dev/null; done"
+	User time (seconds): 3.13
+	System time (seconds): 0.66
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.80
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 298376
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 820307
+	Voluntary context switches: 26
+	Involuntary context switches: 44
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 42.32    0.001227           0      2880           read
+ 22.53    0.000653           0      2239           brk
+ 19.59    0.000568         568         1           execve
+  4.73    0.000137          13        10           mmap
+  2.79    0.000081          27         3           munmap
+  2.07    0.000060          20         3           openat
+  1.79    0.000052          17         3           mprotect
+  0.86    0.000025           8         3           fstat
+  0.59    0.000017           2         6           mremap
+  0.55    0.000016           8         2           pread64
+  0.52    0.000015           5         3           close
+  0.41    0.000012          12         1         1 access
+  0.28    0.000008           8         1           getrandom
+  0.21    0.000006           6         1           arch_prctl
+  0.21    0.000006           6         1           prlimit64
+  0.21    0.000006           6         1           rseq
+  0.17    0.000005           5         1           set_tid_address
+  0.17    0.000005           5         1           set_robust_list
+  0.00    0.000000           0         8           write
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.002899           0      5168         1 total
+
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  0.00    0.000000           0         8           write
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000000           0         8           total
+
+
+
+ Performance counter stats for './json2csv_buf_O2g benchmark.json' (11 runs):
+
+            339.21 msec task-clock                       #    0.980 CPUs utilized               ( +-  0.29% )
+                 3      context-switches                 #    8.844 /sec                        ( +- 17.03% )
+                 0      cpu-migrations                   #    0.000 /sec                      
+             74481      page-faults                      #  219.573 K/sec                       ( +-  0.00% )
+        1564708240      cycles                           #    4.613 GHz                         ( +-  0.33% )  (16.61%)
+        4532090246      instructions                     #    2.90  insn per cycle              ( +-  0.32% )  (26.08%)
+        1096701844      branches                         #    3.233 G/sec                       ( +-  0.20% )  (35.55%)
+           3781509      branch-misses                    #    0.34% of all branches             ( +-  0.73% )  (45.02%)
+                        TopdownL1                 #     14.6 %  tma_backend_bound      
+                                                  #     18.4 %  tma_bad_speculation    
+                                                  #     15.0 %  tma_frontend_bound     
+                                                  #     52.0 %  tma_retiring             ( +-  0.30% )  (54.49%)
+        1228734441      L1-dcache-loads                  #    3.622 G/sec                       ( +-  0.12% )  (66.30%)
+          19558695      L1-dcache-load-misses            #    1.59% of all L1-dcache accesses   ( +-  2.81% )  (8.80%)
+            863815      LLC-loads                        #    2.547 M/sec                       ( +-  2.17% )  (8.29%)
+            729515      LLC-load-misses                  #   84.45% of all LL-cache accesses    ( +-  1.13% )  (8.29%)
+
+           0.34630 +- 0.00120 seconds time elapsed  ( +-  0.35% )
+
+
+ Performance counter stats for './json2csv_buf_O2g benchmark.json' (11 runs):
+
+      %  tma_retiring %  tma_backend_bound %  tma_frontend_bound %  tma_bad_speculation 
+                55.5                         17.2                           18.1                             9.2 
+
+           0.34685 +- 0.00101 seconds time elapsed  ( +-  0.29% )
+
