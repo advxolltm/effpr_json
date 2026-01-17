@@ -497,7 +497,7 @@ typedef struct
     size_t len, cap;
 } KVList;
 
-static inline void kv_push(KVList * restrict l, char * restrict k, char * restrict v)
+static void kv_push(KVList *l, char *k, char *v)
 {
     if (l->len == l->cap)
     {
@@ -510,7 +510,7 @@ static inline void kv_push(KVList * restrict l, char * restrict k, char * restri
 }
 
 static inline char *
-json_primitive_to_string(const JValue * restrict v)
+json_primitive_to_string(const JValue *restrict v)
 {
     // Baseline: allocate a new string for each conversion
     switch (v->type)
@@ -528,7 +528,7 @@ json_primitive_to_string(const JValue * restrict v)
     }
 }
 
-static inline int array_is_all_primitives(const JValue *arr)
+static int array_is_all_primitives(const JValue *arr)
 {
     for (size_t i = 0; i < arr->as.array.len; i++)
     {
@@ -580,25 +580,16 @@ static char *make_key(const char *prefix, const char *k)
     return r;
 }
 
-
-static void flatten_object(const JValue *restrict obj,
-                           const char *restrict prefix,
-                           KVList *restrict out)
+static void flatten_object(const JValue *obj, const char *prefix, KVList *out)
 {
-    /* Cache object members and length locally */
-    const JMember *restrict members = obj->as.object.members;
-    const size_t len = obj->as.object.len;
-
-    for (size_t i = 0; i < len; i++) {
-        const char *restrict k   = members[i].key;
-        const JValue *restrict v = members[i].value;
-
-        char *nk = make_key(prefix, k);
-        flatten_value(v, nk, out);
+    for (size_t i = 0; i < obj->as.object.len; i++)
+    {
+        const JMember *m = &obj->as.object.members[i];
+        char *nk = make_key(prefix, m->key);
+        flatten_value(m->value, nk, out);
         free(nk);
     }
 }
-
 static void json_print_value(const JValue *v, char **buf, size_t *len, size_t *cap);
 
 static void sb_app(char **b, size_t *l, size_t *c, const char *s)
@@ -656,36 +647,35 @@ static void json_print_value(const JValue *v, char **buf, size_t *len, size_t *c
     }
 }
 
-static void flatten_value(const JValue * restrict v, const char * restrict prefix, KVList * restrict out)
+static void flatten_value(const JValue *v, const char *prefix, KVList *out)
 {
-if (v->type == J_NULL || v->type == J_BOOL ||
-    v->type == J_NUMBER || v->type == J_STRING)
-{
-    kv_push(out, xstrdup(prefix), json_primitive_to_string(v));
-    return;
-}
-
-if (v->type == J_OBJECT)
-{
-    flatten_object(v, prefix, out);
-    return;
-}
-
-if (v->type == J_ARRAY)
-{
-    if (array_is_all_primitives(v))
+    if (v->type == J_NULL || v->type == J_BOOL ||
+        v->type == J_NUMBER || v->type == J_STRING)
     {
-        char *joined = join_array_primitives(v);
-        kv_push(out, xstrdup(prefix), joined);
+        kv_push(out, xstrdup(prefix), json_primitive_to_string(v));
+        return;
     }
-    else
-    {
-        char *s = json_array_to_string(v);
-        kv_push(out, xstrdup(prefix), s);
-    }
-    return;
-}
 
+    if (v->type == J_OBJECT)
+    {
+        flatten_object(v, prefix, out);
+        return;
+    }
+
+    if (v->type == J_ARRAY)
+    {
+        if (array_is_all_primitives(v))
+        {
+            char *joined = join_array_primitives(v);
+            kv_push(out, xstrdup(prefix), joined);
+        }
+        else
+        {
+            char *s = json_array_to_string(v);
+            kv_push(out, xstrdup(prefix), s);
+        }
+        return;
+    }
 }
 
 static void kvlist_free(KVList *l)
@@ -741,25 +731,17 @@ static void keyset_free(KeySet *s)
 
 // --------------- CSV writer (simple) ---------------
 
-static void csv_write_cell(FILE * restrict out, const char * restrict s)
+static void csv_write_cell(FILE *out, const char *s)
 {
     // Baseline: quote if contains comma/quote/newline
     int need_quote = 0;
     for (const unsigned char *p = (const unsigned char *)s; *p; p++)
     {
-      need_quote |=
-         ((*p == ',') |
-         (*p == '"') |
-         (*p == '\n') |
-         (*p == '\r'));
-    }
-    for (const char *p = s; *p; p++)
-    {
-        if (*p == ',' || *p == '"' || *p == '\n' || *p == '\r')
-        {
-            need_quote = 1;
-            break;
-        }
+        need_quote |=
+            ((*p == ',') |
+             (*p == '"') |
+             (*p == '\n') |
+             (*p == '\r'));
     }
     if (!need_quote)
     {
