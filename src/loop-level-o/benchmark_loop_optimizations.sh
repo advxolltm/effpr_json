@@ -96,7 +96,13 @@ echo ""
 extract_metric() {
     local output="$1"
     local pattern="$2"
-    echo "$output" | grep "$pattern" | grep -v "#" | awk '{print $1}' | tr -d ',' | head -1
+    local value=$(echo "$output" | grep "$pattern" | awk '{print $1}' | tr -d ',' | head -1)
+    # Return 0 if empty or not a number
+    if [ -z "$value" ] || ! [[ "$value" =~ ^[0-9]+$ ]]; then
+        echo "0"
+    else
+        echo "$value"
+    fi
 }
 
 # Function to run benchmark
@@ -138,11 +144,22 @@ run_benchmark() {
             local branches=$(extract_metric "$output" "branches")
             local branch_misses=$(extract_metric "$output" "branch-misses")
             
-            total_time=$(echo "$total_time + $time" | bc 2>/dev/null || echo "$total_time")
-            total_cycles=$(echo "$total_cycles + $cycles" | bc 2>/dev/null || echo "$total_cycles")
-            total_instructions=$(echo "$total_instructions + $instructions" | bc 2>/dev/null || echo "$total_instructions")
-            total_branches=$(echo "$total_branches + $branches" | bc 2>/dev/null || echo "$total_branches")
-            total_branch_misses=$(echo "$total_branch_misses + $branch_misses" | bc 2>/dev/null || echo "$total_branch_misses")
+            # Safe addition with bc, handling empty values
+            if [ -n "$time" ] && [ "$time" != "0" ]; then
+                total_time=$(echo "$total_time + $time" | bc -l 2>/dev/null || echo "$total_time")
+            fi
+            if [ "$cycles" != "0" ]; then
+                total_cycles=$(echo "$total_cycles + $cycles" | bc -l 2>/dev/null || echo "$total_cycles")
+            fi
+            if [ "$instructions" != "0" ]; then
+                total_instructions=$(echo "$total_instructions + $instructions" | bc -l 2>/dev/null || echo "$total_instructions")
+            fi
+            if [ "$branches" != "0" ]; then
+                total_branches=$(echo "$total_branches + $branches" | bc -l 2>/dev/null || echo "$total_branches")
+            fi
+            if [ "$branch_misses" != "0" ]; then
+                total_branch_misses=$(echo "$total_branch_misses + $branch_misses" | bc -l 2>/dev/null || echo "$total_branch_misses")
+            fi
             
             echo -e "${GREEN}${time}s${NC}"
         else
@@ -158,17 +175,23 @@ run_benchmark() {
     
     # Calculate averages
     if [ "$use_perf" = true ] && command -v bc &> /dev/null; then
-        local avg_time=$(echo "scale=3; $total_time / $RUNS" | bc)
-        local avg_cycles=$(echo "scale=0; $total_cycles / $RUNS" | bc)
-        local avg_instructions=$(echo "scale=0; $total_instructions / $RUNS" | bc)
-        local avg_branches=$(echo "scale=0; $total_branches / $RUNS" | bc)
-        local avg_branch_misses=$(echo "scale=0; $total_branch_misses / $RUNS" | bc)
+        local avg_time=$(echo "scale=3; $total_time / $RUNS" | bc -l 2>/dev/null || echo "0")
+        local avg_cycles=$(echo "scale=0; $total_cycles / $RUNS" | bc -l 2>/dev/null || echo "0")
+        local avg_instructions=$(echo "scale=0; $total_instructions / $RUNS" | bc -l 2>/dev/null || echo "0")
+        local avg_branches=$(echo "scale=0; $total_branches / $RUNS" | bc -l 2>/dev/null || echo "0")
+        local avg_branch_misses=$(echo "scale=0; $total_branch_misses / $RUNS" | bc -l 2>/dev/null || echo "0")
         
-        # Calculate IPC
-        local ipc=$(echo "scale=3; $avg_instructions / $avg_cycles" | bc)
+        # Calculate IPC (only if both values are non-zero)
+        local ipc="N/A"
+        if [ "$avg_cycles" != "0" ] && [ "$avg_instructions" != "0" ]; then
+            ipc=$(echo "scale=3; $avg_instructions / $avg_cycles" | bc -l 2>/dev/null || echo "N/A")
+        fi
         
-        # Calculate branch miss rate
-        local branch_miss_rate=$(echo "scale=2; ($avg_branch_misses / $avg_branches) * 100" | bc)
+        # Calculate branch miss rate (only if branches > 0)
+        local branch_miss_rate="N/A"
+        if [ "$avg_branches" != "0" ] && [ "$avg_branch_misses" != "0" ]; then
+            branch_miss_rate=$(echo "scale=2; ($avg_branch_misses / $avg_branches) * 100" | bc -l 2>/dev/null || echo "N/A")
+        fi
         
         echo ""
         echo -e "  ${BLUE}Average Runtime:${NC}       ${avg_time}s"
@@ -176,7 +199,11 @@ run_benchmark() {
         echo -e "  ${BLUE}Average Instructions:${NC}  $(printf "%'d" $avg_instructions 2>/dev/null || echo $avg_instructions)"
         echo -e "  ${BLUE}IPC:${NC}                   ${ipc}"
         echo -e "  ${BLUE}Branches:${NC}              $(printf "%'d" $avg_branches 2>/dev/null || echo $avg_branches)"
-        echo -e "  ${BLUE}Branch Misses:${NC}         $(printf "%'d" $avg_branch_misses 2>/dev/null || echo $avg_branch_misses) (${branch_miss_rate}%)"
+        if [ "$branch_miss_rate" != "N/A" ]; then
+            echo -e "  ${BLUE}Branch Misses:${NC}         $(printf "%'d" $avg_branch_misses 2>/dev/null || echo $avg_branch_misses) (${branch_miss_rate}%)"
+        else
+            echo -e "  ${BLUE}Branch Misses:${NC}         $(printf "%'d" $avg_branch_misses 2>/dev/null || echo $avg_branch_misses)"
+        fi
         echo ""
         
         # Store results
@@ -207,7 +234,7 @@ echo -e "${GREEN}=========================================${NC}"
 echo ""
 
 if command -v bc &> /dev/null && [ ! -z "$BASELINE_time" ] && [ ! -z "$OPTIMIZED_time" ]; then
-    speedup=$(echo "scale=3; $BASELINE_time / $OPTIMIZED_time" | bc)
+    speedup=$(echo "scale=3; $BASELINE_time / $OPTIMIZED_time" | bc -l 2>/dev/null || echo "N/A")
     
     echo -e "${BLUE}Runtime:${NC}"
     echo -e "  Baseline:  ${BASELINE_time}s"
@@ -215,19 +242,44 @@ if command -v bc &> /dev/null && [ ! -z "$BASELINE_time" ] && [ ! -z "$OPTIMIZED
     echo -e "  ${GREEN}Speedup:   ${speedup}x${NC}"
     echo ""
     
-    if [ ! -z "$BASELINE_cycles" ] && [ ! -z "$OPTIMIZED_cycles" ]; then
-        cycle_reduction=$(echo "scale=2; (($BASELINE_cycles - $OPTIMIZED_cycles) / $BASELINE_cycles) * 100" | bc)
-        instruction_reduction=$(echo "scale=2; (($BASELINE_instructions - $OPTIMIZED_instructions) / $BASELINE_instructions) * 100" | bc)
-        branch_reduction=$(echo "scale=2; (($BASELINE_branches - $OPTIMIZED_branches) / $BASELINE_branches) * 100" | bc)
-        branch_miss_reduction=$(echo "scale=2; (($BASELINE_branch_misses - $OPTIMIZED_branch_misses) / $BASELINE_branch_misses) * 100" | bc)
+    if [ ! -z "$BASELINE_cycles" ] && [ ! -z "$OPTIMIZED_cycles" ] && [ "$BASELINE_cycles" != "0" ] && [ "$OPTIMIZED_cycles" != "0" ]; then
+        cycle_reduction=$(echo "scale=2; (($BASELINE_cycles - $OPTIMIZED_cycles) / $BASELINE_cycles) * 100" | bc -l 2>/dev/null || echo "N/A")
+        
+        if [ ! -z "$BASELINE_instructions" ] && [ "$BASELINE_instructions" != "0" ] && [ "$OPTIMIZED_instructions" != "0" ]; then
+            instruction_reduction=$(echo "scale=2; (($BASELINE_instructions - $OPTIMIZED_instructions) / $BASELINE_instructions) * 100" | bc -l 2>/dev/null || echo "N/A")
+        else
+            instruction_reduction="N/A"
+        fi
+        
+        if [ ! -z "$BASELINE_branches" ] && [ "$BASELINE_branches" != "0" ] && [ "$OPTIMIZED_branches" != "0" ]; then
+            branch_reduction=$(echo "scale=2; (($BASELINE_branches - $OPTIMIZED_branches) / $BASELINE_branches) * 100" | bc -l 2>/dev/null || echo "N/A")
+        else
+            branch_reduction="N/A"
+        fi
+        
+        if [ ! -z "$BASELINE_branch_misses" ] && [ "$BASELINE_branch_misses" != "0" ] && [ "$OPTIMIZED_branch_misses" != "0" ]; then
+            branch_miss_reduction=$(echo "scale=2; (($BASELINE_branch_misses - $OPTIMIZED_branch_misses) / $BASELINE_branch_misses) * 100" | bc -l 2>/dev/null || echo "N/A")
+        else
+            branch_miss_reduction="N/A"
+        fi
         
         echo -e "${BLUE}Detailed Metrics:${NC}"
         echo -e "  Cycle Reduction:         ${cycle_reduction}%"
-        echo -e "  Instruction Reduction:   ${instruction_reduction}%"
-        echo -e "  Branch Reduction:        ${branch_reduction}%"
-        echo -e "  Branch Miss Reduction:   ${branch_miss_reduction}%"
-        echo -e "  IPC (Baseline):          ${BASELINE_ipc}"
-        echo -e "  IPC (Optimized):         ${OPTIMIZED_ipc}"
+        if [ "$instruction_reduction" != "N/A" ]; then
+            echo -e "  Instruction Reduction:   ${instruction_reduction}%"
+        fi
+        if [ "$branch_reduction" != "N/A" ]; then
+            echo -e "  Branch Reduction:        ${branch_reduction}%"
+        fi
+        if [ "$branch_miss_reduction" != "N/A" ]; then
+            echo -e "  Branch Miss Reduction:   ${branch_miss_reduction}%"
+        fi
+        if [ ! -z "$BASELINE_ipc" ] && [ "$BASELINE_ipc" != "N/A" ]; then
+            echo -e "  IPC (Baseline):          ${BASELINE_ipc}"
+        fi
+        if [ ! -z "$OPTIMIZED_ipc" ] && [ "$OPTIMIZED_ipc" != "N/A" ]; then
+            echo -e "  IPC (Optimized):         ${OPTIMIZED_ipc}"
+        fi
         echo ""
     fi
 fi
