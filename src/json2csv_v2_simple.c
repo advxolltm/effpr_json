@@ -179,6 +179,7 @@ static inline void p_skip_ws(Parser *p)
         p_next(p);
 }
 
+
 static void p_expect(Parser *p, int ch)
 {
     if (p->c != ch)
