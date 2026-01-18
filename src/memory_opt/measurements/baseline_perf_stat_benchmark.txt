@@ -1,0 +1,15 @@
+
+ Performance counter stats for './json2csv benchmark.json':
+
+        2435274670      cycles:u                                                              
+        6512504217      instructions:u                   #    2.67  insn per cycle            
+           7419398      cache-misses:u                                                        
+          14958636      L1-dcache-load-misses                                                 
+           6721598      branch-misses:u                                                       
+
+       0.591207835 seconds time elapsed
+
+       0.530905000 seconds user
+       0.060330000 seconds sys
+
+

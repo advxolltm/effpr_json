@@ -1,0 +1,403 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 16.68      0.04     0.04 16072707     0.00     0.00  sb_push
+ 12.51      0.07     0.03 23568426     0.00     0.00  p_next
+ 12.51      0.10     0.03                             _init
+  8.34      0.12     0.02  1014286     0.00     0.00  keyset_contains
+  8.34      0.14     0.02   200000     0.00     0.00  join_array_primitives
+  6.25      0.16     0.02  8399921     0.00     0.00  xmalloc
+  4.17      0.17     0.01  7371341     0.00     0.00  p_skip_ws
+  4.17      0.18     0.01  1928541     0.00     0.00  parse_string
+  4.17      0.19     0.01  1514256     0.00     0.00  parse_value
+  4.17      0.20     0.01  1214286     0.00     0.00  jobject_add
+  4.17      0.21     0.01  1100011     0.00     0.00  csv_write_cell
+  4.17      0.22     0.01   600000     0.00     0.00  flatten_object
+  4.17      0.23     0.01   300000     0.00     0.00  parse_number_text
+  2.08      0.23     0.01  5485665     0.00     0.00  xstrdup
+  2.08      0.24     0.01  2828571     0.00     0.00  xrealloc
+  2.08      0.24     0.01                             die
+  0.00      0.24     0.00  5471369     0.00     0.00  p_expect
+  0.00      0.24     0.00  2428572     0.00     0.00  flatten_value
+  0.00      0.24     0.00  2428572     0.00     0.00  make_key
+  0.00      0.24     0.00  2228510     0.00     0.00  json_primitive_to_string
+  0.00      0.24     0.00  2028572     0.00     0.00  kv_push
+  0.00      0.24     0.00  1514256     0.00     0.00  jnew
+  0.00      0.24     0.00  1100000     0.00     0.00  kv_get
+  0.00      0.24     0.00  1014286     0.00     0.00  keyset_add
+  0.00      0.24     0.00   300000     0.00     0.00  parse_object
+  0.00      0.24     0.00   299969     0.00     0.00  jarray_push
+  0.00      0.24     0.00   200000     0.00     0.00  array_is_all_primitives
+  0.00      0.24     0.00   200000     0.00     0.00  kvlist_free
+  0.00      0.24     0.00   100001     0.00     0.00  parse_array
+  0.00      0.24     0.00   100000     0.00     0.00  jfree
+  0.00      0.24     0.00   100000     0.00     0.00  objlist_push
+  0.00      0.24     0.00   100000     0.00     0.00  p_match_kw
+  0.00      0.24     0.00        1     0.00     0.00  keyset_free
+  0.00      0.24     0.00        1     0.00     0.00  objlist_free
+  0.00      0.24     0.00        1     0.00     0.00  p_init
+  0.00      0.24     0.00        1     0.00   127.42  parse_top
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 4.16% of 0.24 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     85.4    0.00    0.21                 main [1]
+                0.00    0.13       1/1           parse_top [2]
+                0.01    0.04  200000/200000      flatten_object <cycle 2> [16]
+                0.00    0.02 1014286/1014286     keyset_add [13]
+                0.01    0.00 1100011/1100011     csv_write_cell [21]
+                0.00    0.00 1100000/1100000     kv_get [34]
+                0.00    0.00  200000/200000      kvlist_free [36]
+                0.00    0.00       1/1           keyset_free [38]
+                0.00    0.00       1/1           objlist_free [39]
+-----------------------------------------------
+                0.00    0.13       1/1           main [1]
+[2]     53.1    0.00    0.13       1         parse_top [2]
+                0.01    0.12       1/1           parse_value <cycle 1> [6]
+                0.00    0.00  100000/100000      objlist_push [32]
+                0.00    0.00       2/7371341     p_skip_ws [19]
+                0.00    0.00       1/1           p_init [33]
+-----------------------------------------------
+[3]     53.1    0.01    0.12       1+1914256 <cycle 1 as a whole> [3]
+                0.00    0.07  300000             parse_object <cycle 1> [5]
+                0.01    0.05 1514256             parse_value <cycle 1> [6]
+                0.00    0.00  100001             parse_array <cycle 1> [28]
+-----------------------------------------------
+                0.00    0.02  714255/1928541     parse_value <cycle 1> [6]
+                0.01    0.04 1214286/1928541     parse_object <cycle 1> [5]
+[4]     29.3    0.01    0.06 1928541         parse_string [4]
+                0.04    0.00 14416374/16072707     sb_push [8]
+                0.02    0.00 12487833/23568426     p_next [10]
+                0.00    0.00 3857082/5471369     p_expect [22]
+-----------------------------------------------
+                              300000             parse_value <cycle 1> [6]
+[5]     28.3    0.00    0.07  300000         parse_object <cycle 1> [5]
+                0.01    0.04 1214286/1928541     parse_string [4]
+                0.01    0.00 1214286/1214286     jobject_add [20]
+                0.01    0.00 5157144/7371341     p_skip_ws [19]
+                0.00    0.00 1514286/5471369     p_expect [22]
+                0.00    0.00 1214286/23568426     p_next [10]
+                0.00    0.00  300000/1514256     jnew [27]
+                             1214286             parse_value <cycle 1> [6]
+-----------------------------------------------
+                              299969             parse_array <cycle 1> [28]
+                             1214286             parse_object <cycle 1> [5]
+                0.01    0.12       1/1           parse_top [2]
+[6]     23.9    0.01    0.05 1514256         parse_value <cycle 1> [6]
+                0.00    0.02  714255/1928541     parse_string [4]
+                0.01    0.01  300000/300000      parse_number_text [15]
+                0.00    0.00 1514256/7371341     p_skip_ws [19]
+                0.00    0.00 1114255/1514256     jnew [27]
+                0.00    0.00  100000/100000      p_match_kw [29]
+                              300000             parse_object <cycle 1> [5]
+                              100001             parse_array <cycle 1> [28]
+-----------------------------------------------
+[7]     19.9    0.01    0.04  200000+2828572 <cycle 2 as a whole> [7]
+                0.00    0.03 2428572             flatten_value <cycle 2> [9]
+                0.01    0.01  600000             flatten_object <cycle 2> [16]
+-----------------------------------------------
+                0.00    0.00 1656333/16072707     parse_number_text [15]
+                0.04    0.00 14416374/16072707     parse_string [4]
+[8]     18.3    0.04    0.00 16072707         sb_push [8]
+                0.00    0.00 2228541/2828571     xrealloc [25]
+-----------------------------------------------
+                             2428572             flatten_object <cycle 2> [16]
+[9]     13.4    0.00    0.03 2428572         flatten_value <cycle 2> [9]
+                0.02    0.00  200000/200000      join_array_primitives [12]
+                0.00    0.00 2028572/5485665     xstrdup [18]
+                0.00    0.00 1828572/2228510     json_primitive_to_string [23]
+                0.00    0.00 2028572/2028572     kv_push [30]
+                0.00    0.00  200000/200000      array_is_all_primitives [35]
+                              400000             flatten_object <cycle 2> [16]
+-----------------------------------------------
+                0.00    0.00       1/23568426     p_init [33]
+                0.00    0.00  299969/23568426     parse_array <cycle 1> [28]
+                0.00    0.00  410095/23568426     p_match_kw [29]
+                0.00    0.00 1214286/23568426     parse_object <cycle 1> [5]
+                0.00    0.00 1356333/23568426     parse_number_text [15]
+                0.00    0.00 2328540/23568426     p_skip_ws [19]
+                0.01    0.00 5471369/23568426     p_expect [22]
+                0.02    0.00 12487833/23568426     parse_string [4]
+[10]    12.5    0.03    0.00 23568426         p_next [10]
+-----------------------------------------------
+                                                 <spontaneous>
+[11]    12.5    0.03    0.00                 _init [11]
+-----------------------------------------------
+                0.02    0.00  200000/200000      flatten_value <cycle 2> [9]
+[12]     8.9    0.02    0.00  200000         join_array_primitives [12]
+                0.00    0.00  399938/2228510     json_primitive_to_string [23]
+                0.00    0.00  200000/8399921     xmalloc [17]
+-----------------------------------------------
+                0.00    0.02 1014286/1014286     main [1]
+[13]     8.3    0.00    0.02 1014286         keyset_add [13]
+                0.02    0.00 1014286/1014286     keyset_contains [14]
+                0.00    0.00      11/5485665     xstrdup [18]
+                0.00    0.00       1/2828571     xrealloc [25]
+-----------------------------------------------
+                0.02    0.00 1014286/1014286     keyset_add [13]
+[14]     8.3    0.02    0.00 1014286         keyset_contains [14]
+-----------------------------------------------
+                0.01    0.01  300000/300000      parse_value <cycle 1> [6]
+[15]     6.8    0.01    0.01  300000         parse_number_text [15]
+                0.00    0.00 1656333/16072707     sb_push [8]
+                0.00    0.00 1356333/23568426     p_next [10]
+-----------------------------------------------
+                              400000             flatten_value <cycle 2> [9]
+                0.01    0.04  200000/200000      main [1]
+[16]     6.4    0.01    0.01  600000         flatten_object <cycle 2> [16]
+                0.00    0.01 2428572/2428572     make_key [24]
+                             2428572             flatten_value <cycle 2> [9]
+-----------------------------------------------
+                0.00    0.00  200000/8399921     join_array_primitives [12]
+                0.00    0.00 1200000/8399921     make_key [24]
+                0.00    0.00 1514256/8399921     jnew [27]
+                0.01    0.00 5485665/8399921     xstrdup [18]
+[17]     6.2    0.02    0.00 8399921         xmalloc [17]
+-----------------------------------------------
+                0.00    0.00      11/5485665     keyset_add [13]
+                0.00    0.00 1228572/5485665     make_key [24]
+                0.00    0.00 2028572/5485665     flatten_value <cycle 2> [9]
+                0.00    0.00 2228510/5485665     json_primitive_to_string [23]
+[18]     6.2    0.01    0.01 5485665         xstrdup [18]
+                0.01    0.00 5485665/8399921     xmalloc [17]
+-----------------------------------------------
+                0.00    0.00       2/7371341     parse_top [2]
+                0.00    0.00  699939/7371341     parse_array <cycle 1> [28]
+                0.00    0.00 1514256/7371341     parse_value <cycle 1> [6]
+                0.01    0.00 5157144/7371341     parse_object <cycle 1> [5]
+[19]     5.4    0.01    0.00 7371341         p_skip_ws [19]
+                0.00    0.00 2328540/23568426     p_next [10]
+-----------------------------------------------
+                0.01    0.00 1214286/1214286     parse_object <cycle 1> [5]
+[20]     4.4    0.01    0.00 1214286         jobject_add [20]
+                0.00    0.00  300000/2828571     xrealloc [25]
+-----------------------------------------------
+                0.01    0.00 1100011/1100011     main [1]
+[21]     4.2    0.01    0.00 1100011         csv_write_cell [21]
+-----------------------------------------------
+                0.00    0.00  100001/5471369     parse_array <cycle 1> [28]
+                0.00    0.00 1514286/5471369     parse_object <cycle 1> [5]
+                0.00    0.00 3857082/5471369     parse_string [4]
+[22]     2.9    0.00    0.01 5471369         p_expect [22]
+                0.01    0.00 5471369/23568426     p_next [10]
+-----------------------------------------------
+                0.00    0.00  399938/2228510     join_array_primitives [12]
+                0.00    0.00 1828572/2228510     flatten_value <cycle 2> [9]
+[23]     2.5    0.00    0.01 2228510         json_primitive_to_string [23]
+                0.00    0.00 2228510/5485665     xstrdup [18]
+-----------------------------------------------
+                0.00    0.01 2428572/2428572     flatten_object <cycle 2> [16]
+[24]     2.3    0.00    0.01 2428572         make_key [24]
+                0.00    0.00 1228572/5485665     xstrdup [18]
+                0.00    0.00 1200000/8399921     xmalloc [17]
+-----------------------------------------------
+                0.00    0.00       1/2828571     keyset_add [13]
+                0.00    0.00      14/2828571     objlist_push [32]
+                0.00    0.00  100015/2828571     jarray_push [31]
+                0.00    0.00  200000/2828571     kv_push [30]
+                0.00    0.00  300000/2828571     jobject_add [20]
+                0.00    0.00 2228541/2828571     sb_push [8]
+[25]     2.1    0.01    0.00 2828571         xrealloc [25]
+-----------------------------------------------
+                                                 <spontaneous>
+[26]     2.1    0.01    0.00                 die [26]
+-----------------------------------------------
+                0.00    0.00  100001/1514256     parse_array <cycle 1> [28]
+                0.00    0.00  300000/1514256     parse_object <cycle 1> [5]
+                0.00    0.00 1114255/1514256     parse_value <cycle 1> [6]
+[27]     1.1    0.00    0.00 1514256         jnew [27]
+                0.00    0.00 1514256/8399921     xmalloc [17]
+-----------------------------------------------
+                              100001             parse_value <cycle 1> [6]
+[28]     0.9    0.00    0.00  100001         parse_array <cycle 1> [28]
+                0.00    0.00  699939/7371341     p_skip_ws [19]
+                0.00    0.00  299969/23568426     p_next [10]
+                0.00    0.00  100001/1514256     jnew [27]
+                0.00    0.00  299969/299969      jarray_push [31]
+                0.00    0.00  100001/5471369     p_expect [22]
+                              299969             parse_value <cycle 1> [6]
+-----------------------------------------------
+                0.00    0.00  100000/100000      parse_value <cycle 1> [6]
+[29]     0.2    0.00    0.00  100000         p_match_kw [29]
+                0.00    0.00  410095/23568426     p_next [10]
+-----------------------------------------------
+                0.00    0.00 2028572/2028572     flatten_value <cycle 2> [9]
+[30]     0.1    0.00    0.00 2028572         kv_push [30]
+                0.00    0.00  200000/2828571     xrealloc [25]
+-----------------------------------------------
+                0.00    0.00  299969/299969      parse_array <cycle 1> [28]
+[31]     0.1    0.00    0.00  299969         jarray_push [31]
+                0.00    0.00  100015/2828571     xrealloc [25]
+-----------------------------------------------
+                0.00    0.00  100000/100000      parse_top [2]
+[32]     0.0    0.00    0.00  100000         objlist_push [32]
+                0.00    0.00      14/2828571     xrealloc [25]
+-----------------------------------------------
+                0.00    0.00       1/1           parse_top [2]
+[33]     0.0    0.00    0.00       1         p_init [33]
+                0.00    0.00       1/23568426     p_next [10]
+-----------------------------------------------
+                0.00    0.00 1100000/1100000     main [1]
+[34]     0.0    0.00    0.00 1100000         kv_get [34]
+-----------------------------------------------
+                0.00    0.00  200000/200000      flatten_value <cycle 2> [9]
+[35]     0.0    0.00    0.00  200000         array_is_all_primitives [35]
+-----------------------------------------------
+                0.00    0.00  200000/200000      main [1]
+[36]     0.0    0.00    0.00  200000         kvlist_free [36]
+-----------------------------------------------
+                             1414255             jfree [37]
+                0.00    0.00  100000/100000      objlist_free [39]
+[37]     0.0    0.00    0.00  100000+1414255 jfree [37]
+                             1414255             jfree [37]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[38]     0.0    0.00    0.00       1         keyset_free [38]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[39]     0.0    0.00    0.00       1         objlist_free [39]
+                0.00    0.00  100000/100000      jfree [37]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [11] _init                  [14] keyset_contains        [28] parse_array
+  [35] array_is_all_primitives [38] keyset_free           [15] parse_number_text
+  [21] csv_write_cell         [34] kv_get                  [5] parse_object
+  [26] die                    [30] kv_push                 [4] parse_string
+  [16] flatten_object         [36] kvlist_free             [2] parse_top
+   [9] flatten_value          [24] make_key                [6] parse_value
+  [31] jarray_push            [39] objlist_free            [8] sb_push
+  [37] jfree                  [32] objlist_push           [17] xmalloc
+  [27] jnew                   [22] p_expect               [25] xrealloc
+  [20] jobject_add            [33] p_init                 [18] xstrdup
+  [12] join_array_primitives  [29] p_match_kw              [3] <cycle 1>
+  [23] json_primitive_to_string [10] p_next                [7] <cycle 2>
+  [13] keyset_add             [19] p_skip_ws
