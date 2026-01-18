@@ -1,22 +1,32 @@
 # Loop-Level Optimization for JSON-to-CSV Parser
 
-This directory contains an optimized implementation of a JSON-to-CSV parser with **manual loop-level optimizations**, achieving a **1.13x speedup** over the baseline when compiled with `-O0` (no compiler optimizations).
+This directory contains an optimized implementation of a JSON-to-CSV parser with **manual loop-level optimizations**, achieving a **1.14x speedup** over the baseline when compiled with `-O0` (no compiler optimizations).
 
 ---
 
 ## Performance Results
 
-**Fair Comparison (MSYS2, both to /dev/null):**
+**Cloud Benchmarks (Linux, perf stat) - Primary Results:**
+- **Baseline:** 0.578 seconds
+- **Optimized:** 0.507 seconds
+- **Speedup:** **1.14x** (14% improvement)
+- **Cycle Reduction:** 12% (2.65B → 2.33B cycles)
+- **Branch Miss Reduction:** 28% (6.84M → 4.87M misses)
+- **IPC Improvement:** 2.561 → 2.702 (5.5% better)
+- **Correctness:** Verified (outputs are identical)
+
+**Local Validation (Windows MSYS2):**
 - **Baseline:** 4.765 seconds
 - **Optimized:** 4.209 seconds
 - **Speedup:** **1.13x** (13% improvement)
-- **Correctness:** ✅ Verified (outputs are identical)
 
-**Note:** Earlier reported 1.52x was an unfair comparison (PowerShell with file I/O vs MSYS2 with /dev/null). The actual speedup from loop optimizations is **1.13x** when measured fairly.
+**Compiler Comparison (-O3):**
+- Additional speedup with manual optimizations: **1.01x**
+- Shows compiler already performs most loop optimizations at -O3
 
-**Dataset:** `benchmark.json` (23.5 MB, ~10,000 JSON events)  
-**Compiler:** GCC 15.2.0 with `-O0` flag  
-**Platform:** Windows with MSYS2
+**Dataset:** `benchmark.json` (5.0 MB on cloud, ~10,000 JSON events)  
+**Compiler:** GCC with `-O0` flag  
+**Platforms:** Linux (cloud cluster) & Windows (MSYS2) - Results consistent across both
 
 ---
 
