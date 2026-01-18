@@ -18,12 +18,73 @@ static void die(const char *msg)
     exit(1);
 }
 
+// ---------------- Arena allocator ----------------
+typedef struct {
+    unsigned char *base;
+    size_t cap;
+    size_t off;
+} Arena;
+
+static size_t a_align_up(size_t x, size_t a) { return (x + a - 1) & ~(a - 1); }
+
+static void arena_init(Arena *a, size_t cap)
+{
+    a->base = (unsigned char*)malloc(cap);
+    if (!a->base) die("arena malloc failed");
+    a->cap = cap;
+    a->off = 0;
+}
+
+static void arena_destroy(Arena *a)
+{
+    free(a->base);
+    a->base = NULL;
+    a->cap = a->off = 0;
+}
+
+static void *arena_alloc(Arena *a, size_t n, size_t align)
+{
+    size_t off = a_align_up(a->off, align);
+    if (off + n > a->cap) die("arena out of memory");
+    void *p = a->base + off;
+    a->off = off + n;
+    return p;
+}
+
+static void *arena_alloc0(Arena *a, size_t n, size_t align)
+{
+    void *p = arena_alloc(a, n, align);
+    memset(p, 0, n);
+    return p;
+}
+
+static char *arena_strdup(Arena *a, const char *s)
+{
+    size_t n = strlen(s) + 1;
+    char *p = (char*)arena_alloc(a, n, 1);
+    memcpy(p, s, n);
+    return p;
+}
+
+/* allocate new + memcpy old bytes (replacement for realloc growth) */
+static void *arena_grow(Arena *a, void *old, size_t old_bytes, size_t new_bytes, size_t align)
+{
+    void *p = arena_alloc(a, new_bytes, align);
+    if (old && old_bytes) memcpy(p, old, old_bytes);
+    return p;
+}
+
+/* mark/reset for temporary allocations */
+static size_t arena_mark(Arena *a) { return a->off; }
+static void arena_reset(Arena *a, size_t mark) { a->off = mark; }
+
+// Two arenas: permanent (parse tree, headers) and temporary (flattening)
+static Arena A_perm;
+static Arena A_tmp;
+
 static void *xmalloc(size_t n)
 {
-    void *p = malloc(n);
-    if (!p)
-        die("out of memory");
-    return p;
+    return arena_alloc(&A_perm, n, 16);
 }
 
 static void *xrealloc(void *p, size_t n)
@@ -36,10 +97,7 @@ static void *xrealloc(void *p, size_t n)
 
 static char *xstrdup(const char *s)
 {
-    size_t n = strlen(s);
-    char *d = (char *)xmalloc(n + 1);
-    memcpy(d, s, n + 1);
-    return d;
+    return arena_strdup(&A_perm, s);
 }
 
 // ---------------- JSON tree ----------------
@@ -85,8 +143,7 @@ struct JValue
 
 static JValue *jnew(JType t)
 {
-    JValue *v = (JValue *)xmalloc(sizeof(JValue));
-    memset(v, 0, sizeof(*v));
+    JValue *v = (JValue *)arena_alloc0(&A_perm, sizeof(JValue), _Alignof(JValue));
     v->type = t;
     return v;
 }
@@ -95,11 +152,20 @@ static void jarray_push(JValue *arr, JValue *item)
 {
     if (arr->type != J_ARRAY)
         die("internal: not array");
+
     if (arr->as.array.len == arr->as.array.cap)
     {
-        arr->as.array.cap = arr->as.array.cap ? arr->as.array.cap * 2 : 8;
-        arr->as.array.items = (JValue **)xrealloc(arr->as.array.items,
-                                                  arr->as.array.cap * sizeof(JValue *));
+        size_t oldcap = arr->as.array.cap;
+        size_t newcap = oldcap ? oldcap * 2 : 8;
+
+        arr->as.array.items = (JValue **)arena_grow(
+            &A_perm,
+            arr->as.array.items,
+            oldcap * sizeof(JValue *),
+            newcap * sizeof(JValue *),
+            _Alignof(JValue *)
+        );
+        arr->as.array.cap = newcap;
     }
     arr->as.array.items[arr->as.array.len++] = item;
 }
@@ -108,12 +174,22 @@ static void jobject_add(JValue *obj, char *key_owned, JValue *value)
 {
     if (obj->type != J_OBJECT)
         die("internal: not object");
+
     if (obj->as.object.len == obj->as.object.cap)
     {
-        obj->as.object.cap = obj->as.object.cap ? obj->as.object.cap * 2 : 8;
-        obj->as.object.members = (JMember *)xrealloc(obj->as.object.members,
-                                                     obj->as.object.cap * sizeof(JMember));
+        size_t oldcap = obj->as.object.cap;
+        size_t newcap = oldcap ? oldcap * 2 : 8;
+
+        obj->as.object.members = (JMember *)arena_grow(
+            &A_perm,
+            obj->as.object.members,
+            oldcap * sizeof(JMember),
+            newcap * sizeof(JMember),
+            _Alignof(JMember)
+        );
+        obj->as.object.cap = newcap;
     }
+
     obj->as.object.members[obj->as.object.len].key = key_owned;
     obj->as.object.members[obj->as.object.len].value = value;
     obj->as.object.len++;
@@ -121,35 +197,7 @@ static void jobject_add(JValue *obj, char *key_owned, JValue *value)
 
 static void jfree(JValue *v)
 {
-    if (!v)
-        return;
-    switch (v->type)
-    {
-    case J_STRING:
-        free(v->as.string);
-        break;
-    case J_NUMBER:
-        free(v->as.number);
-        break;
-    case J_ARRAY:
-        for (size_t i = 0; i < v->as.array.len; i++)
-            jfree(v->as.array.items[i]);
-        free(v->as.array.items);
-        break;
-    case J_OBJECT:
-        for (size_t i = 0; i < v->as.object.len; i++)
-        {
-            free(v->as.object.members[i].key);
-            jfree(v->as.object.members[i].value);
-        }
-        free(v->as.object.members);
-        break;
-    case J_BOOL:
-    case J_NULL:
-    default:
-        break;
-    }
-    free(v);
+    (void)v;
 }
 
 // ---------------- Simple parser ----------------
@@ -200,8 +248,11 @@ static void sb_push(char **buf, size_t *len, size_t *cap, char ch)
 {
     if (*len + 1 >= *cap)
     {
-        *cap = *cap ? (*cap * 2) : 64;
-        *buf = (char *)xrealloc(*buf, *cap);
+        size_t oldcap = *cap;
+        size_t newcap = oldcap ? (oldcap * 2) : 64;
+
+        *buf = (char *)arena_grow(&A_perm, *buf, oldcap, newcap, 1);
+        *cap = newcap;
     }
     (*buf)[(*len)++] = ch;
     (*buf)[*len] = '\0';
@@ -501,8 +552,17 @@ static void kv_push(KVList *l, char *k, char *v)
 {
     if (l->len == l->cap)
     {
-        l->cap = l->cap ? l->cap * 2 : 16;
-        l->items = (KV *)xrealloc(l->items, l->cap * sizeof(KV));
+        size_t oldcap = l->cap;
+        size_t newcap = oldcap ? oldcap * 2 : 16;
+
+        l->items = (KV *)arena_grow(
+            &A_tmp,
+            l->items,
+            oldcap * sizeof(KV),
+            newcap * sizeof(KV),
+            _Alignof(KV)
+        );
+        l->cap = newcap;
     }
     l->items[l->len].key = k;
     l->items[l->len].val = v;
@@ -570,9 +630,10 @@ static void flatten_value(const JValue *v, const char *prefix, KVList *out);
 static char *make_key(const char *prefix, const char *k)
 {
     if (!prefix || prefix[0] == '\0')
-        return xstrdup(k);
+        return arena_strdup(&A_tmp, k);
+
     size_t a = strlen(prefix), b = strlen(k);
-    char *r = (char *)xmalloc(a + 1 + b + 1);
+    char *r = (char *)arena_alloc(&A_tmp, a + 1 + b + 1, 1);
     memcpy(r, prefix, a);
     r[a] = '.';
     memcpy(r + a + 1, k, b + 1);
@@ -676,14 +737,7 @@ static void flatten_value(const JValue *v, const char *prefix, KVList *out)
 
 static void kvlist_free(KVList *l)
 {
-    for (size_t i = 0; i < l->len; i++)
-    {
-        free(l->items[i].key);
-        free(l->items[i].val);
-    }
-    free(l->items);
-    l->items = NULL;
-    l->len = l->cap = 0;
+    (void)l;
 }
 
 // --------------- Header collection (baseline linear set) ---------------
@@ -708,21 +762,28 @@ static void keyset_add(KeySet *s, const char *k)
 {
     if (keyset_contains(s, k))
         return;
+
     if (s->len == s->cap)
     {
-        s->cap = s->cap ? s->cap * 2 : 32;
-        s->keys = (char **)xrealloc(s->keys, s->cap * sizeof(char *));
+        size_t oldcap = s->cap;
+        size_t newcap = oldcap ? oldcap * 2 : 32;
+
+        s->keys = (char **)arena_grow(
+            &A_perm,
+            s->keys,
+            oldcap * sizeof(char *),
+            newcap * sizeof(char *),
+            _Alignof(char *)
+        );
+        s->cap = newcap;
     }
-    s->keys[s->len++] = xstrdup(k);
+    // stored headers must survive to end => permanent arena
+    s->keys[s->len++] = arena_strdup(&A_perm, k);
 }
 
 static void keyset_free(KeySet *s)
 {
-    for (size_t i = 0; i < s->len; i++)
-        free(s->keys[i]);
-    free(s->keys);
-    s->keys = NULL;
-    s->len = s->cap = 0;
+    (void)s;
 }
 
 // --------------- CSV writer (simple) ---------------
@@ -776,19 +837,24 @@ static void objlist_push(ObjList *ol, JValue *obj)
 {
     if (ol->len == ol->cap)
     {
-        ol->cap = ol->cap ? ol->cap * 2 : 16;
-        ol->objs = (JValue **)xrealloc(ol->objs, ol->cap * sizeof(JValue *));
+        size_t oldcap = ol->cap;
+        size_t newcap = oldcap ? oldcap * 2 : 16;
+
+        ol->objs = (JValue **)arena_grow(
+            &A_perm,
+            ol->objs,
+            oldcap * sizeof(JValue *),
+            newcap * sizeof(JValue *),
+            _Alignof(JValue *)
+        );
+        ol->cap = newcap;
     }
     ol->objs[ol->len++] = obj;
 }
 
 static void objlist_free(ObjList *ol)
 {
-    for (size_t i = 0; i < ol->len; i++)
-        jfree(ol->objs[i]);
-    free(ol->objs);
-    ol->objs = NULL;
-    ol->len = ol->cap = 0;
+    (void)ol;
 }
 
 static ObjList parse_top(FILE *f)
@@ -797,7 +863,7 @@ static ObjList parse_top(FILE *f)
     p_init(&p, f);
     p_skip_ws(&p);
 
-    ObjList ol = {0};
+    ObjList ol = (ObjList){0};
 
     JValue *top = parse_value(&p);
     p_skip_ws(&p);
@@ -817,16 +883,14 @@ static ObjList parse_top(FILE *f)
                 die("top array must contain objects");
             objlist_push(&ol, it);
         }
-        // free container array node but not elements (we moved pointers)
-        free(top->as.array.items);
-        free(top);
+        // No freeing: arena-owned
         return ol;
     }
 
-    jfree(top);
     die("top-level JSON must be object or array of objects");
     return ol;
 }
+
 
 // --------------- Main ---------------
 
@@ -842,18 +906,32 @@ int main(int argc, char **argv)
     if (!f)
         die("cannot open input file");
 
+    // Size arenas based on input size (heuristic)
+    fseek(f, 0, SEEK_END);
+    long fsz = ftell(f);
+    fseek(f, 0, SEEK_SET);
+
+    size_t perm_cap = (fsz > 0 ? (size_t)fsz : 1) * 8 + (64u << 20); // +64MB headroom
+    size_t tmp_cap  = (fsz > 0 ? (size_t)fsz : 1) * 2 + (32u << 20); // scratch
+
+    arena_init(&A_perm, perm_cap);
+    arena_init(&A_tmp, tmp_cap);
+
     ObjList objs = parse_top(f);
     fclose(f);
 
     // Pass 1: collect headers
-    KeySet headers = {0};
+    KeySet headers = (KeySet){0};
     for (size_t i = 0; i < objs.len; i++)
     {
-        KVList kv = {0};
+        size_t mark = arena_mark(&A_tmp);
+
+        KVList kv = (KVList){0};
         flatten_object(objs.objs[i], "", &kv);
         for (size_t j = 0; j < kv.len; j++)
             keyset_add(&headers, kv.items[j].key);
-        kvlist_free(&kv);
+
+        arena_reset(&A_tmp, mark); // reclaim all temporary KV + key/value strings
     }
 
     // Print header row
@@ -868,20 +946,28 @@ int main(int argc, char **argv)
     // Pass 2: output rows
     for (size_t i = 0; i < objs.len; i++)
     {
-        KVList kv = {0};
+        size_t mark = arena_mark(&A_tmp);
+
+        KVList kv = (KVList){0};
         flatten_object(objs.objs[i], "", &kv);
         for (size_t c = 0; c < headers.len; c++)
         {
             if (c)
                 fputc(',', stdout);
             const char *val = kv_get(&kv, headers.keys[c]);
-            csv_write_cell(stdout, val);
+            csv_write_cell(stdout, val ? val : "");
         }
         fputc('\n', stdout);
-        kvlist_free(&kv);
+
+        arena_reset(&A_tmp, mark);
     }
 
+    // All memory is arena-owned
     keyset_free(&headers);
     objlist_free(&objs);
+
+    arena_destroy(&A_tmp);
+    arena_destroy(&A_perm);
     return 0;
 }
+
