@@ -221,6 +221,16 @@ static char *parse_string(Parser *p)
 
     while (p->c != EOF && p->c != '"')
     {
+        // Fast path: consume characters until escape or quote
+        while (p->c != EOF && p->c != '"' && p->c != '\\')
+        {
+            sb_push(&buf, &len, &cap, (char)p->c);
+            p_next(p);
+        }
+        if (p->c == '"' || p->c == EOF)
+            break;
+        
+        // Slow path: handle escape sequence
         int ch = p->c;
         if (ch == '\\')
         {
@@ -274,11 +284,6 @@ static char *parse_string(Parser *p)
             default:
                 die("unknown escape");
             }
-            p_next(p);
-        }
-        else
-        {
-            sb_push(&buf, &len, &cap, (char)ch);
             p_next(p);
         }
     }
@@ -443,10 +448,7 @@ static JValue *parse_value(Parser *p)
     p_skip_ws(p);
     if (p->c == EOF)
         die("unexpected EOF");
-    if (p->c == '{')
-        return parse_object(p);
-    if (p->c == '[')
-        return parse_array(p);
+    // Check most common types first for better branch prediction
     if (p->c == '"')
     {
         JValue *v = jnew(J_STRING);
@@ -459,6 +461,10 @@ static JValue *parse_value(Parser *p)
         v->as.number = parse_number_text(p);
         return v;
     }
+    if (p->c == '{')
+        return parse_object(p);
+    if (p->c == '[')
+        return parse_array(p);
     if (p->c == 't')
     {
         if (!p_match_kw(p, "true"))
