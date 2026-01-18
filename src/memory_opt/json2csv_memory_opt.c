@@ -620,7 +620,6 @@ static char *join_array_primitives(const JValue *arr)
         memcpy(buf + len, s, sl);
         len += sl;
         buf[len] = '\0';
-        free(s);
     }
     return buf;
 }
@@ -648,7 +647,6 @@ static void flatten_object(const JValue *obj, const char *prefix, KVList *out)
         const JValue *val = obj->as.object.members[i].value;
         char *nk = make_key(prefix, k);
         flatten_value(val, nk, out);
-        free(nk);
     }
 }
 static void json_print_value(const JValue *v, char **buf, size_t *len, size_t *cap);
@@ -911,8 +909,8 @@ int main(int argc, char **argv)
     long fsz = ftell(f);
     fseek(f, 0, SEEK_SET);
 
-    size_t perm_cap = (fsz > 0 ? (size_t)fsz : 1) * 8 + (64u << 20); // +64MB headroom
-    size_t tmp_cap  = (fsz > 0 ? (size_t)fsz : 1) * 2 + (32u << 20); // scratch
+    size_t perm_cap = (fsz > 0 ? (size_t)fsz : 1) * 16 + (256u << 20);
+    size_t tmp_cap  = (fsz > 0 ? (size_t)fsz : 1) * 2 + (128u << 20);
 
     arena_init(&A_perm, perm_cap);
     arena_init(&A_tmp, tmp_cap);

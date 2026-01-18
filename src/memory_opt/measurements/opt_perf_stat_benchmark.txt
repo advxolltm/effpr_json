@@ -1,0 +1,15 @@
+
+ Performance counter stats for './memory_opt/json2csv_opt benchmark.json':
+
+         808526677      cycles:u                                                              
+        2043316072      instructions:u                   #    2.53  insn per cycle            
+           4236676      cache-misses:u                                                        
+           8091412      L1-dcache-load-misses                                                 
+           3104419      branch-misses:u                                                       
+
+       0.241695378 seconds time elapsed
+
+       0.161139000 seconds user
+       0.080569000 seconds sys
+
+
