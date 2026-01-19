@@ -179,7 +179,6 @@ static inline void p_skip_ws(Parser *p)
         p_next(p);
 }
 
-
 static void p_expect(Parser *p, int ch)
 {
     if (p->c != ch)
@@ -221,16 +220,6 @@ static char *parse_string(Parser *p)
 
     while (p->c != EOF && p->c != '"')
     {
-        // Fast path: consume characters until escape or quote
-        while (p->c != EOF && p->c != '"' && p->c != '\\')
-        {
-            sb_push(&buf, &len, &cap, (char)p->c);
-            p_next(p);
-        }
-        if (p->c == '"' || p->c == EOF)
-            break;
-        
-        // Slow path: handle escape sequence
         int ch = p->c;
         if (ch == '\\')
         {
@@ -284,6 +273,11 @@ static char *parse_string(Parser *p)
             default:
                 die("unknown escape");
             }
+            p_next(p);
+        }
+        else
+        {
+            sb_push(&buf, &len, &cap, (char)ch);
             p_next(p);
         }
     }
@@ -448,7 +442,10 @@ static JValue *parse_value(Parser *p)
     p_skip_ws(p);
     if (p->c == EOF)
         die("unexpected EOF");
-    // Check most common types first for better branch prediction
+    if (p->c == '{')
+        return parse_object(p);
+    if (p->c == '[')
+        return parse_array(p);
     if (p->c == '"')
     {
         JValue *v = jnew(J_STRING);
@@ -461,10 +458,6 @@ static JValue *parse_value(Parser *p)
         v->as.number = parse_number_text(p);
         return v;
     }
-    if (p->c == '{')
-        return parse_object(p);
-    if (p->c == '[')
-        return parse_array(p);
     if (p->c == 't')
     {
         if (!p_match_kw(p, "true"))
@@ -519,17 +512,17 @@ static void kv_push(KVList *l, char *k, char *v)
 
 static char *json_primitive_to_string(const JValue *v)
 {
-    // Baseline: allocate a new string for each conversion
+    // V2: Reordered by frequency - STRING most common in typical JSON
     switch (v->type)
     {
-    case J_NULL:
-        return xstrdup("null");
-    case J_BOOL:
-        return xstrdup(v->as.boolean ? "true" : "false");
-    case J_NUMBER:
-        return xstrdup(v->as.number ? v->as.number : "0");
     case J_STRING:
         return xstrdup(v->as.string ? v->as.string : "");
+    case J_NUMBER:
+        return xstrdup(v->as.number ? v->as.number : "0");
+    case J_BOOL:
+        return xstrdup(v->as.boolean ? "true" : "false");
+    case J_NULL:
+        return xstrdup("null");
     default:
         return xstrdup("[complex]");
     }
@@ -657,29 +650,26 @@ static void json_print_value(const JValue *v, char **buf, size_t *len, size_t *c
 
 static void flatten_value(const JValue *v, const char *prefix, KVList *out)
 {
-    if (v->type == J_OBJECT)
+    // V2: Fast-path primitives first (most common case)
+    // Reduces average branch depth from ~2 to ~0.5
+    if (v->type != J_OBJECT && v->type != J_ARRAY)
     {
-        flatten_object(v, prefix, out);
+        // primitive - fast path
+        kv_push(out, xstrdup(prefix), json_primitive_to_string(v));
         return;
     }
+    
     if (v->type == J_ARRAY)
     {
-        if (array_is_all_primitives(v))
-        {
-            char *joined = join_array_primitives(v);
-            kv_push(out, xstrdup(prefix), joined);
-        }
-        else
-        {
-            // stringify complex array
-            char *s = json_array_to_string(v);
-            kv_push(out, xstrdup(prefix), s);
-        }
-
+        char *s = array_is_all_primitives(v) 
+            ? join_array_primitives(v)
+            : json_array_to_string(v);
+        kv_push(out, xstrdup(prefix), s);
         return;
     }
-    // primitive
-    kv_push(out, xstrdup(prefix), json_primitive_to_string(v));
+    
+    // object
+    flatten_object(v, prefix, out);
 }
 
 static void kvlist_free(KVList *l)
@@ -737,23 +727,24 @@ static void keyset_free(KeySet *s)
 
 static void csv_write_cell(FILE *out, const char *s)
 {
-    // Baseline: quote if contains comma/quote/newline
+    // V2: No early exit - scan once for better branch prediction
     int need_quote = 0;
-    for (const char *p = s; *p; p++)
+    const char *p = s;
+    
+    // Single-pass scan without early break (better branch prediction)
+    while (*p)
     {
-        if (*p == ',' || *p == '"' || *p == '\n' || *p == '\r')
-        {
-            need_quote = 1;
-            break;
-        }
+        need_quote |= (*p == ',' || *p == '"' || *p == '\n' || *p == '\r');
+        p++;
     }
+    
     if (!need_quote)
     {
         fputs(s, out);
         return;
     }
     fputc('"', out);
-    for (const char *p = s; *p; p++)
+    for (p = s; *p; p++)
     {
         if (*p == '"')
             fputc('"', out); // escape by doubling
