@@ -1,5 +1,5 @@
 	Command being timed: "./json2csv_baseline benchmark.json"
-	User time (seconds): 0.29
+	User time (seconds): 0.30
 	System time (seconds): 0.06
 	Percent of CPU this job got: 99%
 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.36
@@ -7,12 +7,12 @@
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 298008
+	Maximum resident set size (kbytes): 298000
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 6
-	Minor (reclaiming a frame) page faults: 74261
+	Minor (reclaiming a frame) page faults: 74259
 	Voluntary context switches: 1
-	Involuntary context switches: 16
+	Involuntary context switches: 3
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 0

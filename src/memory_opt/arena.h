@@ -72,7 +72,7 @@ static inline char* arena_strdup(Arena *arena, const char *s) {
     return copy;
 }
 
-// Estimate arena size from file size (4x multiplier)
+// Estimate arena size from file size (18x multiplier)
 static inline size_t arena_estimate_size(const char *filename) {
     FILE *f = fopen(filename, "rb");
     if (!f) return 10 * 1024 * 1024; // Default 10MB
@@ -83,7 +83,7 @@ static inline size_t arena_estimate_size(const char *filename) {
     
     if (file_size <= 0) return 10 * 1024 * 1024;
     
-    size_t estimate = file_size * 4; // 4x file size
+    size_t estimate = file_size * 18; // 18x file size
     
     // Min 1MB, max 2GB
     if (estimate < 1024 * 1024) estimate = 1024 * 1024;

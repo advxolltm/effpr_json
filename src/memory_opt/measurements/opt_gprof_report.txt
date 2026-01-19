@@ -3,15 +3,14 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  ms/call  ms/call  name    
- 36.38      0.04     0.04        1    40.02    50.02  parse_value
- 36.38      0.08     0.04                             main
- 18.19      0.10     0.02                             _init
-  9.10      0.11     0.01  1928541     0.00     0.00  parse_string
-  0.00      0.11     0.00  2228510     0.00     0.00  json_primitive_to_string
-  0.00      0.11     0.00  2028572     0.00     0.00  kv_push
-  0.00      0.11     0.00  1228572     0.00     0.00  flatten_value
-  0.00      0.11     0.00   200000     0.00     0.00  flatten_object.constprop.0
-  0.00      0.11     0.00        2     0.00     0.00  p_skip_ws
+ 41.69      0.05     0.05  1928541     0.00     0.00  parse_string
+ 41.69      0.10     0.05        1    50.03   100.06  parse_value
+  8.34      0.11     0.01  2228510     0.00     0.00  json_primitive_to_string
+  8.34      0.12     0.01  1228572     0.00     0.00  flatten_value
+  0.00      0.12     0.00  2028572     0.00     0.00  kv_push
+  0.00      0.12     0.00  1356333     0.00     0.00  sb_push
+  0.00      0.12     0.00   200000     0.00     0.00  flatten_object.constprop.0
+  0.00      0.12     0.00        2     0.00     0.00  p_skip_ws
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -49,45 +48,46 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 9.09% of 0.11 seconds
+granularity: each sample hit covers 2 byte(s) for 8.33% of 0.12 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]     81.8    0.04    0.05                 main [1]
-                0.04    0.01       1/1           parse_value [2]
-                0.00    0.00  200000/200000      flatten_object.constprop.0 [8]
+[1]    100.0    0.00    0.12                 main [1]
+                0.05    0.05       1/1           parse_value [2]
+                0.00    0.02  200000/200000      flatten_object.constprop.0 [5]
                 0.00    0.00       2/2           p_skip_ws [9]
 -----------------------------------------------
                              1514255             parse_value [2]
-                0.04    0.01       1/1           main [1]
-[2]     45.5    0.04    0.01       1+1514255 parse_value [2]
-                0.01    0.00 1928541/1928541     parse_string [4]
+                0.05    0.05       1/1           main [1]
+[2]     83.3    0.05    0.05       1+1514255 parse_value [2]
+                0.05    0.00 1928541/1928541     parse_string [3]
+                0.00    0.00 1356333/1356333     sb_push [8]
                              1514255             parse_value [2]
 -----------------------------------------------
-                                                 <spontaneous>
-[3]     18.2    0.02    0.00                 _init [3]
+                0.05    0.00 1928541/1928541     parse_value [2]
+[3]     41.7    0.05    0.00 1928541         parse_string [3]
 -----------------------------------------------
-                0.01    0.00 1928541/1928541     parse_value [2]
-[4]      9.1    0.01    0.00 1928541         parse_string [4]
+                             1200000             flatten_value [4]
+                0.01    0.01 1228572/1228572     flatten_object.constprop.0 [5]
+[4]     16.7    0.01    0.01 1228572+1200000 flatten_value [4]
+                0.01    0.00 2228510/2228510     json_primitive_to_string [6]
+                0.00    0.00 1200000/2028572     kv_push [7]
+                             1200000             flatten_value [4]
 -----------------------------------------------
-                0.00    0.00 2228510/2228510     flatten_value [7]
-[5]      0.0    0.00    0.00 2228510         json_primitive_to_string [5]
+                0.00    0.02  200000/200000      main [1]
+[5]     16.7    0.00    0.02  200000         flatten_object.constprop.0 [5]
+                0.01    0.01 1228572/1228572     flatten_value [4]
+                0.00    0.00  828572/2028572     kv_push [7]
 -----------------------------------------------
-                0.00    0.00  828572/2028572     flatten_object.constprop.0 [8]
-                0.00    0.00 1200000/2028572     flatten_value [7]
-[6]      0.0    0.00    0.00 2028572         kv_push [6]
+                0.01    0.00 2228510/2228510     flatten_value [4]
+[6]      8.3    0.01    0.00 2228510         json_primitive_to_string [6]
 -----------------------------------------------
-                             1200000             flatten_value [7]
-                0.00    0.00 1228572/1228572     flatten_object.constprop.0 [8]
-[7]      0.0    0.00    0.00 1228572+1200000 flatten_value [7]
-                0.00    0.00 2228510/2228510     json_primitive_to_string [5]
-                0.00    0.00 1200000/2028572     kv_push [6]
-                             1200000             flatten_value [7]
+                0.00    0.00  828572/2028572     flatten_object.constprop.0 [5]
+                0.00    0.00 1200000/2028572     flatten_value [4]
+[7]      0.0    0.00    0.00 2028572         kv_push [7]
 -----------------------------------------------
-                0.00    0.00  200000/200000      main [1]
-[8]      0.0    0.00    0.00  200000         flatten_object.constprop.0 [8]
-                0.00    0.00 1228572/1228572     flatten_value [7]
-                0.00    0.00  828572/2028572     kv_push [6]
+                0.00    0.00 1356333/1356333     parse_value [2]
+[8]      0.0    0.00    0.00 1356333         sb_push [8]
 -----------------------------------------------
                 0.00    0.00       2/2           main [1]
 [9]      0.0    0.00    0.00       2         p_skip_ws [9]
@@ -183,6 +183,6 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [3] _init                   [5] json_primitive_to_string [9] p_skip_ws
-   [8] flatten_object.constprop.0 [6] kv_push              [4] parse_string
-   [7] flatten_value           [1] main                    [2] parse_value
+   [5] flatten_object.constprop.0 [7] kv_push              [2] parse_value
+   [4] flatten_value           [9] p_skip_ws               [8] sb_push
+   [6] json_primitive_to_string [3] parse_string
