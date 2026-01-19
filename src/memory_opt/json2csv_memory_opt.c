@@ -1,23 +1,51 @@
-// json2csv_memory_opt.c
 // Memory Behavior & Invariant-Based Optimizations
-// Based on json2csv_baseline.c with progressive optimization techniques
-//
 // Applied Optimizations:
 // [X] Arena Allocator - replaces malloc/free with bump allocator
-// [ ] String Slicing - zero-copy string handling
-// [ ] Linearized Structures - improved cache locality
-// [ ] restrict Keyword - enable compiler optimizations
+// [X] String Slicing - zero-copy string handling
+// [X] Buffer Reuse - reusable buffers for temporary operations
+// [X] Input Buffer - single file read with mmap support
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdint.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 static void die(const char *msg)
 {
     fprintf(stderr, "ERROR: %s\n", msg);
     exit(1);
+}
+
+// ---------------- String Slice (zero-copy) ----------------
+typedef struct {
+    const char *ptr;
+    size_t len;
+} StrSlice;
+
+static StrSlice slice_make(const char *p, size_t len)
+{
+    return (StrSlice){.ptr = p, .len = len};
+}
+
+static StrSlice slice_from_cstr(const char *s)
+{
+    return slice_make(s, strlen(s));
+}
+
+static int slice_eq(StrSlice a, StrSlice b)
+{
+    return a.len == b.len && memcmp(a.ptr, b.ptr, a.len) == 0;
+}
+
+static int slice_eq_cstr(StrSlice s, const char *cstr)
+{
+    size_t clen = strlen(cstr);
+    return s.len == clen && memcmp(s.ptr, cstr, clen) == 0;
 }
 
 // ---------------- Arena allocator ----------------
@@ -68,6 +96,15 @@ static char *arena_strdup(Arena *a, const char *s)
     return p;
 }
 
+// Allocate space for a slice and copy it (when we need permanent storage)
+static char *arena_slice_dup(Arena *a, StrSlice s)
+{
+    char *p = (char*)arena_alloc(a, s.len + 1, 1);
+    memcpy(p, s.ptr, s.len);
+    p[s.len] = '\0';
+    return p;
+}
+
 /* allocate new + memcpy old bytes (replacement for realloc growth) */
 static void *arena_grow(Arena *a, void *old, size_t old_bytes, size_t new_bytes, size_t align)
 {
@@ -84,6 +121,7 @@ static void arena_reset(Arena *a, size_t mark) { a->off = mark; }
 static Arena A_perm;
 static Arena A_tmp;
 
+// Convenience wrappers (maintained for consistency with memory_opt)
 static void *xmalloc(size_t n)
 {
     return arena_alloc(&A_perm, n, 16);
@@ -94,7 +132,85 @@ static char *xstrdup(const char *s)
     return arena_strdup(&A_perm, s);
 }
 
-// ---------------- JSON tree ----------------
+// ---------------- Reusable String Buffer ----------------
+typedef struct {
+    char *data;
+    size_t len;
+    size_t cap;
+} StrBuf;
+
+static void strbuf_init(StrBuf *sb, size_t initial_cap)
+{
+    sb->cap = initial_cap;
+    sb->data = (char*)malloc(initial_cap);
+    if (!sb->data) die("strbuf malloc failed");
+    sb->len = 0;
+    sb->data[0] = '\0';
+}
+
+static void strbuf_destroy(StrBuf *sb)
+{
+    free(sb->data);
+    sb->data = NULL;
+    sb->len = sb->cap = 0;
+}
+
+static void strbuf_reset(StrBuf *sb)
+{
+    sb->len = 0;
+    if (sb->data) sb->data[0] = '\0';
+}
+
+static void strbuf_ensure(StrBuf *sb, size_t needed)
+{
+    if (sb->len + needed + 1 < sb->cap) return;
+    
+    size_t newcap = sb->cap;
+    while (newcap < sb->len + needed + 1) {
+        newcap = newcap ? newcap * 2 : 64;
+    }
+    
+    char *newdata = (char*)realloc(sb->data, newcap);
+    if (!newdata) die("strbuf realloc failed");
+    sb->data = newdata;
+    sb->cap = newcap;
+}
+
+static void strbuf_push(StrBuf *sb, char ch)
+{
+    strbuf_ensure(sb, 1);
+    sb->data[sb->len++] = ch;
+    sb->data[sb->len] = '\0';
+}
+
+static void strbuf_append(StrBuf *sb, const char *s, size_t len)
+{
+    strbuf_ensure(sb, len);
+    memcpy(sb->data + sb->len, s, len);
+    sb->len += len;
+    sb->data[sb->len] = '\0';
+}
+
+static void strbuf_append_cstr(StrBuf *sb, const char *s)
+{
+    strbuf_append(sb, s, strlen(s));
+}
+
+static void strbuf_append_slice(StrBuf *sb, StrSlice s)
+{
+    strbuf_append(sb, s.ptr, s.len);
+}
+
+static StrSlice strbuf_slice(const StrBuf *sb)
+{
+    return slice_make(sb->data, sb->len);
+}
+
+// Global reusable buffers for temporary operations
+static StrBuf G_tmpbuf1;
+static StrBuf G_tmpbuf2;
+
+// ---------------- JSON tree (using StrSlice) ----------------
 
 typedef enum
 {
@@ -110,7 +226,7 @@ typedef struct JValue JValue;
 
 typedef struct
 {
-    char *key;
+    StrSlice key;
     JValue *value;
 } JMember;
 
@@ -120,8 +236,8 @@ struct JValue
     union
     {
         int boolean;
-        char *number; // store as text (baseline)
-        char *string;
+        StrSlice number; // store as slice
+        StrSlice string; // store as slice
         struct
         {
             JValue **items;
@@ -164,7 +280,7 @@ static void jarray_push(JValue *arr, JValue *item)
     arr->as.array.items[arr->as.array.len++] = item;
 }
 
-static void jobject_add(JValue *obj, char *key_owned, JValue *value)
+static void jobject_add(JValue *obj, StrSlice key, JValue *value)
 {
     if (obj->type != J_OBJECT)
         die("internal: not object");
@@ -184,7 +300,7 @@ static void jobject_add(JValue *obj, char *key_owned, JValue *value)
         obj->as.object.cap = newcap;
     }
 
-    obj->as.object.members[obj->as.object.len].key = key_owned;
+    obj->as.object.members[obj->as.object.len].key = key;
     obj->as.object.members[obj->as.object.len].value = value;
     obj->as.object.len++;
 }
@@ -194,35 +310,42 @@ static void jfree(JValue *v)
     (void)v;
 }
 
-// ---------------- Simple parser ----------------
+// ---------------- Parser with string slicing ----------------
 
 typedef struct
 {
-    FILE *f;
-    int c; // current char or EOF
+    const char *input;  // entire input buffer
+    size_t pos;         // current position
+    size_t len;         // total length
 } Parser;
+
+static int p_peek(Parser *p)
+{
+    if (p->pos >= p->len) return EOF;
+    return (unsigned char)p->input[p->pos];
+}
 
 static void p_next(Parser *p)
 {
-    p->c = fgetc(p->f);
+    if (p->pos < p->len) p->pos++;
 }
 
-static void p_init(Parser *p, FILE *f)
+static void p_init(Parser *p, const char *input, size_t len)
 {
-    p->f = f;
-    p->c = 0;
-    p_next(p);
+    p->input = input;
+    p->pos = 0;
+    p->len = len;
 }
 
 static void p_skip_ws(Parser *p)
 {
-    while (p->c != EOF && isspace((unsigned char)p->c))
-        p_next(p);
+    while (p->pos < p->len && isspace((unsigned char)p->input[p->pos]))
+        p->pos++;
 }
 
 static void p_expect(Parser *p, int ch)
 {
-    if (p->c != ch)
+    if (p_peek(p) != ch)
         die("unexpected character");
     p_next(p);
 }
@@ -238,80 +361,83 @@ static int hexval(int ch)
     return -1;
 }
 
-static void sb_push(char **buf, size_t *len, size_t *cap, char ch)
+// Parse string and return as slice (if no escapes) or allocated (if escapes)
+static StrSlice parse_string(Parser *p, StrBuf *temp)
 {
-    if (*len + 1 >= *cap)
-    {
-        size_t oldcap = *cap;
-        size_t newcap = oldcap ? (oldcap * 2) : 64;
-
-        *buf = (char *)arena_grow(&A_perm, *buf, oldcap, newcap, 1);
-        *cap = newcap;
-    }
-    (*buf)[(*len)++] = ch;
-    (*buf)[*len] = '\0';
-}
-
-static char *parse_string(Parser *p)
-{
-    // assumes current is '"'
     p_expect(p, '"');
-    char *buf = NULL;
-    size_t len = 0, cap = 0;
-    sb_push(&buf, &len, &cap, '\0'); // ensure non-null and terminated
-    len = 0;
-    buf[0] = '\0';
-
-    while (p->c != EOF && p->c != '"')
+    
+    size_t start = p->pos;
+    int has_escape = 0;
+    
+    // Fast path: scan for end, checking for escapes
+    while (p->pos < p->len && p->input[p->pos] != '"') {
+        if (p->input[p->pos] == '\\') {
+            has_escape = 1;
+            break;
+        }
+        p->pos++;
+    }
+    
+    if (!has_escape && p->pos < p->len && p->input[p->pos] == '"') {
+        // No escapes: return slice directly into input
+        StrSlice result = slice_make(p->input + start, p->pos - start);
+        p_next(p); // skip closing "
+        return result;
+    }
+    
+    // Slow path: has escapes, need to decode into buffer
+    strbuf_reset(temp);
+    p->pos = start; // reset to beginning
+    
+    while (p_peek(p) != EOF && p_peek(p) != '"')
     {
-        int ch = p->c;
+        int ch = p_peek(p);
         if (ch == '\\')
         {
             p_next(p);
-            if (p->c == EOF)
+            if (p_peek(p) == EOF)
                 die("bad escape");
-            switch (p->c)
+            switch (p_peek(p))
             {
             case '"':
-                sb_push(&buf, &len, &cap, '"');
+                strbuf_push(temp, '"');
                 break;
             case '\\':
-                sb_push(&buf, &len, &cap, '\\');
+                strbuf_push(temp, '\\');
                 break;
             case '/':
-                sb_push(&buf, &len, &cap, '/');
+                strbuf_push(temp, '/');
                 break;
             case 'b':
-                sb_push(&buf, &len, &cap, '\b');
+                strbuf_push(temp, '\b');
                 break;
             case 'f':
-                sb_push(&buf, &len, &cap, '\f');
+                strbuf_push(temp, '\f');
                 break;
             case 'n':
-                sb_push(&buf, &len, &cap, '\n');
+                strbuf_push(temp, '\n');
                 break;
             case 'r':
-                sb_push(&buf, &len, &cap, '\r');
+                strbuf_push(temp, '\r');
                 break;
             case 't':
-                sb_push(&buf, &len, &cap, '\t');
+                strbuf_push(temp, '\t');
                 break;
             case 'u':
             {
-                // Baseline: decode \uXXXX only for ASCII range <= 0x7F
                 int v = 0;
                 for (int i = 0; i < 4; i++)
                 {
                     p_next(p);
-                    int hv = hexval(p->c);
+                    int hv = hexval(p_peek(p));
                     if (hv < 0)
                         die("bad \\u escape");
                     v = (v << 4) | hv;
                 }
                 if (v <= 0x7F)
-                    sb_push(&buf, &len, &cap, (char)v);
+                    strbuf_push(temp, (char)v);
                 else
-                    sb_push(&buf, &len, &cap, '?'); // baseline simplification
+                    strbuf_push(temp, '?');
                 break;
             }
             default:
@@ -321,219 +447,207 @@ static char *parse_string(Parser *p)
         }
         else
         {
-            sb_push(&buf, &len, &cap, (char)ch);
+            strbuf_push(temp, (char)ch);
             p_next(p);
         }
     }
     p_expect(p, '"');
-    return buf;
+    
+    // Copy from temp buffer to arena
+    return slice_make(arena_slice_dup(&A_perm, strbuf_slice(temp)), temp->len);
 }
 
-static char *parse_number_text(Parser *p)
+static StrSlice parse_number(Parser *p)
 {
-    // baseline: store as raw text
-    char *buf = NULL;
-    size_t len = 0, cap = 0;
-    sb_push(&buf, &len, &cap, '\0');
-    len = 0;
-    buf[0] = '\0';
-
-    // JSON number: -? int frac? exp?
-    if (p->c == '-')
-    {
-        sb_push(&buf, &len, &cap, (char)p->c);
-        p_next(p);
-    }
-    if (!isdigit((unsigned char)p->c))
+    size_t start = p->pos;
+    
+    if (p_peek(p) == '-') p_next(p);
+    
+    if (!isdigit(p_peek(p)))
         die("bad number");
-    if (p->c == '0')
+        
+    if (p_peek(p) == '0')
     {
-        sb_push(&buf, &len, &cap, '0');
         p_next(p);
     }
     else
     {
-        while (isdigit((unsigned char)p->c))
-        {
-            sb_push(&buf, &len, &cap, (char)p->c);
+        while (p_peek(p) != EOF && isdigit(p_peek(p)))
             p_next(p);
-        }
     }
-    if (p->c == '.')
+    
+    if (p_peek(p) == '.')
     {
-        sb_push(&buf, &len, &cap, '.');
         p_next(p);
-        if (!isdigit((unsigned char)p->c))
+        if (!isdigit(p_peek(p)))
             die("bad number fraction");
-        while (isdigit((unsigned char)p->c))
-        {
-            sb_push(&buf, &len, &cap, (char)p->c);
+        while (p_peek(p) != EOF && isdigit(p_peek(p)))
             p_next(p);
-        }
     }
-    if (p->c == 'e' || p->c == 'E')
+    
+    if (p_peek(p) == 'e' || p_peek(p) == 'E')
     {
-        sb_push(&buf, &len, &cap, (char)p->c);
         p_next(p);
-        if (p->c == '+' || p->c == '-')
-        {
-            sb_push(&buf, &len, &cap, (char)p->c);
+        if (p_peek(p) == '+' || p_peek(p) == '-')
             p_next(p);
-        }
-        if (!isdigit((unsigned char)p->c))
+        if (!isdigit(p_peek(p)))
             die("bad number exponent");
-        while (isdigit((unsigned char)p->c))
-        {
-            sb_push(&buf, &len, &cap, (char)p->c);
+        while (p_peek(p) != EOF && isdigit(p_peek(p)))
             p_next(p);
-        }
     }
-    return buf;
+    
+    // Return slice directly into input buffer
+    return slice_make(p->input + start, p->pos - start);
 }
 
-static int p_match_kw(Parser *p, const char *kw)
+static int p_match_kw(Parser *p, const char *kw, size_t kwlen)
 {
-    // Very simple keyword match: assumes current char matches first and reads ahead by fgetc/ungetc is annoying.
-    // Instead we just compare as we advance.
-    // Only used for "true", "false", "null".
-    for (size_t i = 0; kw[i]; i++)
-    {
-        if (p->c != (unsigned char)kw[i])
-            return 0;
-        p_next(p);
-    }
+    if (p->pos + kwlen > p->len)
+        return 0;
+    if (memcmp(p->input + p->pos, kw, kwlen) != 0)
+        return 0;
+    p->pos += kwlen;
     return 1;
 }
 
-static JValue *parse_value(Parser *p);
+static JValue *parse_value(Parser *p, StrBuf *temp);
 
-static JValue *parse_array(Parser *p)
+static JValue *parse_array(Parser *p, StrBuf *temp)
 {
     p_expect(p, '[');
     p_skip_ws(p);
+    
     JValue *arr = jnew(J_ARRAY);
-
-    if (p->c == ']')
+    
+    if (p_peek(p) == ']')
     {
         p_next(p);
         return arr;
     }
-
+    
     while (1)
     {
         p_skip_ws(p);
-        JValue *item = parse_value(p);
+        JValue *item = parse_value(p, temp);
         jarray_push(arr, item);
         p_skip_ws(p);
-
-        if (p->c == ',')
+        
+        if (p_peek(p) == ',')
         {
             p_next(p);
             continue;
         }
-        if (p->c == ']')
+        if (p_peek(p) == ']')
         {
             p_next(p);
             break;
         }
         die("bad array syntax");
     }
+    
     return arr;
 }
 
-static JValue *parse_object(Parser *p)
+static JValue *parse_object(Parser *p, StrBuf *temp)
 {
     p_expect(p, '{');
     p_skip_ws(p);
+    
     JValue *obj = jnew(J_OBJECT);
-
-    if (p->c == '}')
+    
+    if (p_peek(p) == '}')
     {
         p_next(p);
         return obj;
     }
-
+    
     while (1)
     {
         p_skip_ws(p);
-        if (p->c != '"')
+        if (p_peek(p) != '"')
             die("object key must be string");
-        char *key = parse_string(p);
+        
+        StrSlice key = parse_string(p, temp);
         p_skip_ws(p);
         p_expect(p, ':');
         p_skip_ws(p);
-        JValue *val = parse_value(p);
-        jobject_add(obj, key, val);
+        
+        JValue *value = parse_value(p, temp);
+        jobject_add(obj, key, value);
+        
         p_skip_ws(p);
-
-        if (p->c == ',')
+        if (p_peek(p) == ',')
         {
             p_next(p);
             continue;
         }
-        if (p->c == '}')
+        if (p_peek(p) == '}')
         {
             p_next(p);
             break;
         }
         die("bad object syntax");
     }
+    
     return obj;
 }
 
-static JValue *parse_value(Parser *p)
+static JValue *parse_value(Parser *p, StrBuf *temp)
 {
     p_skip_ws(p);
-    if (p->c == EOF)
+    int c = p_peek(p);
+    
+    if (c == EOF)
         die("unexpected EOF");
-    if (p->c == '{')
-        return parse_object(p);
-    if (p->c == '[')
-        return parse_array(p);
-    if (p->c == '"')
+    if (c == '"')
     {
         JValue *v = jnew(J_STRING);
-        v->as.string = parse_string(p);
+        v->as.string = parse_string(p, temp);
         return v;
     }
-    if (p->c == '-' || isdigit((unsigned char)p->c))
+    if (c == '{')
+        return parse_object(p, temp);
+    if (c == '[')
+        return parse_array(p, temp);
+    if (c == 't')
     {
-        JValue *v = jnew(J_NUMBER);
-        v->as.number = parse_number_text(p);
-        return v;
-    }
-    if (p->c == 't')
-    {
-        if (!p_match_kw(p, "true"))
+        if (!p_match_kw(p, "true", 4))
             die("bad token");
         JValue *v = jnew(J_BOOL);
         v->as.boolean = 1;
         return v;
     }
-    if (p->c == 'f')
+    if (c == 'f')
     {
-        if (!p_match_kw(p, "false"))
+        if (!p_match_kw(p, "false", 5))
             die("bad token");
         JValue *v = jnew(J_BOOL);
         v->as.boolean = 0;
         return v;
     }
-    if (p->c == 'n')
+    if (c == 'n')
     {
-        if (!p_match_kw(p, "null"))
+        if (!p_match_kw(p, "null", 4))
             die("bad token");
         return jnew(J_NULL);
     }
+    if (c == '-' || isdigit(c))
+    {
+        JValue *v = jnew(J_NUMBER);
+        v->as.number = parse_number(p);
+        return v;
+    }
+    
     die("unknown value");
     return NULL;
 }
 
-// --------------- Flattening to key/value pairs ---------------
+// --------------- Flattening to key/value pairs (using slices) ---------------
 
 typedef struct
 {
-    char *key;
-    char *val; // already stringified for CSV cell
+    StrSlice key;
+    StrSlice val; // already stringified for CSV cell
 } KV;
 
 typedef struct
@@ -542,7 +656,7 @@ typedef struct
     size_t len, cap;
 } KVList;
 
-static void kv_push(KVList *l, char *k, char *v)
+static void kv_push(KVList *l, StrSlice k, StrSlice v)
 {
     if (l->len == l->cap)
     {
@@ -563,20 +677,20 @@ static void kv_push(KVList *l, char *k, char *v)
     l->len++;
 }
 
-static char *json_primitive_to_string(const JValue *v)
+static StrSlice slice_primitive(const JValue *v)
 {
     switch (v->type)
     {
     case J_NULL:
-        return arena_strdup(&A_tmp, "null");
+        return slice_from_cstr("null");
     case J_BOOL:
-        return arena_strdup(&A_tmp, v->as.boolean ? "true" : "false");
+        return slice_from_cstr(v->as.boolean ? "true" : "false");
     case J_NUMBER:
-        return arena_strdup(&A_tmp, v->as.number ? v->as.number : "0");
+        return v->as.number;
     case J_STRING:
-        return arena_strdup(&A_tmp, v->as.string ? v->as.string : "");
+        return v->as.string;
     default:
-        return arena_strdup(&A_tmp, "[complex]");
+        return slice_from_cstr("[complex]");
     }
 }
 
@@ -591,149 +705,117 @@ static int array_is_all_primitives(const JValue *arr)
     return 1;
 }
 
-static char *join_array_primitives(const JValue *arr)
+static StrSlice join_array_primitives(const JValue *arr, StrBuf *temp)
 {
-    // join with ';'
-    size_t cap = 128, len = 0;
-    char *buf = (char *)arena_alloc(&A_tmp, cap, 1);
-    buf[0] = '\0';
+    strbuf_reset(temp);
+    
     for (size_t i = 0; i < arr->as.array.len; i++)
     {
-        char *s = json_primitive_to_string(arr->as.array.items[i]); // A_tmp string
-        size_t sl = strlen(s);
-        // +2 for ';' and '\0'
-        while (len + sl + 2 >= cap)
-        {
-            size_t oldcap = cap;
-            cap *= 2;
-            buf = (char *)arena_grow(&A_tmp, buf, oldcap, cap, 1);
-        }
-        if (i > 0)
-            buf[len++] = ';';
-        memcpy(buf + len, s, sl);
-        len += sl;
-        buf[len] = '\0';
+        if (i > 0) strbuf_push(temp, ';');
+        StrSlice s = slice_primitive(arr->as.array.items[i]);
+        strbuf_append_slice(temp, s);
     }
-    return buf;
+    
+    // Copy to arena for permanence
+    return slice_make(arena_slice_dup(&A_tmp, strbuf_slice(temp)), temp->len);
 }
 
-static void flatten_value(const JValue *v, const char *prefix, KVList *out);
+static void flatten_value(const JValue *v, StrSlice prefix, KVList *out, StrBuf *temp);
 
-static char *make_key(const char *prefix, const char *k)
+static StrSlice make_key(StrSlice prefix, StrSlice k, StrBuf *temp)
 {
-    if (!prefix || prefix[0] == '\0')
-        return arena_strdup(&A_tmp, k);
-
-    size_t a = strlen(prefix), b = strlen(k);
-    char *r = (char *)arena_alloc(&A_tmp, a + 1 + b + 1, 1);
-    memcpy(r, prefix, a);
-    r[a] = '.';
-    memcpy(r + a + 1, k, b + 1);
-    return r;
+    if (prefix.len == 0)
+    {
+        // Just duplicate k into arena
+        return slice_make(arena_slice_dup(&A_tmp, k), k.len);
+    }
+    
+    strbuf_reset(temp);
+    strbuf_append_slice(temp, prefix);
+    strbuf_push(temp, '.');
+    strbuf_append_slice(temp, k);
+    
+    return slice_make(arena_slice_dup(&A_tmp, strbuf_slice(temp)), temp->len);
 }
 
-static void flatten_object(const JValue *obj, const char *prefix, KVList *out)
+static void flatten_object(const JValue *obj, StrSlice prefix, KVList *out, StrBuf *temp)
 {
     for (size_t i = 0; i < obj->as.object.len; i++)
     {
-        const char *k = obj->as.object.members[i].key;
+        StrSlice k = obj->as.object.members[i].key;
         const JValue *val = obj->as.object.members[i].value;
-        char *nk = make_key(prefix, k);
-        flatten_value(val, nk, out);
+        StrSlice nk = make_key(prefix, k, temp);
+        flatten_value(val, nk, out, temp);
     }
 }
-static void json_print_value(const JValue *v, char **buf, size_t *len, size_t *cap);
 
-static void sb_app(char **b, size_t *l, size_t *c, const char *s)
-{
-    size_t n = strlen(s);
-    if (*b == NULL) {
-        *c = 128;
-        *b = (char *)arena_alloc(&A_tmp, *c, 1);
-        *l = 0;
-        (*b)[0] = '\0';
-    }
+static StrSlice json_array_to_string(const JValue *arr, StrBuf *temp);
 
-    while (*l + n + 1 >= *c)
-    {
-        size_t oldc = *c;
-        size_t newc = oldc ? oldc * 2 : 128;
-
-        *b = (char *)arena_grow(&A_tmp, *b, oldc, newc, 1);
-        *c = newc;
-    }
-    memcpy(*b + *l, s, n);
-    *l += n;
-    (*b)[*l] = '\0';
-}
-
-static char *json_array_to_string(const JValue *arr)
-{
-    char *buf = NULL;
-    size_t len = 0, cap = 0;
-    sb_app(&buf, &len, &cap, "[");
-    for (size_t i = 0; i < arr->as.array.len; i++)
-    {
-        if (i)
-            sb_app(&buf, &len, &cap, ",");
-        json_print_value(arr->as.array.items[i], &buf, &len, &cap);
-    }
-    sb_app(&buf, &len, &cap, "]");
-    return buf;
-}
-
-static void json_print_value(const JValue *v, char **buf, size_t *len, size_t *cap)
+static void json_print_value(const JValue *v, StrBuf *sb)
 {
     switch (v->type)
     {
     case J_NULL:
-        sb_app(buf, len, cap, "null");
+        strbuf_append_cstr(sb, "null");
         break;
     case J_BOOL:
-        sb_app(buf, len, cap, v->as.boolean ? "true" : "false");
+        strbuf_append_cstr(sb, v->as.boolean ? "true" : "false");
         break;
     case J_NUMBER:
-        sb_app(buf, len, cap, v->as.number);
+        strbuf_append_slice(sb, v->as.number);
         break;
     case J_STRING:
-        sb_app(buf, len, cap, "\"");
-        sb_app(buf, len, cap, v->as.string);
-        sb_app(buf, len, cap, "\"");
+        strbuf_push(sb, '"');
+        strbuf_append_slice(sb, v->as.string);
+        strbuf_push(sb, '"');
         break;
     case J_OBJECT:
-        sb_app(buf, len, cap, "{...}");
+        strbuf_append_cstr(sb, "{...}");
         break;
     case J_ARRAY:
-        sb_app(buf, len, cap, "[...]");
+        strbuf_append_cstr(sb, "[...]");
         break;
     }
 }
 
-static void flatten_value(const JValue *v, const char *prefix, KVList *out)
+static StrSlice json_array_to_string(const JValue *arr, StrBuf *temp)
+{
+    strbuf_reset(temp);
+    strbuf_push(temp, '[');
+    
+    for (size_t i = 0; i < arr->as.array.len; i++)
+    {
+        if (i) strbuf_push(temp, ',');
+        json_print_value(arr->as.array.items[i], temp);
+    }
+    
+    strbuf_push(temp, ']');
+    return slice_make(arena_slice_dup(&A_tmp, strbuf_slice(temp)), temp->len);
+}
+
+static void flatten_value(const JValue *v, StrSlice prefix, KVList *out, StrBuf *temp)
 {
     if (v->type == J_OBJECT)
     {
-        flatten_object(v, prefix, out);
+        flatten_object(v, prefix, out, temp);
         return;
     }
     if (v->type == J_ARRAY)
     {
         if (array_is_all_primitives(v))
         {
-            char *joined = join_array_primitives(v);
-            kv_push(out, xstrdup(prefix), joined);
+            StrSlice joined = join_array_primitives(v, temp);
+            kv_push(out, prefix, joined);
         }
         else
         {
-            // stringify complex array
-            char *s = json_array_to_string(v);
-            kv_push(out, xstrdup(prefix), s);
+            StrSlice s = json_array_to_string(v, temp);
+            kv_push(out, prefix, s);
         }
-
         return;
     }
     // primitive
-    kv_push(out, xstrdup(prefix), json_primitive_to_string(v));
+    kv_push(out, prefix, slice_primitive(v));
 }
 
 static void kvlist_free(KVList *l)
@@ -741,25 +823,25 @@ static void kvlist_free(KVList *l)
     (void)l;
 }
 
-// --------------- Header collection (baseline linear set) ---------------
+// --------------- Header collection (using slices) ---------------
 
 typedef struct
 {
-    char **keys;
+    StrSlice *keys;
     size_t len, cap;
 } KeySet;
 
-static int keyset_contains(const KeySet *s, const char *k)
+static int keyset_contains(const KeySet *s, StrSlice k)
 {
     for (size_t i = 0; i < s->len; i++)
     {
-        if (strcmp(s->keys[i], k) == 0)
+        if (slice_eq(s->keys[i], k))
             return 1;
     }
     return 0;
 }
 
-static void keyset_add(KeySet *s, const char *k)
+static void keyset_add(KeySet *s, StrSlice k)
 {
     if (keyset_contains(s, k))
         return;
@@ -769,17 +851,17 @@ static void keyset_add(KeySet *s, const char *k)
         size_t oldcap = s->cap;
         size_t newcap = oldcap ? oldcap * 2 : 32;
 
-        s->keys = (char **)arena_grow(
+        s->keys = (StrSlice *)arena_grow(
             &A_perm,
             s->keys,
-            oldcap * sizeof(char *),
-            newcap * sizeof(char *),
-            _Alignof(char *)
+            oldcap * sizeof(StrSlice),
+            newcap * sizeof(StrSlice),
+            _Alignof(StrSlice)
         );
         s->cap = newcap;
     }
     // stored headers must survive to end => permanent arena
-    s->keys[s->len++] = arena_strdup(&A_perm, k);
+    s->keys[s->len++] = slice_make(arena_slice_dup(&A_perm, k), k.len);
 }
 
 static void keyset_free(KeySet *s)
@@ -787,46 +869,49 @@ static void keyset_free(KeySet *s)
     (void)s;
 }
 
-// --------------- CSV writer (simple) ---------------
+// --------------- CSV writer (using slices) ---------------
 
-static void csv_write_cell(FILE *out, const char *s)
+static void csv_write_slice(FILE *out, StrSlice s)
 {
-    // Baseline: quote if contains comma/quote/newline
+    // Check if needs quoting
     int need_quote = 0;
-    for (const char *p = s; *p; p++)
+    for (size_t i = 0; i < s.len; i++)
     {
-        if (*p == ',' || *p == '"' || *p == '\n' || *p == '\r')
+        char c = s.ptr[i];
+        if (c == ',' || c == '"' || c == '\n' || c == '\r')
         {
             need_quote = 1;
             break;
         }
     }
+    
     if (!need_quote)
     {
-        fputs(s, out);
+        fwrite(s.ptr, 1, s.len, out);
         return;
     }
+    
     fputc('"', out);
-    for (const char *p = s; *p; p++)
+    for (size_t i = 0; i < s.len; i++)
     {
-        if (*p == '"')
+        if (s.ptr[i] == '"')
             fputc('"', out); // escape by doubling
-        fputc(*p, out);
+        fputc(s.ptr[i], out);
     }
     fputc('"', out);
 }
 
-static const char *kv_get(const KVList *l, const char *key)
+static StrSlice kv_get(const KVList *l, StrSlice key)
 {
     for (size_t i = 0; i < l->len; i++)
     {
-        if (strcmp(l->items[i].key, key) == 0)
+        if (slice_eq(l->items[i].key, key))
             return l->items[i].val;
     }
-    return ""; // missing becomes empty cell
+    return slice_from_cstr(""); // missing becomes empty cell
 }
 
-// --------------- Top-level parsing: object or array of objects ---------------
+// --------------- Top-level parsing ---------------
 
 typedef struct
 {
@@ -858,15 +943,15 @@ static void objlist_free(ObjList *ol)
     (void)ol;
 }
 
-static ObjList parse_top(FILE *f)
+static ObjList parse_top(const char *input, size_t len, StrBuf *temp)
 {
     Parser p;
-    p_init(&p, f);
+    p_init(&p, input, len);
     p_skip_ws(&p);
 
     ObjList ol = (ObjList){0};
 
-    JValue *top = parse_value(&p);
+    JValue *top = parse_value(&p, temp);
     p_skip_ws(&p);
 
     if (top->type == J_OBJECT)
@@ -876,7 +961,6 @@ static ObjList parse_top(FILE *f)
     }
     if (top->type == J_ARRAY)
     {
-        // ensure each element is object
         for (size_t i = 0; i < top->as.array.len; i++)
         {
             JValue *it = top->as.array.items[i];
@@ -884,7 +968,6 @@ static ObjList parse_top(FILE *f)
                 die("top array must contain objects");
             objlist_push(&ol, it);
         }
-        // No freeing: arena-owned
         return ol;
     }
 
@@ -892,6 +975,71 @@ static ObjList parse_top(FILE *f)
     return ol;
 }
 
+// --------------- File reading (single allocation) ---------------
+
+typedef struct {
+    char *data;
+    size_t len;
+    int is_mmap;
+} FileBuffer;
+
+static FileBuffer read_entire_file(const char *path)
+{
+    int fd = open(path, O_RDONLY);
+    if (fd < 0) die("cannot open input file");
+    
+    struct stat st;
+    if (fstat(fd, &st) < 0) {
+        close(fd);
+        die("cannot stat input file");
+    }
+    
+    FileBuffer fb = {0};
+    fb.len = (size_t)st.st_size;
+    
+    // Try mmap first for large files
+    if (fb.len > 4096) {
+        fb.data = (char*)mmap(NULL, fb.len, PROT_READ, MAP_PRIVATE, fd, 0);
+        if (fb.data != MAP_FAILED) {
+            fb.is_mmap = 1;
+            close(fd);
+            return fb;
+        }
+    }
+    
+    // Fallback to read
+    fb.data = (char*)malloc(fb.len + 1);
+    if (!fb.data) {
+        close(fd);
+        die("cannot allocate file buffer");
+    }
+    
+    size_t total = 0;
+    while (total < fb.len) {
+        ssize_t n = read(fd, fb.data + total, fb.len - total);
+        if (n <= 0) {
+            free(fb.data);
+            close(fd);
+            die("read failed");
+        }
+        total += n;
+    }
+    fb.data[fb.len] = '\0';
+    fb.is_mmap = 0;
+    close(fd);
+    return fb;
+}
+
+static void file_buffer_free(FileBuffer *fb)
+{
+    if (fb->is_mmap) {
+        munmap(fb->data, fb->len);
+    } else {
+        free(fb->data);
+    }
+    fb->data = NULL;
+    fb->len = 0;
+}
 
 // --------------- Main ---------------
 
@@ -902,72 +1050,74 @@ int main(int argc, char **argv)
         fprintf(stderr, "Usage: %s input.json > out.csv\n", argv[0]);
         return 2;
     }
+    
     const char *path = argv[1];
-    FILE *f = fopen(path, "rb");
-    if (!f)
-        die("cannot open input file");
-
-    // Size arenas based on input size (heuristic)
-    fseek(f, 0, SEEK_END);
-    long fsz = ftell(f);
-    fseek(f, 0, SEEK_SET);
-
-    size_t perm_cap = (fsz > 0 ? (size_t)fsz : 1) * 16 + (64u << 20);
-    size_t tmp_cap  = (fsz > 0 ? (size_t)fsz : 1) * 2 + (32u << 20);
-
+    
+    // Read entire file into memory
+    FileBuffer input = read_entire_file(path);
+    
+    // Size arenas based on input size
+    size_t perm_cap = input.len * 16 + (64u << 20);
+    size_t tmp_cap  = input.len * 2 + (32u << 20);
+    
     arena_init(&A_perm, perm_cap);
     arena_init(&A_tmp, tmp_cap);
-
-    ObjList objs = parse_top(f);
-    fclose(f);
-
+    
+    // Initialize reusable buffers
+    strbuf_init(&G_tmpbuf1, 4096);
+    strbuf_init(&G_tmpbuf2, 4096);
+    
+    // Parse using string slices
+    ObjList objs = parse_top(input.data, input.len, &G_tmpbuf1);
+    
     // Pass 1: collect headers
     KeySet headers = (KeySet){0};
     for (size_t i = 0; i < objs.len; i++)
     {
         size_t mark = arena_mark(&A_tmp);
-
+        
         KVList kv = (KVList){0};
-        flatten_object(objs.objs[i], "", &kv);
+        flatten_object(objs.objs[i], slice_make("", 0), &kv, &G_tmpbuf1);
         for (size_t j = 0; j < kv.len; j++)
             keyset_add(&headers, kv.items[j].key);
-
-        arena_reset(&A_tmp, mark); // reclaim all temporary KV + key/value strings
+        
+        arena_reset(&A_tmp, mark);
     }
-
+    
     // Print header row
     for (size_t i = 0; i < headers.len; i++)
     {
         if (i)
             fputc(',', stdout);
-        csv_write_cell(stdout, headers.keys[i]);
+        csv_write_slice(stdout, headers.keys[i]);
     }
     fputc('\n', stdout);
-
+    
     // Pass 2: output rows
     for (size_t i = 0; i < objs.len; i++)
     {
         size_t mark = arena_mark(&A_tmp);
-
+        
         KVList kv = (KVList){0};
-        flatten_object(objs.objs[i], "", &kv);
+        flatten_object(objs.objs[i], slice_make("", 0), &kv, &G_tmpbuf1);
         for (size_t c = 0; c < headers.len; c++)
         {
             if (c)
                 fputc(',', stdout);
-            const char *val = kv_get(&kv, headers.keys[c]);
-            csv_write_cell(stdout, val ? val : "");
+            StrSlice val = kv_get(&kv, headers.keys[c]);
+            csv_write_slice(stdout, val);
         }
         fputc('\n', stdout);
-
+        
         arena_reset(&A_tmp, mark);
     }
-
-    // All memory is arena-owned
-    keyset_free(&headers);
-    objlist_free(&objs);
-
+    
+    // Cleanup
+    strbuf_destroy(&G_tmpbuf1);
+    strbuf_destroy(&G_tmpbuf2);
     arena_destroy(&A_tmp);
     arena_destroy(&A_perm);
+    file_buffer_free(&input);
+    
     return 0;
 }
